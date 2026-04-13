@@ -36,7 +36,7 @@ function removeTyping() {
 function callBackend(userMsg) {
   conversationHistory.push({ role: 'user', content: userMsg });
   showTyping();
-  fetch(BACKEND_URL + '/hotel/chat', {
+  fetch(BACKEND_URL + '/chat', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ messages: conversationHistory })
