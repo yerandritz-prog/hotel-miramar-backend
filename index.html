@@ -615,101 +615,103 @@ footer{background:#1C2B1E;padding:4rem 3rem 2rem;color:rgba(255,255,255,0.6)}
       <div class="chat-msg bot">¡Hola! Soy el asistente del Hotel Miramar. Puedo ayudarte en español, inglés o alemán. ¿En qué puedo ayudarte? 🌊</div>
     </div>
     <div class="chat-suggestions" id="suggestions">
-      <button class="chat-sug" >¿Qué habitaciones tenéis?</button>
-      <button class="chat-sug" >Quiero hacer una reserva</button>
-      <button class="chat-sug" >¿Tenéis parking gratuito?</button>
+      <button class="chat-sug" onclick="quickMsg(this.textContent)">¿Qué habitaciones tenéis?</button>
+      <button class="chat-sug" onclick="quickMsg(this.textContent)">Quiero hacer una reserva</button>
+      <button class="chat-sug" onclick="quickMsg(this.textContent)">¿Tenéis parking gratuito?</button>
     </div>
     <div class="chat-input-row">
-      <input class="chat-input" id="chatInput" placeholder="Escríbenos en cualquier idioma..." >
-      <button class="chat-send" >↑</button>
+      <input class="chat-input" id="chatInput" placeholder="Escríbenos en cualquier idioma..." onkeydown="if(event.key==='Enter')sendMsg()">
+      <button class="chat-send" id="chatSend" onclick="sendMsg()">↑</button>
     </div>
   </div>
-  <button class="chat-btn"  id="chatToggle">
+  <button class="chat-btn" onclick="toggleChat()" id="chatToggle">
     <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
     <div class="chat-badge">1</div>
   </button>
 </div>
 
-<script data-cfasync="false">
-const BACKEND_URL = 'https://saterrassa-backend-production.up.railway.app';
-let chatOpen = false;
-let isLoading = false;
-const conversationHistory = [];
+<script data-cfasync="false" src="/hotel-chat.js"></script>
+<script>
+(function(){
+  var URL = 'https://hotel-miramar-backend-production.up.railway.app';
+  var open = false, loading = false, hist = [];
 
-function toggleChat() {
-  chatOpen = !chatOpen;
-  document.getElementById('chatWindow').classList.toggle('open', chatOpen);
-  document.querySelector('.chat-badge').style.display = chatOpen ? 'none' : 'flex';
-}
-
-function addMsg(text, type) {
-  const msgs = document.getElementById('chatMessages');
-  const d = document.createElement('div');
-  d.className = 'chat-msg ' + type;
-  d.textContent = text;
-  msgs.appendChild(d);
-  msgs.scrollTop = msgs.scrollHeight;
-}
-
-function showTyping() {
-  const msgs = document.getElementById('chatMessages');
-  const d = document.createElement('div');
-  d.className = 'chat-msg bot typing';
-  d.innerHTML = '<span></span><span></span><span></span>';
-  d.id = 'typingIndicator';
-  msgs.appendChild(d);
-  msgs.scrollTop = msgs.scrollHeight;
-}
-
-function removeTyping() {
-  const t = document.getElementById('typingIndicator');
-  if (t) t.remove();
-}
-
-async function callBackend(userMsg) {
-  conversationHistory.push({ role: 'user', content: userMsg });
-  showTyping();
-  try {
-    const res = await fetch(`${BACKEND_URL}/chat`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ messages: conversationHistory })
-    });
-    const data = await res.json();
-    removeTyping();
-    const reply = data.reply || 'Lo siento, ha habido un error. Llámanos al +34 971 XXX XXX.';
-    conversationHistory.push({ role: 'assistant', content: reply });
-    addMsg(reply, 'bot');
-  } catch (e) {
-    removeTyping();
-    addMsg('Lo siento, ha habido un problema. Puedes contactarnos en info@hotelmiramar.es o llamar al +34 971 XXX XXX.', 'bot');
+  function toggleChat(){
+    open=!open;
+    document.getElementById('chatWindow').classList.toggle('open',open);
+    document.querySelector('.chat-badge').style.display=open?'none':'flex';
   }
-  isLoading = false;
-}
 
-function sendMsg() {
-  if (isLoading) return;
-  const input = document.getElementById('chatInput');
-  const msg = input.value.trim();
-  if (!msg) return;
-  document.getElementById('suggestions').style.display = 'none';
-  addMsg(msg, 'user');
-  input.value = '';
-  isLoading = true;
-  callBackend(msg);
-}
+  function addMsg(text,type){
+    var c=document.getElementById('chatMessages');
+    var d=document.createElement('div');
+    d.className='chat-msg '+type;
+    d.textContent=text;
+    c.appendChild(d);
+    c.scrollTop=c.scrollHeight;
+  }
 
-function quickMsg(msg) {
-  if (isLoading) return;
-  document.getElementById('suggestions').style.display = 'none';
-  addMsg(msg, 'user');
-  isLoading = true;
-  callBackend(msg);
-}
+  function showTyping(){
+    var c=document.getElementById('chatMessages');
+    var d=document.createElement('div');
+    d.className='chat-msg bot typing';
+    d.innerHTML='<span></span><span></span><span></span>';
+    d.id='typingIndicator';
+    c.appendChild(d);
+    c.scrollTop=c.scrollHeight;
+  }
 
-document.addEventListener('DOMContentLoaded', function() {
-  document.getElementById('chatToggle').addEventListener('click', toggleChat);
-});
+  function removeTyping(){
+    var t=document.getElementById('typingIndicator');
+    if(t)t.remove();
+  }
+
+  function send(msg){
+    hist.push({role:'user',content:msg});
+    showTyping();
+    fetch(URL+'/chat',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({messages:hist})
+    })
+    .then(function(r){return r.json();})
+    .then(function(d){
+      removeTyping();
+      var r=d.reply||'Error. Llamenos al +34 971 XXX XXX.';
+      hist.push({role:'assistant',content:r});
+      addMsg(r,'bot');
+      loading=false;
+    })
+    .catch(function(){
+      removeTyping();
+      addMsg('Error de conexion. Contactenos en info@hotelmiramar.es','bot');
+      loading=false;
+    });
+  }
+
+  window.toggleChat=toggleChat;
+
+  window.sendMsg=function(){
+    if(loading)return;
+    var inp=document.getElementById('chatInput');
+    var msg=inp.value.trim();
+    if(!msg)return;
+    document.getElementById('suggestions').style.display='none';
+    addMsg(msg,'user');
+    inp.value='';
+    loading=true;
+    send(msg);
+  };
+
+  window.quickMsg=function(msg){
+    if(loading)return;
+    msg=msg.trim();
+    document.getElementById('suggestions').style.display='none';
+    addMsg(msg,'user');
+    loading=true;
+    send(msg);
+  };
+})();
 </script>
 </body>
 </html>
