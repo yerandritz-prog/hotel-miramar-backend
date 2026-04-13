@@ -82,4 +82,9 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('chatInput').addEventListener('keydown', function(e) {
     if (e.key === 'Enter') sendMsg();
   });
+  document.querySelectorAll('.chat-sug').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      quickMsg(btn.textContent.trim());
+    });
+  });
 });
