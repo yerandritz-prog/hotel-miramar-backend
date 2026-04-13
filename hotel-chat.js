@@ -1,4 +1,4 @@
-var BACKEND_URL = 'https://saterrassa-backend-production.up.railway.app';
+var BACKEND_URL = 'https://hotel-miramar-backend-production.up.railway.app';
 var chatOpen = false;
 var isLoading = false;
 var conversationHistory = [];
