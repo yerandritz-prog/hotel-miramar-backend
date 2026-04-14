@@ -238,7 +238,7 @@ footer{background:#1C2B1E;padding:4rem 3rem 2rem;color:rgba(255,255,255,0.6)}
   <ul class="nav-links">
     <li><a href="#habitaciones">Habitaciones</a></li>
     <li><a href="#servicios">Servicios</a></li>
-    <li><a href="#ubicacion">UbicaciÃ³n</a></li>
+ 6u78   <li><a href="#ubicacion">UbicaciÃ³n</a></li>
     <li><a href="#opiniones">Opiniones</a></li>
   </ul>
   <button class="nav-cta" onclick="window.scrollToReserva()">Reservar ahora</button>
@@ -718,6 +718,15 @@ footer{background:#1C2B1E;padding:4rem 3rem 2rem;color:rgba(255,255,255,0.6)}
     send(msg);
   };
 })();
+<script>
+var T={es:{cta:'Reservar ahora',nav:['Habitaciones','Servicios','Ubicación','Opiniones']},en:{cta:'Book now',nav:['Rooms','Services','Location','Reviews']},de:{cta:'Jetzt buchen',nav:['Zimmer','Leistungen','Lage','Bewertungen']}};
+window.setLang=function(l){
+  document.querySelectorAll('.lang-btn').forEach(function(b){b.classList.remove('active')});
+  document.querySelector('.lang-btn[onclick="window.setLang(\''+l+'\')"]').classList.add('active');
+  document.querySelector('.nav-cta').textContent=T[l].cta;
+  document.querySelectorAll('.nav-links a').forEach(function(a,i){a.textContent=T[l].nav[i]});
+};
+window.scrollToReserva=function(){document.getElementById('reserva').scrollIntoView({behavior:'smooth'})};
 </script>
 </body>
 </html>
