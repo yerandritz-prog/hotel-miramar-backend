@@ -5,6 +5,7 @@ const Anthropic = require('@anthropic-ai/sdk');
 const path = require('path');
 const Database = require('better-sqlite3');
 const { Resend } = require('resend');
+const { google } = require('googleapis');
 
 const app = express();
 app.use(cors({ origin: '*', methods: ['GET', 'POST', 'PATCH'], allowedHeaders: ['Content-Type'] }));
@@ -85,7 +86,33 @@ async function enviarNotificacionAdmin(reserva) {
   }
 }
 
-// ─── LÓGICA HOTEL ─────────────────────────────────────────────
+// ─── GOOGLE CALENDAR ──────────────────────────────────────────
+async function crearEventoCalendario(reserva) {
+  try {
+    const auth = new google.auth.JWT({
+      email: process.env.GOOGLE_CLIENT_EMAIL,
+      key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+      scopes: ['https://www.googleapis.com/auth/calendar']
+    });
+    const calendar = google.calendar({ version: 'v3', auth });
+    const hab = { estandar: 'Habitación Estándar', vista_mar: 'Habitación Vista Mar', familiar: 'Suite Familiar' };
+    await calendar.events.insert({
+      calendarId: process.env.GOOGLE_CALENDAR_ID,
+      resource: {
+        summary: `🏨 ${reserva.nombre} — ${hab[reserva.tipo_habitacion] || reserva.tipo_habitacion}`,
+        description: `Huéspedes: ${reserva.huespedes}\nEmail: ${reserva.email || '—'}\nTeléfono: ${reserva.telefono || '—'}\nPeticiones: ${reserva.peticiones || '—'}\nReserva #HM-${reserva.id}`,
+        start: { date: reserva.checkin, timeZone: 'Europe/Madrid' },
+        end: { date: reserva.checkout, timeZone: 'Europe/Madrid' },
+        colorId: '2'
+      }
+    });
+    console.log(`Evento creado en Google Calendar para reserva #HM-${reserva.id}`);
+  } catch (error) {
+    console.error('Error Google Calendar:', error.message);
+  }
+}
+
+
 const HABITACIONES = {
   'estandar':  { nombre: 'Habitacion Estandar',  precio: 89,  capacidad: 2, total: 15 },
   'vista_mar': { nombre: 'Habitacion Vista Mar',  precio: 129, capacidad: 2, total: 10 },
@@ -229,6 +256,7 @@ function processTool(toolName, toolInput) {
     const reserva = { id, ...toolInput };
     enviarConfirmacion(reserva);
     enviarNotificacionAdmin(reserva);
+    crearEventoCalendario(reserva);
     return JSON.stringify({ success: true, id, mensaje: `Reserva #HM-${id} confirmada. Se enviara confirmacion por email.` });
   }
   if (toolName === 'cancelar_reserva') {
