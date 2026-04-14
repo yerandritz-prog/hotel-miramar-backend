@@ -722,9 +722,13 @@ footer{background:#1C2B1E;padding:4rem 3rem 2rem;color:rgba(255,255,255,0.6)}
 var T={es:{cta:'Reservar ahora',nav:['Habitaciones','Servicios','Ubicación','Opiniones']},en:{cta:'Book now',nav:['Rooms','Services','Location','Reviews']},de:{cta:'Jetzt buchen',nav:['Zimmer','Leistungen','Lage','Bewertungen']}};
 window.setLang=function(l){
   document.querySelectorAll('.lang-btn').forEach(function(b){b.classList.remove('active')});
-  document.querySelector('.lang-btn[onclick="window.setLang(\''+l+'\')"]').classList.add('active');
-  document.querySelector('.nav-cta').textContent=T[l].cta;
-  document.querySelectorAll('.nav-links a').forEach(function(a,i){a.textContent=T[l].nav[i]});
+  var btns=document.querySelectorAll('.lang-btn');
+  for(var i=0;i<btns.length;i++){if(btns[i].textContent===l.toUpperCase())btns[i].classList.add('active')}
+  var nav=document.querySelectorAll('.nav-links a');
+  var cta=document.querySelector('.nav-cta');
+  if(l==='en'){cta.textContent='Book now';nav[0]&&(nav[0].textContent='Rooms');nav[1]&&(nav[1].textContent='Services');nav[2]&&(nav[2].textContent='Location');nav[3]&&(nav[3].textContent='Reviews')}
+  else if(l==='de'){cta.textContent='Jetzt buchen';nav[0]&&(nav[0].textContent='Zimmer');nav[1]&&(nav[1].textContent='Leistungen');nav[2]&&(nav[2].textContent='Lage');nav[3]&&(nav[3].textContent='Bewertungen')}
+  else{cta.textContent='Reservar ahora';nav[0]&&(nav[0].textContent='Habitaciones');nav[1]&&(nav[1].textContent='Servicios');nav[2]&&(nav[2].textContent='Ubicaci\u00f3n');nav[3]&&(nav[3].textContent='Opiniones')}
 };
 window.scrollToReserva=function(){document.getElementById('reserva').scrollIntoView({behavior:'smooth'})};
 </script>
