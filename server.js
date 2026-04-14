@@ -8,8 +8,11 @@ const { Resend } = require('resend');
 const { google } = require('googleapis');
 
 const app = express();
+app.use(function(req,res,next){res.setHeader('Content-Security-Policy',"script-src 'self' 'unsafe-inline' fonts.googleapis.com images.unsplash.com");next()});
 app.use(cors({ origin: '*', methods: ['GET', 'POST', 'PATCH'], allowedHeaders: ['Content-Type'] }));
 app.use(express.json());
+app.use(function(req,res,next){res.setHeader('Content-Security-Policy',"script-src 'self' 'unsafe-inline' fonts.googleapis.com images.unsplash.com");next()});
+
 app.use(express.static(path.join(__dirname)));
 
 // ─── BASE DE DATOS ───────────────────────────────────────────
@@ -319,3 +322,6 @@ app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Hotel Miramar corriendo en http://localhost:${PORT}`));
+
+
+
