@@ -91,7 +91,7 @@ async function crearEventoCalendario(reserva) {
   try {
     const auth = new google.auth.JWT({
       email: process.env.GOOGLE_CLIENT_EMAIL,
-      key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+      key: (process.env.GOOGLE_PRIVATE_KEY || "").split("\\n").join("\n"),
       scopes: ['https://www.googleapis.com/auth/calendar']
     });
     const calendar = google.calendar({ version: 'v3', auth });
