@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hotel Miramar · El Arenal, Mallorca</title>
+<title>Hotel Miramar Â· El Arenal, Mallorca</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -31,6 +31,7 @@ nav{position:fixed;top:0;width:100%;z-index:100;padding:0.9rem 2rem;display:flex
 .nav-links a:hover{color:var(--green)}
 .nav-cta{background:var(--green);color:var(--white);padding:0.48rem 1.1rem;font-size:0.75rem;letter-spacing:0.04em;font-weight:500;cursor:pointer;border:none;font-family:'Inter',sans-serif;border-radius:2px;transition:background 0.2s;white-space:nowrap;flex-shrink:0}
 .nav-cta:hover{background:var(--green-light)}
+.lang-selector{display:flex;gap:0.3rem;align-items:center;flex-shrink:0}.lang-btn{background:transparent;border:1px solid var(--border);padding:0.3rem 0.55rem;font-size:0.7rem;font-family:'Inter',sans-serif;cursor:pointer;border-radius:2px;color:var(--text-muted);font-weight:500;transition:all 0.2s}.lang-btn:hover{border-color:var(--green);color:var(--green)}.lang-btn.active{background:var(--green);color:var(--white);border-color:var(--green)}
 
 /* HERO */
 .hero{height:100vh;position:relative;display:flex;align-items:center;overflow:hidden;background:var(--stone)}
@@ -237,10 +238,11 @@ footer{background:#1C2B1E;padding:4rem 3rem 2rem;color:rgba(255,255,255,0.6)}
   <ul class="nav-links">
     <li><a href="#habitaciones">Habitaciones</a></li>
     <li><a href="#servicios">Servicios</a></li>
-    <li><a href="#ubicacion">Ubicación</a></li>
+    <li><a href="#ubicacion">UbicaciÃ³n</a></li>
     <li><a href="#opiniones">Opiniones</a></li>
   </ul>
   <button class="nav-cta" onclick="window.scrollToReserva()">Reservar ahora</button>
+  <div class="lang-selector"><button class="lang-btn active" onclick="window.setLang('es')">ES</button><button class="lang-btn" onclick="window.setLang('en')">EN</button><button class="lang-btn" onclick="window.setLang('de')">DE</button></div>
   <div class="lang-selector">
     <button class="lang-btn active" onclick="window.setLang('es')">ES</button>
     <button class="lang-btn" onclick="window.setLang('en')">EN</button>
@@ -251,9 +253,9 @@ footer{background:#1C2B1E;padding:4rem 3rem 2rem;color:rgba(255,255,255,0.6)}
 <section class="hero">
   <div class="hero-bg-shape"></div>
   <div class="hero-content">
-    <p class="hero-eyebrow">El Arenal · Mallorca · Desde 1987</p>
+    <p class="hero-eyebrow">El Arenal Â· Mallorca Â· Desde 1987</p>
     <h1 class="hero-title">El descanso<br>que <em>mereces</em></h1>
-    <p class="hero-sub">Frente al mar en El Arenal, el Hotel Miramar combina la hospitalidad mallorquina con todas las comodidades modernas. Despierta cada día con las vistas al Mediterráneo.</p>
+    <p class="hero-sub">Frente al mar en El Arenal, el Hotel Miramar combina la hospitalidad mallorquina con todas las comodidades modernas. Despierta cada dÃ­a con las vistas al MediterrÃ¡neo.</p>
     <div class="hero-actions">
       <button class="btn-solid" onclick="document.getElementById('reserva').scrollIntoView({behavior:'smooth'})">Consultar disponibilidad</button>
       <button class="btn-ghost" onclick="document.getElementById('habitaciones').scrollIntoView({behavior:'smooth'})">Ver habitaciones</button>
@@ -261,46 +263,46 @@ footer{background:#1C2B1E;padding:4rem 3rem 2rem;color:rgba(255,255,255,0.6)}
     <div class="hero-badges">
       <div class="badge-item">
         <div class="badge-num">4.8</div>
-        <div class="badge-label">Puntuación media</div>
+        <div class="badge-label">PuntuaciÃ³n media</div>
       </div>
       <div class="badge-item">
         <div class="badge-num">37</div>
-        <div class="badge-label">Años de historia</div>
+        <div class="badge-label">AÃ±os de historia</div>
       </div>
       <div class="badge-item">
-        <div class="badge-num">1ª</div>
-        <div class="badge-label">Línea de playa</div>
+        <div class="badge-num">1Âª</div>
+        <div class="badge-label">LÃ­nea de playa</div>
       </div>
     </div>
   </div>
 </section>
 
 <div class="strip">
-  <div class="strip-item"><span class="strip-icon">✓</span> Cancelación gratuita 48h</div>
-  <div class="strip-item"><span class="strip-icon">✓</span> Desayuno incluido</div>
-  <div class="strip-item"><span class="strip-icon">✓</span> Parking privado</div>
-  <div class="strip-item"><span class="strip-icon">✓</span> Piscina exterior</div>
-  <div class="strip-item"><span class="strip-icon">✓</span> Wifi gratis</div>
+  <div class="strip-item"><span class="strip-icon">âœ“</span> CancelaciÃ³n gratuita 48h</div>
+  <div class="strip-item"><span class="strip-icon">âœ“</span> Desayuno incluido</div>
+  <div class="strip-item"><span class="strip-icon">âœ“</span> Parking privado</div>
+  <div class="strip-item"><span class="strip-icon">âœ“</span> Piscina exterior</div>
+  <div class="strip-item"><span class="strip-icon">âœ“</span> Wifi gratis</div>
 </div>
 
 <section class="about" id="sobre-nosotros">
   <div class="about-inner">
     <div class="about-imgs">
       <div class="about-img-main">
-        <span style="font-size:5rem;z-index:1;position:relative">🏖️</span>
-        <div class="img-label">Terraza & Piscina · Vistas al mar</div>
+        <span style="font-size:5rem;z-index:1;position:relative">ðŸ–ï¸</span>
+        <div class="img-label">Terraza & Piscina Â· Vistas al mar</div>
       </div>
-      <div class="about-img-sm"><span>🌴</span></div>
-      <div class="about-img-sm"><span>🍃</span></div>
+      <div class="about-img-sm"><span>ðŸŒ´</span></div>
+      <div class="about-img-sm"><span>ðŸƒ</span></div>
     </div>
     <div class="about-text">
       <p class="eyebrow">Nuestra historia</p>
-      <h2 class="section-title">Cuatro décadas<br>en primera <em>línea</em></h2>
-      <p>Abrimos nuestras puertas en 1987 con un único objetivo: ofrecer a nuestros huéspedes el mejor descanso posible frente al Mediterráneo. Hoy, casi cuatro décadas después, ese compromiso sigue siendo el mismo.</p>
-      <p>El Arenal es uno de los rincones más queridos de Mallorca, con su paseo marítimo, su playa de aguas cristalinas y su ambiente familiar. Y nosotros llevamos décadas siendo parte de esa historia.</p>
+      <h2 class="section-title">Cuatro dÃ©cadas<br>en primera <em>lÃ­nea</em></h2>
+      <p>Abrimos nuestras puertas en 1987 con un Ãºnico objetivo: ofrecer a nuestros huÃ©spedes el mejor descanso posible frente al MediterrÃ¡neo. Hoy, casi cuatro dÃ©cadas despuÃ©s, ese compromiso sigue siendo el mismo.</p>
+      <p>El Arenal es uno de los rincones mÃ¡s queridos de Mallorca, con su paseo marÃ­timo, su playa de aguas cristalinas y su ambiente familiar. Y nosotros llevamos dÃ©cadas siendo parte de esa historia.</p>
       <div class="about-tags">
         <span class="tag">Ambiente familiar</span>
-        <span class="tag">Primera línea</span>
+        <span class="tag">Primera lÃ­nea</span>
         <span class="tag">Restaurante propio</span>
         <span class="tag">Piscina exterior</span>
         <span class="tag">Terraza al mar</span>
@@ -318,60 +320,60 @@ footer{background:#1C2B1E;padding:4rem 3rem 2rem;color:rgba(255,255,255,0.6)}
     <div class="rooms-grid">
       <div class="room-card">
         <div class="room-img" style="background:linear-gradient(135deg,#d8f3dc,#74c69d)">
-          <span>🌿</span>
+          <span>ðŸŒ¿</span>
           <div class="room-badge">DISPONIBLE</div>
         </div>
         <div class="room-body">
-          <div class="room-name">Habitación Estándar</div>
-          <div class="room-desc">Confortable y bien equipada, ideal para estancias cortas. Vista al jardín interior.</div>
+          <div class="room-name">HabitaciÃ³n EstÃ¡ndar</div>
+          <div class="room-desc">Confortable y bien equipada, ideal para estancias cortas. Vista al jardÃ­n interior.</div>
           <div class="room-features">
-            <span class="room-feat">🛏️ Doble</span>
-            <span class="room-feat">📐 22 m²</span>
-            <span class="room-feat">❄️ A/C</span>
-            <span class="room-feat">📺 TV</span>
+            <span class="room-feat">ðŸ›ï¸ Doble</span>
+            <span class="room-feat">ðŸ“ 22 mÂ²</span>
+            <span class="room-feat">â„ï¸ A/C</span>
+            <span class="room-feat">ðŸ“º TV</span>
           </div>
           <div class="room-footer">
-            <div class="room-price">89€<span> /noche</span></div>
+            <div class="room-price">89â‚¬<span> /noche</span></div>
             <button class="btn-sm" onclick="document.getElementById('reserva').scrollIntoView({behavior:'smooth'})">Reservar</button>
           </div>
         </div>
       </div>
       <div class="room-card">
         <div class="room-img" style="background:linear-gradient(135deg,#b7e4c7,#52b788)">
-          <span>🌊</span>
-          <div class="room-badge" style="background:var(--green-light)">MÁS POPULAR</div>
+          <span>ðŸŒŠ</span>
+          <div class="room-badge" style="background:var(--green-light)">MÃS POPULAR</div>
         </div>
         <div class="room-body">
-          <div class="room-name">Habitación Vista Mar</div>
-          <div class="room-desc">Despierta cada mañana con las vistas al Mediterráneo. Terraza privada incluida.</div>
+          <div class="room-name">HabitaciÃ³n Vista Mar</div>
+          <div class="room-desc">Despierta cada maÃ±ana con las vistas al MediterrÃ¡neo. Terraza privada incluida.</div>
           <div class="room-features">
-            <span class="room-feat">🛏️ Doble</span>
-            <span class="room-feat">📐 28 m²</span>
-            <span class="room-feat">🌊 Vista mar</span>
-            <span class="room-feat">🌅 Terraza</span>
+            <span class="room-feat">ðŸ›ï¸ Doble</span>
+            <span class="room-feat">ðŸ“ 28 mÂ²</span>
+            <span class="room-feat">ðŸŒŠ Vista mar</span>
+            <span class="room-feat">ðŸŒ… Terraza</span>
           </div>
           <div class="room-footer">
-            <div class="room-price">129€<span> /noche</span></div>
+            <div class="room-price">129â‚¬<span> /noche</span></div>
             <button class="btn-sm" onclick="document.getElementById('reserva').scrollIntoView({behavior:'smooth'})">Reservar</button>
           </div>
         </div>
       </div>
       <div class="room-card">
         <div class="room-img" style="background:linear-gradient(135deg,#95d5b2,#2d6a4f)">
-          <span>👨‍👩‍👧‍👦</span>
+          <span>ðŸ‘¨â€ðŸ‘©â€ðŸ‘§â€ðŸ‘¦</span>
           <div class="room-badge">FAMILIAS</div>
         </div>
         <div class="room-body">
           <div class="room-name">Suite Familiar</div>
-          <div class="room-desc">Dos habitaciones conectadas con salón propio. La opción perfecta para familias.</div>
+          <div class="room-desc">Dos habitaciones conectadas con salÃ³n propio. La opciÃ³n perfecta para familias.</div>
           <div class="room-features">
-            <span class="room-feat">🛏️ x4</span>
-            <span class="room-feat">📐 48 m²</span>
-            <span class="room-feat">🛋️ Salón</span>
-            <span class="room-feat">🍳 Kitchenette</span>
+            <span class="room-feat">ðŸ›ï¸ x4</span>
+            <span class="room-feat">ðŸ“ 48 mÂ²</span>
+            <span class="room-feat">ðŸ›‹ï¸ SalÃ³n</span>
+            <span class="room-feat">ðŸ³ Kitchenette</span>
           </div>
           <div class="room-footer">
-            <div class="room-price">189€<span> /noche</span></div>
+            <div class="room-price">189â‚¬<span> /noche</span></div>
             <button class="btn-sm" onclick="document.getElementById('reserva').scrollIntoView({behavior:'smooth'})">Reservar</button>
           </div>
         </div>
@@ -388,44 +390,44 @@ footer{background:#1C2B1E;padding:4rem 3rem 2rem;color:rgba(255,255,255,0.6)}
     </div>
     <div class="amenities-grid">
       <div class="amenity-card">
-        <span class="amenity-icon">🏊</span>
+        <span class="amenity-icon">ðŸŠ</span>
         <div class="amenity-name">Piscina exterior</div>
         <div class="amenity-desc">Abierta de mayo a octubre, con zona de hamacas y servicio de toallas.</div>
       </div>
       <div class="amenity-card">
-        <span class="amenity-icon">🍳</span>
+        <span class="amenity-icon">ðŸ³</span>
         <div class="amenity-name">Desayuno buffet</div>
-        <div class="amenity-desc">Buffet completo cada mañana con productos locales de temporada. De 7:30 a 10:30h.</div>
+        <div class="amenity-desc">Buffet completo cada maÃ±ana con productos locales de temporada. De 7:30 a 10:30h.</div>
       </div>
       <div class="amenity-card">
-        <span class="amenity-icon">🏖️</span>
+        <span class="amenity-icon">ðŸ–ï¸</span>
         <div class="amenity-name">Acceso directo playa</div>
         <div class="amenity-desc">A 50 metros de la Platja de El Arenal. Hamacas reservadas para clientes.</div>
       </div>
       <div class="amenity-card">
-        <span class="amenity-icon">🅿️</span>
+        <span class="amenity-icon">ðŸ…¿ï¸</span>
         <div class="amenity-name">Parking privado</div>
-        <div class="amenity-desc">Parking cubierto con plazas para todos los huéspedes sin coste adicional.</div>
+        <div class="amenity-desc">Parking cubierto con plazas para todos los huÃ©spedes sin coste adicional.</div>
       </div>
       <div class="amenity-card">
-        <span class="amenity-icon">🍽️</span>
+        <span class="amenity-icon">ðŸ½ï¸</span>
         <div class="amenity-name">Restaurante & Bar</div>
-        <div class="amenity-desc">Cocina mediterránea con ingredientes locales. Terraza con vistas al mar.</div>
+        <div class="amenity-desc">Cocina mediterrÃ¡nea con ingredientes locales. Terraza con vistas al mar.</div>
       </div>
       <div class="amenity-card">
-        <span class="amenity-icon">💆</span>
+        <span class="amenity-icon">ðŸ’†</span>
         <div class="amenity-name">Zona de relax</div>
         <div class="amenity-desc">Sala de descanso, masajes bajo reserva y tratamientos de spa.</div>
       </div>
       <div class="amenity-card">
-        <span class="amenity-icon">🚲</span>
+        <span class="amenity-icon">ðŸš²</span>
         <div class="amenity-name">Alquiler de bicicletas</div>
-        <div class="amenity-desc">Flota de bicicletas disponible para recorrer el paseo marítimo.</div>
+        <div class="amenity-desc">Flota de bicicletas disponible para recorrer el paseo marÃ­timo.</div>
       </div>
       <div class="amenity-card">
-        <span class="amenity-icon">🌐</span>
-        <div class="amenity-name">Atención multilingüe</div>
-        <div class="amenity-desc">Personal y asistente virtual disponible en español, inglés y alemán.</div>
+        <span class="amenity-icon">ðŸŒ</span>
+        <div class="amenity-name">AtenciÃ³n multilingÃ¼e</div>
+        <div class="amenity-desc">Personal y asistente virtual disponible en espaÃ±ol, inglÃ©s y alemÃ¡n.</div>
       </div>
     </div>
   </div>
@@ -434,37 +436,37 @@ footer{background:#1C2B1E;padding:4rem 3rem 2rem;color:rgba(255,255,255,0.6)}
 <section class="location" id="ubicacion">
   <div class="location-inner">
     <div class="location-text">
-      <p class="eyebrow">Dónde estamos</p>
-      <h2 class="section-title">El corazón de<br><em>El Arenal</em></h2>
-      <p>Situados en primera línea del paseo marítimo de El Arenal, a pocos pasos de una de las playas más bonitas de Mallorca y con excelentes conexiones con Palma de Mallorca.</p>
+      <p class="eyebrow">DÃ³nde estamos</p>
+      <h2 class="section-title">El corazÃ³n de<br><em>El Arenal</em></h2>
+      <p>Situados en primera lÃ­nea del paseo marÃ­timo de El Arenal, a pocos pasos de una de las playas mÃ¡s bonitas de Mallorca y con excelentes conexiones con Palma de Mallorca.</p>
       <div class="location-items">
         <div class="location-item">
-          <span class="location-item-icon">🏖️</span>
+          <span class="location-item-icon">ðŸ–ï¸</span>
           <div class="location-item-text">
             <strong>Platja de El Arenal</strong>
-            <span>50 metros · A pie</span>
+            <span>50 metros Â· A pie</span>
           </div>
         </div>
         <div class="location-item">
-          <span class="location-item-icon">🏙️</span>
+          <span class="location-item-icon">ðŸ™ï¸</span>
           <div class="location-item-text">
             <strong>Palma de Mallorca</strong>
-            <span>12 km · 20 minutos en coche</span>
+            <span>12 km Â· 20 minutos en coche</span>
           </div>
         </div>
         <div class="location-item">
-          <span class="location-item-icon">✈️</span>
+          <span class="location-item-icon">âœˆï¸</span>
           <div class="location-item-text">
             <strong>Aeropuerto de Palma</strong>
-            <span>5 km · 10 minutos en coche</span>
+            <span>5 km Â· 10 minutos en coche</span>
           </div>
         </div>
       </div>
     </div>
     <div class="location-map">
-      <span class="map-pin">📍</span>
-      <div class="map-label">Nuestra ubicación</div>
-      <div class="map-address">Carrer de la Mar, 24 · El Arenal</div>
+      <span class="map-pin">ðŸ“</span>
+      <div class="map-label">Nuestra ubicaciÃ³n</div>
+      <div class="map-address">Carrer de la Mar, 24 Â· El Arenal</div>
     </div>
   </div>
 </section>
@@ -472,40 +474,40 @@ footer{background:#1C2B1E;padding:4rem 3rem 2rem;color:rgba(255,255,255,0.6)}
 <section class="reviews" id="opiniones">
   <div class="reviews-inner">
     <div class="section-header">
-      <p class="eyebrow">Lo que dicen nuestros huéspedes</p>
+      <p class="eyebrow">Lo que dicen nuestros huÃ©spedes</p>
       <h2 class="section-title">Opiniones <em>reales</em></h2>
     </div>
     <div class="reviews-grid">
       <div class="review-card">
-        <div class="review-stars">★★★★★</div>
-        <div class="review-text">"Una semana perfecta. La habitación con vista al mar es espectacular, el desayuno muy completo y el personal muy atento. Sin duda volvemos el próximo verano."</div>
+        <div class="review-stars">â˜…â˜…â˜…â˜…â˜…</div>
+        <div class="review-text">"Una semana perfecta. La habitaciÃ³n con vista al mar es espectacular, el desayuno muy completo y el personal muy atento. Sin duda volvemos el prÃ³ximo verano."</div>
         <div class="review-author">
           <div class="review-avatar">MG</div>
           <div>
-            <div class="review-name">María García</div>
-            <div class="review-origin">Barcelona · Julio 2024</div>
+            <div class="review-name">MarÃ­a GarcÃ­a</div>
+            <div class="review-origin">Barcelona Â· Julio 2024</div>
           </div>
         </div>
       </div>
       <div class="review-card">
-        <div class="review-stars">★★★★★</div>
+        <div class="review-stars">â˜…â˜…â˜…â˜…â˜…</div>
         <div class="review-text">"Wir waren mit der ganzen Familie da. Die Kinder liebten den Pool und den Strand. Das Personal spricht perfekt Deutsch und ist sehr freundlich."</div>
         <div class="review-author">
           <div class="review-avatar">TM</div>
           <div>
-            <div class="review-name">Thomas Müller</div>
-            <div class="review-origin">Múnich · Agosto 2024</div>
+            <div class="review-name">Thomas MÃ¼ller</div>
+            <div class="review-origin">MÃºnich Â· Agosto 2024</div>
           </div>
         </div>
       </div>
       <div class="review-card">
-        <div class="review-stars">★★★★☆</div>
+        <div class="review-stars">â˜…â˜…â˜…â˜…â˜†</div>
         <div class="review-text">"Great location, right on the seafront. The room was clean and comfortable. The AI chat assistant was very helpful for booking restaurants nearby!"</div>
         <div class="review-author">
           <div class="review-avatar">JB</div>
           <div>
             <div class="review-name">James Brown</div>
-            <div class="review-origin">Londres · Junio 2024</div>
+            <div class="review-origin">Londres Â· Junio 2024</div>
           </div>
         </div>
       </div>
@@ -516,10 +518,10 @@ footer{background:#1C2B1E;padding:4rem 3rem 2rem;color:rgba(255,255,255,0.6)}
 <section class="reserva" id="reserva">
   <div class="reserva-inner">
     <div class="section-header">
-      <p class="eyebrow">Reserva directa · Mejor precio garantizado</p>
+      <p class="eyebrow">Reserva directa Â· Mejor precio garantizado</p>
       <h2 class="section-title">Comprueba <em>disponibilidad</em></h2>
     </div>
-    <p>Reserva directamente con nosotros y obtén el mejor precio disponible. También puedes escribirnos por el chat — respondemos en español, inglés y alemán.</p>
+    <p>Reserva directamente con nosotros y obtÃ©n el mejor precio disponible. TambiÃ©n puedes escribirnos por el chat â€” respondemos en espaÃ±ol, inglÃ©s y alemÃ¡n.</p>
     <div class="reserva-form">
       <div class="form-group">
         <label class="form-label">Nombre completo</label>
@@ -538,20 +540,20 @@ footer{background:#1C2B1E;padding:4rem 3rem 2rem;color:rgba(255,255,255,0.6)}
         <input type="date" class="form-input">
       </div>
       <div class="form-group">
-        <label class="form-label">Tipo de habitación</label>
+        <label class="form-label">Tipo de habitaciÃ³n</label>
         <select class="form-input">
-          <option>Habitación Estándar · 89€/noche</option>
-          <option>Habitación Vista Mar · 129€/noche</option>
-          <option>Suite Familiar · 189€/noche</option>
+          <option>HabitaciÃ³n EstÃ¡ndar Â· 89â‚¬/noche</option>
+          <option>HabitaciÃ³n Vista Mar Â· 129â‚¬/noche</option>
+          <option>Suite Familiar Â· 189â‚¬/noche</option>
         </select>
       </div>
       <div class="form-group">
-        <label class="form-label">Huéspedes</label>
+        <label class="form-label">HuÃ©spedes</label>
         <select class="form-input">
           <option>1 adulto</option>
           <option>2 adultos</option>
-          <option>2 adultos + 1 niño</option>
-          <option>2 adultos + 2 niños</option>
+          <option>2 adultos + 1 niÃ±o</option>
+          <option>2 adultos + 2 niÃ±os</option>
           <option>Grupo (consultar)</option>
         </select>
       </div>
@@ -561,7 +563,7 @@ footer{background:#1C2B1E;padding:4rem 3rem 2rem;color:rgba(255,255,255,0.6)}
       </div>
     </div>
     <button class="btn-full">Solicitar reserva</button>
-    <p class="reserva-note">Recibirás confirmación en menos de 2 horas · Cancelación gratuita hasta 48h antes</p>
+    <p class="reserva-note">RecibirÃ¡s confirmaciÃ³n en menos de 2 horas Â· CancelaciÃ³n gratuita hasta 48h antes</p>
   </div>
 </section>
 
@@ -570,12 +572,12 @@ footer{background:#1C2B1E;padding:4rem 3rem 2rem;color:rgba(255,255,255,0.6)}
     <div class="footer-top">
       <div>
         <div class="footer-logo">Hotel Miramar</div>
-        <div class="footer-tagline">Primera línea de playa en El Arenal, Mallorca. Tu hogar frente al Mediterráneo desde 1987.</div>
+        <div class="footer-tagline">Primera lÃ­nea de playa en El Arenal, Mallorca. Tu hogar frente al MediterrÃ¡neo desde 1987.</div>
       </div>
       <div class="footer-col">
         <h5>Habitaciones</h5>
         <ul>
-          <li><a href="#">Estándar</a></li>
+          <li><a href="#">EstÃ¡ndar</a></li>
           <li><a href="#">Vista Mar</a></li>
           <li><a href="#">Suite Familiar</a></li>
           <li><a href="#">Tarifas</a></li>
@@ -601,7 +603,7 @@ footer{background:#1C2B1E;padding:4rem 3rem 2rem;color:rgba(255,255,255,0.6)}
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2024 Hotel Miramar · Todos los derechos reservados</span>
+      <span>Â© 2024 Hotel Miramar Â· Todos los derechos reservados</span>
       <span>Web desarrollada por <a href="#">Yeray Web & AI</a></span>
     </div>
   </div>
@@ -610,23 +612,23 @@ footer{background:#1C2B1E;padding:4rem 3rem 2rem;color:rgba(255,255,255,0.6)}
 <div class="chatbot">
   <div class="chat-window" id="chatWindow">
     <div class="chat-header">
-      <div class="chat-avatar">🏨</div>
+      <div class="chat-avatar">ðŸ¨</div>
       <div class="chat-header-info">
         <h4>Hotel Miramar</h4>
-        <p><span class="chat-online"></span>Asistente · En línea ahora</p>
+        <p><span class="chat-online"></span>Asistente Â· En lÃ­nea ahora</p>
       </div>
     </div>
     <div class="chat-messages" id="chatMessages">
-      <div class="chat-msg bot">¡Hola! Soy el asistente del Hotel Miramar. Puedo ayudarte en español, inglés o alemán. ¿En qué puedo ayudarte? 🌊</div>
+      <div class="chat-msg bot">Â¡Hola! Soy el asistente del Hotel Miramar. Puedo ayudarte en espaÃ±ol, inglÃ©s o alemÃ¡n. Â¿En quÃ© puedo ayudarte? ðŸŒŠ</div>
     </div>
     <div class="chat-suggestions" id="suggestions">
-      <button class="chat-sug" onclick="window.quickMsg(this.textContent)">¿Qué habitaciones tenéis?</button>
+      <button class="chat-sug" onclick="window.quickMsg(this.textContent)">Â¿QuÃ© habitaciones tenÃ©is?</button>
       <button class="chat-sug" onclick="window.quickMsg(this.textContent)">Quiero hacer una reserva</button>
-      <button class="chat-sug" onclick="window.quickMsg(this.textContent)">¿Tenéis parking gratuito?</button>
+      <button class="chat-sug" onclick="window.quickMsg(this.textContent)">Â¿TenÃ©is parking gratuito?</button>
     </div>
     <div class="chat-input-row">
-      <input class="chat-input" id="chatInput" placeholder="Escríbenos en cualquier idioma..." onkeydown="if(event.key==='Enter')sendMsg()">
-      <button class="chat-send" id="chatSend" onclick="window.sendMsg()">↑</button>
+      <input class="chat-input" id="chatInput" placeholder="EscrÃ­benos en cualquier idioma..." onkeydown="if(event.key==='Enter')sendMsg()">
+      <button class="chat-send" id="chatSend" onclick="window.sendMsg()">â†‘</button>
     </div>
   </div>
   <button class="chat-btn" id="chatToggle" onclick="window.toggleChat()">
@@ -720,3 +722,4 @@ footer{background:#1C2B1E;padding:4rem 3rem 2rem;color:rgba(255,255,255,0.6)}
 </script>
 </body>
 </html>
+
