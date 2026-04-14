@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hotel Miramar · Panel de Reservas</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--green:#2D6A4F;--green-light:#52B788;--green-pale:#D8F3DC;--cream:#FAFAF7;--white:#FFFFFF;--stone:#F5F3EE;--text:#1C1C1C;--text-muted:#6B7280;--border:#E5E7EB;--red:#EF4444;--red-pale:#FEF2F2}
+body{font-family:'Inter',sans-serif;background:var(--stone);color:var(--text);min-height:100vh}
+
+/* HEADER */
+.header{background:var(--white);border-bottom:1px solid var(--border);padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center}
+.header-logo{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--green)}
+.header-logo span{font-style:italic}
+.header-title{font-size:0.8rem;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:2px}
+
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;padding:1.5rem 2rem}
+.stat-card{background:var(--white);border:1px solid var(--border);border-radius:4px;padding:1.2rem 1.5rem}
+.stat-label{font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:0.5rem}
+.stat-num{font-family:'Playfair Display',serif;font-size:2rem;color:var(--green);font-weight:400}
+.stat-sub{font-size:0.75rem;color:var(--text-muted);margin-top:4px}
+
+/* FILTERS */
+.filters{padding:0 2rem 1rem;display:flex;gap:0.75rem;align-items:center;flex-wrap:wrap}
+.filter-btn{background:var(--white);border:1px solid var(--border);padding:0.45rem 1rem;font-size:0.8rem;font-family:'Inter',sans-serif;cursor:pointer;border-radius:2px;color:var(--text-muted);transition:all 0.2s}
+.filter-btn.active{background:var(--green);color:var(--white);border-color:var(--green)}
+.filter-btn:hover:not(.active){border-color:var(--green);color:var(--green)}
+.refresh-btn{background:var(--green-pale);border:1px solid var(--green-light);padding:0.45rem 1rem;font-size:0.8rem;font-family:'Inter',sans-serif;cursor:pointer;border-radius:2px;color:var(--green);margin-left:auto;transition:all 0.2s}
+.refresh-btn:hover{background:var(--green);color:var(--white)}
+
+/* TABLE */
+.table-wrap{padding:0 2rem 2rem;overflow-x:auto}
+.table{width:100%;background:var(--white);border:1px solid var(--border);border-radius:4px;border-collapse:collapse;overflow:hidden}
+.table th{background:var(--stone);padding:0.8rem 1rem;text-align:left;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);font-weight:500;border-bottom:1px solid var(--border)}
+.table td{padding:0.9rem 1rem;font-size:0.85rem;border-bottom:1px solid var(--border);vertical-align:middle}
+.table tr:last-child td{border-bottom:none}
+.table tr:hover td{background:var(--stone)}
+
+/* BADGES */
+.badge{display:inline-block;padding:0.25rem 0.7rem;border-radius:20px;font-size:0.72rem;font-weight:500;letter-spacing:0.03em}
+.badge-confirmed{background:#D1FAE5;color:#065F46}
+.badge-cancelled{background:var(--red-pale);color:var(--red)}
+
+.hab-badge{display:inline-block;padding:0.2rem 0.6rem;border-radius:2px;font-size:0.7rem;font-weight:500}
+.hab-estandar{background:#EFF6FF;color:#1E40AF}
+.hab-vista_mar{background:#F0FDF4;color:#166534}
+.hab-familiar{background:#FFF7ED;color:#9A3412}
+
+/* CANCEL BTN */
+.btn-cancel{background:transparent;border:1px solid var(--border);padding:0.3rem 0.7rem;font-size:0.75rem;font-family:'Inter',sans-serif;cursor:pointer;border-radius:2px;color:var(--text-muted);transition:all 0.2s}
+.btn-cancel:hover{border-color:var(--red);color:var(--red);background:var(--red-pale)}
+.btn-cancel:disabled{opacity:0.4;cursor:not-allowed}
+
+/* EMPTY */
+.empty{text-align:center;padding:4rem;color:var(--text-muted)}
+.empty-icon{font-size:3rem;margin-bottom:1rem;display:block}
+.empty-text{font-size:0.9rem}
+
+/* LOADING */
+.loading{text-align:center;padding:3rem;color:var(--text-muted);font-size:0.9rem}
+
+@media(max-width:768px){
+  .stats{grid-template-columns:1fr 1fr;padding:1rem}
+  .filters{padding:0 1rem 1rem}
+  .table-wrap{padding:0 1rem 1rem}
+  .header{padding:1rem}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <div class="header-logo"><span>Hotel</span> Miramar</div>
+    <div class="header-title">Panel de Reservas · Administración</div>
+  </div>
+  <div style="text-align:right;font-size:0.78rem;color:var(--text-muted)" id="lastUpdate"></div>
+</div>
+
+<div class="stats">
+  <div class="stat-card">
+    <div class="stat-label">Check-ins hoy</div>
+    <div class="stat-num" id="statHoy">—</div>
+    <div class="stat-sub">entradas previstas</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Huéspedes activos</div>
+    <div class="stat-num" id="statActivos">—</div>
+    <div class="stat-sub">en el hotel ahora</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Total reservas</div>
+    <div class="stat-num" id="statTotal">—</div>
+    <div class="stat-sub">confirmadas</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Próximos 7 días</div>
+    <div class="stat-num" id="statProximas">—</div>
+    <div class="stat-sub">check-ins previstos</div>
+  </div>
+</div>
+
+<div class="filters">
+  <button class="filter-btn active" onclick="filtrar('todas')">Todas</button>
+  <button class="filter-btn" onclick="filtrar('hoy')">Hoy</button>
+  <button class="filter-btn" onclick="filtrar('confirmadas')">Confirmadas</button>
+  <button class="filter-btn" onclick="filtrar('canceladas')">Canceladas</button>
+  <button class="filter-btn" onclick="filtrar('estandar')">Estándar</button>
+  <button class="filter-btn" onclick="filtrar('vista_mar')">Vista Mar</button>
+  <button class="filter-btn" onclick="filtrar('familiar')">Familiar</button>
+  <button class="refresh-btn" onclick="cargarReservas()">↻ Actualizar</button>
+</div>
+
+<div class="table-wrap">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Habitación</th>
+        <th>Check-in</th>
+        <th>Check-out</th>
+        <th>Noches</th>
+        <th>Huéspedes</th>
+        <th>Peticiones</th>
+        <th>Estado</th>
+        <th>Acción</th>
+      </tr>
+    </thead>
+    <tbody id="tableBody">
+      <tr><td colspan="11" class="loading">Cargando reservas...</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<script>
+const BACKEND = 'https://hotel-miramar-backend-production.up.railway.app';
+let todasLasReservas = [];
+let filtroActivo = 'todas';
+
+function noches(checkin, checkout) {
+  const d1 = new Date(checkin), d2 = new Date(checkout);
+  return Math.round((d2 - d1) / (1000 * 60 * 60 * 24));
+}
+
+function formatFecha(f) {
+  if (!f) return '—';
+  const [y, m, d] = f.split('-');
+  return `${d}/${m}/${y}`;
+}
+
+function habBadge(tipo) {
+  const labels = { estandar: 'Estándar', vista_mar: 'Vista Mar', familiar: 'Familiar' };
+  return `<span class="hab-badge hab-${tipo}">${labels[tipo] || tipo}</span>`;
+}
+
+function estadoBadge(estado) {
+  return estado === 'cancelada'
+    ? `<span class="badge badge-cancelled">Cancelada</span>`
+    : `<span class="badge badge-confirmed">Confirmada</span>`;
+}
+
+function actualizarStats(reservas) {
+  const hoy = new Date().toISOString().split('T')[0];
+  const proximos = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+  const confirmadas = reservas.filter(r => r.estado !== 'cancelada');
+  const checkinHoy = confirmadas.filter(r => r.checkin === hoy).length;
+  const activos = confirmadas.filter(r => r.checkin <= hoy && r.checkout > hoy).reduce((sum, r) => sum + r.huespedes, 0);
+  const proximasRes = confirmadas.filter(r => r.checkin > hoy && r.checkin <= proximos).length;
+  document.getElementById('statHoy').textContent = checkinHoy;
+  document.getElementById('statActivos').textContent = activos;
+  document.getElementById('statTotal').textContent = confirmadas.length;
+  document.getElementById('statProximas').textContent = proximasRes;
+}
+
+function renderTabla(reservas) {
+  const tbody = document.getElementById('tableBody');
+  if (!reservas.length) {
+    tbody.innerHTML = `<tr><td colspan="11" class="empty"><span class="empty-icon">📋</span><div class="empty-text">No hay reservas con este filtro</div></td></tr>`;
+    return;
+  }
+  tbody.innerHTML = reservas.map(r => `
+    <tr>
+      <td style="color:var(--green);font-weight:500">#HM-${r.id}</td>
+      <td style="font-weight:500">${r.nombre}</td>
+      <td style="color:var(--text-muted)">${r.email || '—'}</td>
+      <td>${habBadge(r.tipo_habitacion)}</td>
+      <td>${formatFecha(r.checkin)}</td>
+      <td>${formatFecha(r.checkout)}</td>
+      <td style="text-align:center">${noches(r.checkin, r.checkout)}</td>
+      <td style="text-align:center">${r.huespedes}</td>
+      <td style="color:var(--text-muted);max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${r.peticiones || '—'}</td>
+      <td>${estadoBadge(r.estado)}</td>
+      <td>
+        <button class="btn-cancel" onclick="cancelarReserva(${r.id}, this)" ${r.estado === 'cancelada' ? 'disabled' : ''}>
+          Cancelar
+        </button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function filtrar(tipo) {
+  filtroActivo = tipo;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  const hoy = new Date().toISOString().split('T')[0];
+  let filtradas = [...todasLasReservas];
+  if (tipo === 'hoy') filtradas = filtradas.filter(r => r.checkin === hoy);
+  else if (tipo === 'confirmadas') filtradas = filtradas.filter(r => r.estado !== 'cancelada');
+  else if (tipo === 'canceladas') filtradas = filtradas.filter(r => r.estado === 'cancelada');
+  else if (tipo === 'estandar') filtradas = filtradas.filter(r => r.tipo_habitacion === 'estandar');
+  else if (tipo === 'vista_mar') filtradas = filtradas.filter(r => r.tipo_habitacion === 'vista_mar');
+  else if (tipo === 'familiar') filtradas = filtradas.filter(r => r.tipo_habitacion === 'familiar');
+  renderTabla(filtradas);
+}
+
+async function cancelarReserva(id, btn) {
+  if (!confirm(`¿Cancelar reserva #HM-${id}? Esta acción no se puede deshacer.`)) return;
+  btn.disabled = true;
+  btn.textContent = '...';
+  try {
+    await fetch(`${BACKEND}/admin/reservas/${id}/cancelar`, { method: 'PATCH' });
+    await cargarReservas();
+  } catch (e) {
+    alert('Error al cancelar. Inténtalo de nuevo.');
+    btn.disabled = false;
+    btn.textContent = 'Cancelar';
+  }
+}
+
+async function cargarReservas() {
+  try {
+    const res = await fetch(`${BACKEND}/admin/reservas`);
+    todasLasReservas = await res.json();
+    todasLasReservas.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+    actualizarStats(todasLasReservas);
+    filtrar(filtroActivo);
+    document.getElementById('lastUpdate').textContent = 'Actualizado: ' + new Date().toLocaleTimeString('es-ES');
+  } catch (e) {
+    document.getElementById('tableBody').innerHTML = `<tr><td colspan="11" class="empty"><span class="empty-icon">⚠️</span><div class="empty-text">Error al cargar las reservas. Comprueba la conexión.</div></td></tr>`;
+  }
+}
+
+// Wrapper para filtrar que no depende de event
+const filterBtns = document.querySelectorAll('.filter-btn');
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', function() {
+    const tipo = this.getAttribute('onclick').match(/filtrar\('(.+)'\)/)[1];
+    filtroActivo = tipo;
+    filterBtns.forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+    const hoy = new Date().toISOString().split('T')[0];
+    let filtradas = [...todasLasReservas];
+    if (tipo === 'hoy') filtradas = filtradas.filter(r => r.checkin === hoy);
+    else if (tipo === 'confirmadas') filtradas = filtradas.filter(r => r.estado !== 'cancelada');
+    else if (tipo === 'canceladas') filtradas = filtradas.filter(r => r.estado === 'cancelada');
+    else if (tipo === 'estandar') filtradas = filtradas.filter(r => r.tipo_habitacion === 'estandar');
+    else if (tipo === 'vista_mar') filtradas = filtradas.filter(r => r.tipo_habitacion === 'vista_mar');
+    else if (tipo === 'familiar') filtradas = filtradas.filter(r => r.tipo_habitacion === 'familiar');
+    renderTabla(filtradas);
+  });
+});
+
+cargarReservas();
+setInterval(cargarReservas, 60000);
+</script>
+</body>
+</html>
