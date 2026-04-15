@@ -668,8 +668,11 @@ window.setLang = function(l) {
   // Chat
   var ci=document.querySelector('.chat-input'); if(ci)ci.placeholder=t.chatPlaceholder;
   document.querySelectorAll('.chat-sug').forEach(function(s,i){if(t.chatSugs[i])s.textContent=t.chatSugs[i]});
+var ft=document.querySelectorAll('.footer-col h5');
+if(l==='en'){if(ft[0])ft[0].textContent='Rooms';if(ft[1])ft[1].textContent='Services';if(ft[2])ft[2].textContent='Contact';}
+else if(l==='de'){if(ft[0])ft[0].textContent='Zimmer';if(ft[1])ft[1].textContent='Leistungen';if(ft[2])ft[2].textContent='Kontakt';}
+else{if(ft[0])ft[0].textContent='Habitaciones';if(ft[1])ft[1].textContent='Servicios';if(ft[2])ft[2].textContent='Contacto';}
 };
-
 window.scrollToReserva = function(){
   document.getElementById('reserva').scrollIntoView({behavior:'smooth'});
 };
