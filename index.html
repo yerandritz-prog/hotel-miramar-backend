@@ -670,6 +670,31 @@ window.setLang = function(l) {
   document.querySelectorAll('.chat-sug').forEach(function(s,i){if(t.chatSugs[i])s.textContent=t.chatSugs[i]});
 };
 
+  // Form select options
+  var roomSel=document.querySelectorAll('.reserva-form select')[0];
+  var guestSel=document.querySelectorAll('.reserva-form select')[1];
+  if(roomSel){
+    var rOpts={es:['Habitaci\u00f3n Est\u00e1ndar \u00b7 89\u20ac/noche','Habitaci\u00f3n Vista Mar \u00b7 129\u20ac/noche','Suite Familiar \u00b7 189\u20ac/noche'],
+               en:['Standard Room \u00b7 \u20ac89/night','Sea View Room \u00b7 \u20ac129/night','Family Suite \u00b7 \u20ac189/night'],
+               de:['Standardzimmer \u00b7 89\u20ac/Nacht','Zimmer mit Meerblick \u00b7 129\u20ac/Nacht','Familiensuite \u00b7 189\u20ac/Nacht']};
+    rOpts[l].forEach(function(txt,i){if(roomSel.options[i])roomSel.options[i].text=txt});
+  }
+  if(guestSel){
+    var gOpts={es:['1 adulto','2 adultos','2 adultos + 1 ni\u00f1o','2 adultos + 2 ni\u00f1os','Grupo (consultar)'],
+               en:['1 adult','2 adults','2 adults + 1 child','2 adults + 2 children','Group (enquire)'],
+               de:['1 Erwachsener','2 Erwachsene','2 Erwachsene + 1 Kind','2 Erwachsene + 2 Kinder','Gruppe (anfragen)']};
+    gOpts[l].forEach(function(txt,i){if(guestSel.options[i])guestSel.options[i].text=txt});
+  }
+  // Form input placeholders
+  var phs={es:['Tu nombre','tu@email.com','Cuna, habitaciones comunicadas, alergias...'],
+           en:['Your name','you@email.com','Cot, connecting rooms, allergies...'],
+           de:['Ihr Name','sie@email.com','Kinderbett, verbundene Zimmer, Allergien...']};
+  var inputs=document.querySelectorAll('.reserva-form input[type="text"], .reserva-form input[type="email"]');
+  if(inputs[0])inputs[0].placeholder=phs[l][0];
+  if(inputs[1])inputs[1].placeholder=phs[l][1];
+  var lastInput=document.querySelector('.form-group.full input');
+  if(lastInput)lastInput.placeholder=phs[l][2];
+
   // Footer
   var ft=document.querySelectorAll('.footer-col h5');
   if(l==='en'){if(ft[0])ft[0].textContent='Rooms';if(ft[1])ft[1].textContent='Services';if(ft[2])ft[2].textContent='Contact';}
