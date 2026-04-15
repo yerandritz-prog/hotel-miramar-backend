@@ -625,7 +625,7 @@ window.setLang = function(l) {
   // About
   var ae=document.querySelector('.about .eyebrow'); if(ae)ae.textContent=t.aboutEyebrow;
   var at=document.querySelector('.about .section-title'); if(at)at.innerHTML=t.aboutTitle;
-  var ap=document.querySelectorAll('.about-text p');
+  var ap=document.querySelectorAll('.about-text p:not(.eyebrow)');
   if(ap[0])ap[0].textContent=t.aboutP1; if(ap[1])ap[1].textContent=t.aboutP2;
   document.querySelectorAll('.tag').forEach(function(el,i){if(t.tags[i])el.textContent=t.tags[i]});
   // Rooms
@@ -668,11 +668,16 @@ window.setLang = function(l) {
   // Chat
   var ci=document.querySelector('.chat-input'); if(ci)ci.placeholder=t.chatPlaceholder;
   document.querySelectorAll('.chat-sug').forEach(function(s,i){if(t.chatSugs[i])s.textContent=t.chatSugs[i]});
-var ft=document.querySelectorAll('.footer-col h5');
-if(l==='en'){if(ft[0])ft[0].textContent='Rooms';if(ft[1])ft[1].textContent='Services';if(ft[2])ft[2].textContent='Contact';}
-else if(l==='de'){if(ft[0])ft[0].textContent='Zimmer';if(ft[1])ft[1].textContent='Leistungen';if(ft[2])ft[2].textContent='Kontakt';}
-else{if(ft[0])ft[0].textContent='Habitaciones';if(ft[1])ft[1].textContent='Servicios';if(ft[2])ft[2].textContent='Contacto';}
 };
+
+  // Footer
+  var ft=document.querySelectorAll('.footer-col h5');
+  if(l==='en'){if(ft[0])ft[0].textContent='Rooms';if(ft[1])ft[1].textContent='Services';if(ft[2])ft[2].textContent='Contact';}
+  else if(l==='de'){if(ft[0])ft[0].textContent='Zimmer';if(ft[1])ft[1].textContent='Leistungen';if(ft[2])ft[2].textContent='Kontakt';}
+  else{if(ft[0])ft[0].textContent='Habitaciones';if(ft[1])ft[1].textContent='Servicios';if(ft[2])ft[2].textContent='Contacto';}
+  var fbs=document.querySelectorAll('.footer-bottom span');
+  if(fbs[0]){if(l==='en')fbs[0].textContent='\u00a9 2024 Hotel Miramar \u00b7 All rights reserved';else if(l==='de')fbs[0].textContent='\u00a9 2024 Hotel Miramar \u00b7 Alle Rechte vorbehalten';else fbs[0].textContent='\u00a9 2024 Hotel Miramar \u00b7 Todos los derechos reservados';}
+
 window.scrollToReserva = function(){
   document.getElementById('reserva').scrollIntoView({behavior:'smooth'});
 };
