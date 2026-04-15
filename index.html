@@ -727,9 +727,90 @@ window.setLang=function(l){
   for(var i=0;i<btns.length;i++){if(btns[i].textContent===l.toUpperCase())btns[i].classList.add('active')}
   var nav=document.querySelectorAll('.nav-links a');
   var cta=document.querySelector('.nav-cta');
-  if(l==='en'){cta.textContent='Book now';nav[0]&&(nav[0].textContent='Rooms');nav[1]&&(nav[1].textContent='Services');nav[2]&&(nav[2].textContent='Location');nav[3]&&(nav[3].textContent='Reviews')}
-  else if(l==='de'){cta.textContent='Jetzt buchen';nav[0]&&(nav[0].textContent='Zimmer');nav[1]&&(nav[1].textContent='Leistungen');nav[2]&&(nav[2].textContent='Lage');nav[3]&&(nav[3].textContent='Bewertungen')}
-  else{cta.textContent='Reservar ahora';nav[0]&&(nav[0].textContent='Habitaciones');nav[1]&&(nav[1].textContent='Servicios');nav[2]&&(nav[2].textContent='Ubicaci\u00f3n');nav[3]&&(nav[3].textContent='Opiniones')}
+  if(l==='en'){
+    cta.textContent='Book now';
+    nav[0]&&(nav[0].textContent='Rooms');nav[1]&&(nav[1].textContent='Services');nav[2]&&(nav[2].textContent='Location');nav[3]&&(nav[3].textContent='Reviews');
+    document.querySelector('.hero-eyebrow')&&(document.querySelector('.hero-eyebrow').textContent='El Arenal · Mallorca · Since 1987');
+    document.querySelector('.hero-title')&&(document.querySelector('.hero-title').innerHTML='The rest<br>you <em>deserve</em>');
+    document.querySelector('.hero-sub')&&(document.querySelector('.hero-sub').textContent='Located by the sea in El Arenal, Hotel Miramar combines Mallorcan hospitality with all modern comforts. Wake up every day to views of the Mediterranean.');
+    var hbtns=document.querySelectorAll('.hero-actions button');hbtns[0]&&(hbtns[0].textContent='Check availability');hbtns[1]&&(hbtns[1].textContent='View rooms');
+    var bl=document.querySelectorAll('.badge-label');bl[0]&&(bl[0].textContent='Average rating');bl[1]&&(bl[1].textContent='Years of history');bl[2]&&(bl[2].textContent='Beachfront');
+    document.querySelector('.about .eyebrow')&&(document.querySelector('.about .eyebrow').textContent='Our story');
+    document.querySelector('.about .section-title')&&(document.querySelector('.about .section-title').innerHTML='Four decades<br>on the <em>waterfront</em>');
+    var ap=document.querySelectorAll('.about-text p');ap[0]&&(ap[0].textContent='We opened our doors in 1987 with one goal: to offer our guests the best possible rest by the Mediterranean. Today, almost four decades later, that commitment remains the same.');ap[1]&&(ap[1].textContent='El Arenal is one of the most beloved corners of Mallorca, with its seafront promenade, crystal-clear beach and family-friendly atmosphere. We have been part of that story for decades.');
+    document.querySelector('.rooms .eyebrow')&&(document.querySelector('.rooms .eyebrow').textContent='Accommodation');
+    document.querySelector('.rooms .section-title')&&(document.querySelector('.rooms .section-title').innerHTML='Our <em>rooms</em>');
+    var rc=document.querySelectorAll('.room-card');
+    if(rc[0]){rc[0].querySelector('.room-name').textContent='Standard Room';rc[0].querySelector('.room-desc').textContent='Comfortable and well-equipped, ideal for short stays. Garden view.';rc[0].querySelector('.room-badge').textContent='AVAILABLE';rc[0].querySelector('.btn-sm').textContent='Book';}
+    if(rc[1]){rc[1].querySelector('.room-name').textContent='Sea View Room';rc[1].querySelector('.room-desc').textContent='Wake up every morning to Mediterranean views. Private terrace included.';rc[1].querySelector('.room-badge').textContent='MOST POPULAR';rc[1].querySelector('.btn-sm').textContent='Book';}
+    if(rc[2]){rc[2].querySelector('.room-name').textContent='Family Suite';rc[2].querySelector('.room-desc').textContent='Two connected rooms with private lounge. The perfect option for families.';rc[2].querySelector('.room-badge').textContent='FAMILIES';rc[2].querySelector('.btn-sm').textContent='Book';}
+    document.querySelector('.amenities .eyebrow')&&(document.querySelector('.amenities .eyebrow').textContent='What we offer');
+    document.querySelector('.amenities .section-title')&&(document.querySelector('.amenities .section-title').innerHTML='Everything you <em>need</em>');
+    document.querySelector('.location .eyebrow')&&(document.querySelector('.location .eyebrow').textContent='Where we are');
+    document.querySelector('.location .section-title')&&(document.querySelector('.location .section-title').innerHTML='The heart of<br><em>El Arenal</em>');
+    document.querySelector('.location-text > p')&&(document.querySelector('.location-text > p').textContent='Located on the seafront promenade of El Arenal, steps from one of Mallorca\'s most beautiful beaches, with excellent connections to Palma de Mallorca.');
+    document.querySelector('.map-label')&&(document.querySelector('.map-label').textContent='Our location');
+    document.querySelector('.reviews .eyebrow')&&(document.querySelector('.reviews .eyebrow').textContent='What our guests say');
+    document.querySelector('.reviews .section-title')&&(document.querySelector('.reviews .section-title').innerHTML='Real <em>reviews</em>');
+    document.querySelector('.reserva .eyebrow')&&(document.querySelector('.reserva .eyebrow').textContent='Direct booking · Best price guaranteed');
+    document.querySelector('.reserva .section-title')&&(document.querySelector('.reserva .section-title').innerHTML='Check <em>availability</em>');
+    document.querySelector('.reserva-inner > p')&&(document.querySelector('.reserva-inner > p').textContent='Book directly with us and get the best available price. You can also message us on chat — we respond in Spanish, English and German.');
+    document.querySelector('.btn-full')&&(document.querySelector('.btn-full').textContent='Request booking');
+    document.querySelector('.reserva-note')&&(document.querySelector('.reserva-note').textContent='You will receive confirmation within 2 hours · Free cancellation up to 48h before');
+    document.querySelector('.chat-input')&&(document.querySelector('.chat-input').placeholder='Write to us in any language...');
+  } else if(l==='de'){
+    cta.textContent='Jetzt buchen';
+    nav[0]&&(nav[0].textContent='Zimmer');nav[1]&&(nav[1].textContent='Leistungen');nav[2]&&(nav[2].textContent='Lage');nav[3]&&(nav[3].textContent='Bewertungen');
+    document.querySelector('.hero-eyebrow')&&(document.querySelector('.hero-eyebrow').textContent='El Arenal · Mallorca · Seit 1987');
+    document.querySelector('.hero-title')&&(document.querySelector('.hero-title').innerHTML='Die Erholung,<br>die Sie <em>verdienen</em>');
+    document.querySelector('.hero-sub')&&(document.querySelector('.hero-sub').textContent='Am Meer in El Arenal verbindet das Hotel Miramar mallorquinische Gastfreundschaft mit modernem Komfort. Wachen Sie jeden Tag mit Blick auf das Mittelmeer auf.');
+    var hbtns=document.querySelectorAll('.hero-actions button');hbtns[0]&&(hbtns[0].textContent='Verfügbarkeit prüfen');hbtns[1]&&(hbtns[1].textContent='Zimmer ansehen');
+    var bl=document.querySelectorAll('.badge-label');bl[0]&&(bl[0].textContent='Durchschnittsbewertung');bl[1]&&(bl[1].textContent='Jahre Geschichte');bl[2]&&(bl[2].textContent='Direkt am Strand');
+    document.querySelector('.about .eyebrow')&&(document.querySelector('.about .eyebrow').textContent='Unsere Geschichte');
+    document.querySelector('.about .section-title')&&(document.querySelector('.about .section-title').innerHTML='Vier Jahrzehnte<br>in <em>erster Reihe</em>');
+    var ap=document.querySelectorAll('.about-text p');ap[0]&&(ap[0].textContent='Wir öffneten 1987 unsere Türen mit einem einzigen Ziel: unseren Gästen die bestmögliche Erholung am Mittelmeer zu bieten.');ap[1]&&(ap[1].textContent='El Arenal ist einer der beliebtesten Orte Mallorcas, mit seiner Strandpromenade und dem familienfreundlichen Ambiente.');
+    document.querySelector('.rooms .eyebrow')&&(document.querySelector('.rooms .eyebrow').textContent='Unterkunft');
+    document.querySelector('.rooms .section-title')&&(document.querySelector('.rooms .section-title').innerHTML='Unsere <em>Zimmer</em>');
+    var rc=document.querySelectorAll('.room-card');
+    if(rc[0]){rc[0].querySelector('.room-name').textContent='Standardzimmer';rc[0].querySelector('.room-desc').textContent='Komfortabel und gut ausgestattet, ideal für kurze Aufenthalte. Gartenblick.';rc[0].querySelector('.room-badge').textContent='VERFÜGBAR';rc[0].querySelector('.btn-sm').textContent='Buchen';}
+    if(rc[1]){rc[1].querySelector('.room-name').textContent='Zimmer mit Meerblick';rc[1].querySelector('.room-desc').textContent='Wachen Sie jeden Morgen mit Blick aufs Mittelmeer auf. Private Terrasse inklusive.';rc[1].querySelector('.room-badge').textContent='AM BELIEBTESTEN';rc[1].querySelector('.btn-sm').textContent='Buchen';}
+    if(rc[2]){rc[2].querySelector('.room-name').textContent='Familiensuite';rc[2].querySelector('.room-desc').textContent='Zwei verbundene Zimmer mit eigenem Wohnzimmer. Die perfekte Option für Familien.';rc[2].querySelector('.room-badge').textContent='FAMILIEN';rc[2].querySelector('.btn-sm').textContent='Buchen';}
+    document.querySelector('.amenities .eyebrow')&&(document.querySelector('.amenities .eyebrow').textContent='Was wir bieten');
+    document.querySelector('.amenities .section-title')&&(document.querySelector('.amenities .section-title').innerHTML='Alles was Sie <em>brauchen</em>');
+    document.querySelector('.location .eyebrow')&&(document.querySelector('.location .eyebrow').textContent='Wo wir sind');
+    document.querySelector('.location .section-title')&&(document.querySelector('.location .section-title').innerHTML='Das Herz von<br><em>El Arenal</em>');
+    document.querySelector('.location-text > p')&&(document.querySelector('.location-text > p').textContent='An der Strandpromenade von El Arenal gelegen, wenige Schritte von einem der schönsten Strände Mallorcas.');
+    document.querySelector('.map-label')&&(document.querySelector('.map-label').textContent='Unser Standort');
+    document.querySelector('.reviews .eyebrow')&&(document.querySelector('.reviews .eyebrow').textContent='Was unsere Gäste sagen');
+    document.querySelector('.reviews .section-title')&&(document.querySelector('.reviews .section-title').innerHTML='Echte <em>Bewertungen</em>');
+    document.querySelector('.reserva .eyebrow')&&(document.querySelector('.reserva .eyebrow').textContent='Direktbuchung · Bestpreisgarantie');
+    document.querySelector('.reserva .section-title')&&(document.querySelector('.reserva .section-title').innerHTML='Verfügbarkeit <em>prüfen</em>');
+    document.querySelector('.reserva-inner > p')&&(document.querySelector('.reserva-inner > p').textContent='Buchen Sie direkt bei uns und erhalten Sie den besten verfügbaren Preis.');
+    document.querySelector('.btn-full')&&(document.querySelector('.btn-full').textContent='Buchung anfragen');
+    document.querySelector('.reserva-note')&&(document.querySelector('.reserva-note').textContent='Sie erhalten eine Bestätigung innerhalb von 2 Stunden · Kostenlose Stornierung bis 48h vorher');
+    document.querySelector('.chat-input')&&(document.querySelector('.chat-input').placeholder='Schreiben Sie uns in jeder Sprache...');
+  } else {
+    cta.textContent='Reservar ahora';
+    nav[0]&&(nav[0].textContent='Habitaciones');nav[1]&&(nav[1].textContent='Servicios');nav[2]&&(nav[2].textContent='Ubicaci\u00f3n');nav[3]&&(nav[3].textContent='Opiniones');
+    document.querySelector('.hero-eyebrow')&&(document.querySelector('.hero-eyebrow').textContent='El Arenal \u00b7 Mallorca \u00b7 Desde 1987');
+    document.querySelector('.hero-title')&&(document.querySelector('.hero-title').innerHTML='El descanso<br>que <em>mereces</em>');
+    document.querySelector('.hero-sub')&&(document.querySelector('.hero-sub').textContent='Frente al mar en El Arenal, el Hotel Miramar combina la hospitalidad mallorquina con todas las comodidades modernas.');
+    var hbtns=document.querySelectorAll('.hero-actions button');hbtns[0]&&(hbtns[0].textContent='Consultar disponibilidad');hbtns[1]&&(hbtns[1].textContent='Ver habitaciones');
+    var bl=document.querySelectorAll('.badge-label');bl[0]&&(bl[0].textContent='Puntuaci\u00f3n media');bl[1]&&(bl[1].textContent='A\u00f1os de historia');bl[2]&&(bl[2].textContent='L\u00ednea de playa');
+    document.querySelector('.about .eyebrow')&&(document.querySelector('.about .eyebrow').textContent='Nuestra historia');
+    document.querySelector('.about .section-title')&&(document.querySelector('.about .section-title').innerHTML='Cuatro d\u00e9cadas<br>en primera <em>l\u00ednea</em>');
+    document.querySelector('.rooms .eyebrow')&&(document.querySelector('.rooms .eyebrow').textContent='Alojamiento');
+    document.querySelector('.rooms .section-title')&&(document.querySelector('.rooms .section-title').innerHTML='Nuestras <em>habitaciones</em>');
+    var rc=document.querySelectorAll('.room-card');
+    if(rc[0]){rc[0].querySelector('.room-name').textContent='Habitaci\u00f3n Est\u00e1ndar';rc[0].querySelector('.room-desc').textContent='Confortable y bien equipada, ideal para estancias cortas. Vista al jard\u00edn interior.';rc[0].querySelector('.room-badge').textContent='DISPONIBLE';rc[0].querySelector('.btn-sm').textContent='Reservar';}
+    if(rc[1]){rc[1].querySelector('.room-name').textContent='Habitaci\u00f3n Vista Mar';rc[1].querySelector('.room-desc').textContent='Despierta cada ma\u00f1ana con las vistas al Mediterr\u00e1neo. Terraza privada incluida.';rc[1].querySelector('.room-badge').textContent='M\u00c1S POPULAR';rc[1].querySelector('.btn-sm').textContent='Reservar';}
+    if(rc[2]){rc[2].querySelector('.room-name').textContent='Suite Familiar';rc[2].querySelector('.room-desc').textContent='Dos habitaciones conectadas con sal\u00f3n propio. La opci\u00f3n perfecta para familias.';rc[2].querySelector('.room-badge').textContent='FAMILIAS';rc[2].querySelector('.btn-sm').textContent='Reservar';}
+    document.querySelector('.reserva .eyebrow')&&(document.querySelector('.reserva .eyebrow').textContent='Reserva directa \u00b7 Mejor precio garantizado');
+    document.querySelector('.reserva .section-title')&&(document.querySelector('.reserva .section-title').innerHTML='Comprueba <em>disponibilidad</em>');
+    document.querySelector('.btn-full')&&(document.querySelector('.btn-full').textContent='Solicitar reserva');
+    document.querySelector('.reserva-note')&&(document.querySelector('.reserva-note').textContent='Recibir\u00e1s confirmaci\u00f3n en menos de 2 horas \u00b7 Cancelaci\u00f3n gratuita hasta 48h antes');
+    document.querySelector('.chat-input')&&(document.querySelector('.chat-input').placeholder='Escr\u00edbenos en cualquier idioma...');
+  }
 };
 window.scrollToReserva=function(){document.getElementById('reserva').scrollIntoView({behavior:'smooth'})};
 </script>
