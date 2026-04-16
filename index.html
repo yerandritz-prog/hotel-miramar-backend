@@ -7,22 +7,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --green:#2D6A4F;
-  --green-light:#52B788;
-  --green-pale:#D8F3DC;
-  --green-mid:#74C69D;
-  --cream:#FAFAF7;
-  --white:#FFFFFF;
-  --stone:#F5F3EE;
-  --text:#1C1C1C;
-  --text-muted:#6B7280;
-  --border:#E5E7EB;
-}
+:root{--green:#2D6A4F;--green-light:#52B788;--green-pale:#D8F3DC;--green-mid:#74C69D;--cream:#FAFAF7;--white:#FFFFFF;--stone:#F5F3EE;--text:#1C1C1C;--text-muted:#6B7280;--border:#E5E7EB}
 html{scroll-behavior:smooth}
 body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden}
-
-/* NAV */
 nav{position:fixed;top:0;width:100%;z-index:100;padding:0.9rem 2rem;display:flex;justify-content:space-between;align-items:center;background:rgba(250,250,247,0.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);transition:all 0.3s}
 .nav-logo{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:400;color:var(--green);letter-spacing:0.02em;white-space:nowrap;flex-shrink:0}
 .nav-logo span{font-style:italic}
@@ -31,12 +18,12 @@ nav{position:fixed;top:0;width:100%;z-index:100;padding:0.9rem 2rem;display:flex
 .nav-links a:hover{color:var(--green)}
 .nav-cta{background:var(--green);color:var(--white);padding:0.48rem 1.1rem;font-size:0.75rem;letter-spacing:0.04em;font-weight:500;cursor:pointer;border:none;font-family:'Inter',sans-serif;border-radius:2px;transition:background 0.2s;white-space:nowrap;flex-shrink:0}
 .nav-cta:hover{background:var(--green-light)}
-.lang-selector{display:flex;gap:0.3rem;align-items:center;flex-shrink:0}.lang-btn{background:transparent;border:1px solid var(--border);padding:0.3rem 0.55rem;font-size:0.7rem;font-family:'Inter',sans-serif;cursor:pointer;border-radius:2px;color:var(--text-muted);font-weight:500;transition:all 0.2s}.lang-btn:hover{border-color:var(--green);color:var(--green)}.lang-btn.active{background:var(--green);color:var(--white);border-color:var(--green)}
-
-/* HERO */
+.lang-selector{display:flex;gap:0.3rem;align-items:center;flex-shrink:0}
+.lang-btn{background:transparent;border:1px solid var(--border);padding:0.3rem 0.55rem;font-size:0.7rem;font-family:'Inter',sans-serif;cursor:pointer;border-radius:2px;color:var(--text-muted);font-weight:500;transition:all 0.2s}
+.lang-btn:hover{border-color:var(--green);color:var(--green)}
+.lang-btn.active{background:var(--green);color:var(--white);border-color:var(--green)}
 .hero{height:100vh;position:relative;display:flex;align-items:center;overflow:hidden;background:var(--stone)}
-.hero-bg-shape{position:absolute;right:0;top:0;bottom:0;width:48%;clip-path:polygon(10% 0%, 100% 0%, 100% 100%, 0% 100%);background:url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200&q=80') center center / cover no-repeat;}
-.hero-visual{display:none}
+.hero-bg-shape{position:absolute;right:0;top:0;bottom:0;width:48%;clip-path:polygon(10% 0%,100% 0%,100% 100%,0% 100%);background:url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200&q=80') center/cover no-repeat}
 .hero-content{position:relative;z-index:2;padding:0 4rem;max-width:580px}
 .hero-eyebrow{font-size:0.75rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--green);margin-bottom:1.2rem;font-weight:500}
 .hero-title{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,6vw,4.8rem);font-weight:400;line-height:1.12;color:var(--text);margin-bottom:1.5rem}
@@ -52,18 +39,14 @@ nav{position:fixed;top:0;width:100%;z-index:100;padding:0.9rem 2rem;display:flex
 .badge-item{text-align:left}
 .badge-num{font-family:'Playfair Display',serif;font-size:1.8rem;color:var(--green);font-weight:400}
 .badge-label{font-size:0.72rem;color:var(--text-muted);letter-spacing:0.05em;margin-top:2px}
-
-/* STRIP */
 .strip{background:var(--green);padding:1rem 3rem;display:flex;justify-content:center;gap:4rem;flex-wrap:wrap}
 .strip-item{display:flex;align-items:center;gap:0.6rem;color:rgba(255,255,255,0.9);font-size:0.8rem;letter-spacing:0.04em}
 .strip-icon{font-size:1rem}
-
-/* ABOUT */
 .about{background:var(--white);padding:6rem 3rem}
 .about-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center}
 .about-imgs{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-.about-img-main{grid-column:span 2;background:linear-gradient(135deg,#b7e4c7,#52b788);height:220px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:4rem;position:relative;overflow:hidden}
-.about-img-sm{background:linear-gradient(135deg,#d8f3dc,#74c69d);height:140px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:2.5rem}
+.about-img-main{grid-column:span 2;background:linear-gradient(135deg,#b7e4c7,#52b788);height:220px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:1rem;position:relative;overflow:hidden;color:rgba(255,255,255,0.9);letter-spacing:0.1em;text-transform:uppercase}
+.about-img-sm{background:linear-gradient(135deg,#d8f3dc,#74c69d);height:140px;border-radius:4px}
 .img-label{position:absolute;bottom:0.8rem;left:0.8rem;right:0.8rem;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.9);font-weight:500}
 .eyebrow{font-size:0.72rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--green);margin-bottom:1rem;font-weight:500}
 .section-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:400;line-height:1.2;color:var(--text);margin-bottom:1.5rem}
@@ -71,37 +54,31 @@ nav{position:fixed;top:0;width:100%;z-index:100;padding:0.9rem 2rem;display:flex
 .about-text p{font-size:0.95rem;line-height:1.85;color:var(--text-muted);margin-bottom:1rem;font-weight:300}
 .about-tags{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1.5rem}
 .tag{background:var(--green-pale);color:var(--green);font-size:0.75rem;padding:0.3rem 0.8rem;border-radius:20px;font-weight:500;letter-spacing:0.03em}
-
-/* ROOMS */
 .rooms{background:var(--stone);padding:6rem 3rem}
 .rooms-inner{max-width:1100px;margin:0 auto}
 .section-header{margin-bottom:3.5rem}
 .rooms-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
 .room-card{background:var(--white);border-radius:4px;overflow:hidden;border:1px solid var(--border);transition:transform 0.2s,box-shadow 0.2s}
 .room-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,0.08)}
-.room-img{height:200px;background:linear-gradient(135deg,#b7e4c7,#52b788);display:flex;align-items:center;justify-content:center;font-size:3.5rem;position:relative}
+.room-img{height:200px;display:flex;align-items:center;justify-content:center;font-size:3.5rem;position:relative}
 .room-badge{position:absolute;top:1rem;right:1rem;background:var(--green);color:white;font-size:0.68rem;padding:0.3rem 0.7rem;border-radius:2px;letter-spacing:0.08em;font-weight:500}
 .room-body{padding:1.5rem}
 .room-name{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:400;margin-bottom:0.4rem;color:var(--text)}
 .room-desc{font-size:0.82rem;color:var(--text-muted);line-height:1.6;margin-bottom:1.2rem;font-weight:300}
 .room-features{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1.3rem}
-.room-feat{font-size:0.72rem;color:var(--text-muted);display:flex;align-items:center;gap:0.3rem}
+.room-feat{font-size:0.72rem;color:var(--text-muted)}
 .room-footer{display:flex;justify-content:space-between;align-items:center;padding-top:1.2rem;border-top:1px solid var(--border)}
 .room-price{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--green)}
 .room-price span{font-family:'Inter',sans-serif;font-size:0.75rem;color:var(--text-muted);font-weight:300}
 .btn-sm{background:var(--green);color:white;border:none;padding:0.5rem 1.1rem;font-size:0.75rem;font-family:'Inter',sans-serif;font-weight:500;cursor:pointer;border-radius:2px;letter-spacing:0.05em;transition:background 0.2s}
 .btn-sm:hover{background:var(--green-light)}
-
-/* AMENITIES */
 .amenities{background:var(--white);padding:6rem 3rem}
 .amenities-inner{max-width:1100px;margin:0 auto}
 .amenities-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;margin-top:3rem}
 .amenity-card{text-align:center;padding:2rem 1rem}
-.amenity-icon{font-size:2rem;margin-bottom:1rem;display:block}
+.amenity-icon{font-size:1.8rem;margin-bottom:1rem;display:block}
 .amenity-name{font-size:0.9rem;font-weight:500;color:var(--text);margin-bottom:0.5rem}
 .amenity-desc{font-size:0.78rem;color:var(--text-muted);line-height:1.6;font-weight:300}
-
-/* LOCATION */
 .location{background:var(--green);padding:6rem 3rem;color:white}
 .location-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center}
 .location-text .eyebrow{color:var(--green-mid)}
@@ -116,8 +93,6 @@ nav{position:fixed;top:0;width:100%;z-index:100;padding:0.9rem 2rem;display:flex
 .map-pin{font-size:3rem}
 .map-label{font-size:0.8rem;color:rgba(255,255,255,0.7);letter-spacing:0.1em;text-transform:uppercase}
 .map-address{font-size:0.9rem;color:white;font-weight:500}
-
-/* REVIEWS */
 .reviews{background:var(--stone);padding:6rem 3rem}
 .reviews-inner{max-width:1100px;margin:0 auto}
 .reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
@@ -128,12 +103,10 @@ nav{position:fixed;top:0;width:100%;z-index:100;padding:0.9rem 2rem;display:flex
 .review-avatar{width:36px;height:36px;border-radius:50%;background:var(--green-pale);display:flex;align-items:center;justify-content:center;font-size:0.8rem;font-weight:600;color:var(--green)}
 .review-name{font-size:0.85rem;font-weight:500;color:var(--text)}
 .review-origin{font-size:0.72rem;color:var(--text-muted)}
-
-/* RESERVA */
 .reserva{background:var(--white);padding:6rem 3rem}
 .reserva-inner{max-width:800px;margin:0 auto;text-align:center}
 .reserva-inner .section-header{margin-bottom:2.5rem}
-.reserva-inner p{font-size:0.95rem;line-height:1.8;color:var(--text-muted);margin-bottom:3rem;font-weight:300}
+.reserva-inner > p{font-size:0.95rem;line-height:1.8;color:var(--text-muted);margin-bottom:3rem;font-weight:300}
 .reserva-form{display:grid;grid-template-columns:1fr 1fr;gap:1rem;text-align:left;margin-bottom:1.5rem}
 .form-group{display:flex;flex-direction:column;gap:0.4rem}
 .form-group.full{grid-column:span 2}
@@ -144,8 +117,6 @@ nav{position:fixed;top:0;width:100%;z-index:100;padding:0.9rem 2rem;display:flex
 .btn-full{width:100%;padding:1rem;background:var(--green);color:white;border:none;font-family:'Inter',sans-serif;font-size:0.88rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:background 0.2s}
 .btn-full:hover{background:var(--green-light)}
 .reserva-note{font-size:0.75rem;color:var(--text-muted);margin-top:1rem}
-
-/* FOOTER */
 footer{background:#1C2B1E;padding:4rem 3rem 2rem;color:rgba(255,255,255,0.6)}
 .footer-inner{max-width:1100px;margin:0 auto}
 .footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
@@ -158,8 +129,6 @@ footer{background:#1C2B1E;padding:4rem 3rem 2rem;color:rgba(255,255,255,0.6)}
 .footer-col ul li a:hover{color:var(--green-mid)}
 .footer-bottom{border-top:1px solid rgba(255,255,255,0.1);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;font-size:0.72rem;color:rgba(255,255,255,0.3)}
 .footer-bottom a{color:rgba(82,183,136,0.6);text-decoration:none}
-
-/* CHAT */
 .chatbot{position:fixed;bottom:2rem;right:2rem;z-index:1000}
 .chat-btn{width:54px;height:54px;background:var(--green);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(45,106,79,0.35);transition:all 0.3s;border-radius:50%;position:relative}
 .chat-btn:hover{background:var(--green-light);transform:scale(1.05)}
@@ -189,15 +158,14 @@ footer{background:#1C2B1E;padding:4rem 3rem 2rem;color:rgba(255,255,255,0.6)}
 .typing span:nth-child(2){animation-delay:0.2s}
 .typing span:nth-child(3){animation-delay:0.4s}
 @keyframes typingAnim{0%,80%,100%{opacity:0.3;transform:scale(0.8)}40%{opacity:1;transform:scale(1)}}
-
-/* MOBILE */
 @media(max-width:768px){
   nav{padding:1rem 1.2rem}
   .nav-links{display:none}
   .nav-logo{font-size:1.2rem}
   .nav-cta{font-size:0.72rem;padding:0.45rem 1rem}
+  .lang-btn{font-size:0.65rem;padding:0.25rem 0.45rem}
   .hero{height:auto;padding:7rem 0 0;flex-direction:column}
-  .hero-visual{display:none}
+  .hero-bg-shape{display:none}
   .hero-content{padding:2rem 1.5rem 3rem;max-width:100%}
   .hero-title{font-size:clamp(2.2rem,10vw,3.5rem)}
   .hero-sub{font-size:0.9rem}
@@ -238,7 +206,7 @@ footer{background:#1C2B1E;padding:4rem 3rem 2rem;color:rgba(255,255,255,0.6)}
   <ul class="nav-links">
     <li><a href="#habitaciones">Habitaciones</a></li>
     <li><a href="#servicios">Servicios</a></li>
-    <li><a href="#ubicacion">Ubicación</a></li>
+    <li><a href="#ubicacion">Ubicaci&oacute;n</a></li>
     <li><a href="#opiniones">Opiniones</a></li>
   </ul>
   <button class="nav-cta" onclick="window.scrollToReserva()">Reservar ahora</button>
@@ -252,56 +220,46 @@ footer{background:#1C2B1E;padding:4rem 3rem 2rem;color:rgba(255,255,255,0.6)}
 <section class="hero">
   <div class="hero-bg-shape"></div>
   <div class="hero-content">
-    <p class="hero-eyebrow">El Arenal · Mallorca · Desde 1987</p>
+    <p class="hero-eyebrow">El Arenal &middot; Mallorca &middot; Desde 1987</p>
     <h1 class="hero-title">El descanso<br>que <em>mereces</em></h1>
-    <p class="hero-sub">Frente al mar en El Arenal, el Hotel Miramar combina la hospitalidad mallorquina con todas las comodidades modernas. Despierta cada día con las vistas al Mediterráneo.</p>
+    <p class="hero-sub">Frente al mar en El Arenal, el Hotel Miramar combina la hospitalidad mallorquina con todas las comodidades modernas. Despierta cada d&iacute;a con las vistas al Mediterr&aacute;neo.</p>
     <div class="hero-actions">
-      <button class="btn-solid" onclick="document.getElementById('reserva').scrollIntoView({behavior:'smooth'})">Consultar disponibilidad</button>
+      <button class="btn-solid" onclick="window.scrollToReserva()">Consultar disponibilidad</button>
       <button class="btn-ghost" onclick="document.getElementById('habitaciones').scrollIntoView({behavior:'smooth'})">Ver habitaciones</button>
     </div>
     <div class="hero-badges">
-      <div class="badge-item">
-        <div class="badge-num">4.8</div>
-        <div class="badge-label">Puntuación media</div>
-      </div>
-      <div class="badge-item">
-        <div class="badge-num">37</div>
-        <div class="badge-label">Años de historia</div>
-      </div>
-      <div class="badge-item">
-        <div class="badge-num">1Âª</div>
-        <div class="badge-label">Línea de playa</div>
-      </div>
+      <div class="badge-item"><div class="badge-num">4.8</div><div class="badge-label">Puntuaci&oacute;n media</div></div>
+      <div class="badge-item"><div class="badge-num">37</div><div class="badge-label">A&ntilde;os de historia</div></div>
+      <div class="badge-item"><div class="badge-num">1&ordf;</div><div class="badge-label">L&iacute;nea de playa</div></div>
     </div>
   </div>
 </section>
 
 <div class="strip">
-  <div class="strip-item"><span class="strip-icon">âœ“</span> Cancelación gratuita 48h</div>
-  <div class="strip-item"><span class="strip-icon">âœ“</span> Desayuno incluido</div>
-  <div class="strip-item"><span class="strip-icon">âœ“</span> Parking privado</div>
-  <div class="strip-item"><span class="strip-icon">âœ“</span> Piscina exterior</div>
-  <div class="strip-item"><span class="strip-icon">âœ“</span> Wifi gratis</div>
+  <div class="strip-item"><span class="strip-icon">&#10003;</span> Cancelaci&oacute;n gratuita 48h</div>
+  <div class="strip-item"><span class="strip-icon">&#10003;</span> Desayuno incluido</div>
+  <div class="strip-item"><span class="strip-icon">&#10003;</span> Parking privado</div>
+  <div class="strip-item"><span class="strip-icon">&#10003;</span> Piscina exterior</div>
+  <div class="strip-item"><span class="strip-icon">&#10003;</span> Wifi gratis</div>
 </div>
 
 <section class="about" id="sobre-nosotros">
   <div class="about-inner">
     <div class="about-imgs">
       <div class="about-img-main">
-        <span style="font-size:5rem;z-index:1;position:relative">ðŸ–ï¸</span>
-        <div class="img-label">Terraza & Piscina · Vistas al mar</div>
+        <div class="img-label">Terraza &amp; Piscina &middot; Vistas al mar</div>
       </div>
-      <div class="about-img-sm"><span>ðŸŒ´</span></div>
-      <div class="about-img-sm"><span>ðŸƒ</span></div>
+      <div class="about-img-sm"></div>
+      <div class="about-img-sm"></div>
     </div>
     <div class="about-text">
       <p class="eyebrow">Nuestra historia</p>
-      <h2 class="section-title">Cuatro décadas<br>en primera <em>línea</em></h2>
-      <p>Abrimos nuestras puertas en 1987 con un único objetivo: ofrecer a nuestros huéspedes el mejor descanso posible frente al Mediterráneo. Hoy, casi cuatro décadas después, ese compromiso sigue siendo el mismo.</p>
-      <p>El Arenal es uno de los rincones más queridos de Mallorca, con su paseo marítimo, su playa de aguas cristalinas y su ambiente familiar. Y nosotros llevamos décadas siendo parte de esa historia.</p>
+      <h2 class="section-title">Cuatro d&eacute;cadas<br>en primera <em>l&iacute;nea</em></h2>
+      <p>Abrimos nuestras puertas en 1987 con un &uacute;nico objetivo: ofrecer a nuestros hu&eacute;spedes el mejor descanso posible frente al Mediterr&aacute;neo. Hoy, casi cuatro d&eacute;cadas despu&eacute;s, ese compromiso sigue siendo el mismo.</p>
+      <p>El Arenal es uno de los rincones m&aacute;s queridos de Mallorca, con su paseo mar&iacute;timo, su playa de aguas cristalinas y su ambiente familiar. Y nosotros llevamos d&eacute;cadas siendo parte de esa historia.</p>
       <div class="about-tags">
         <span class="tag">Ambiente familiar</span>
-        <span class="tag">Primera línea</span>
+        <span class="tag">Primera l&iacute;nea</span>
         <span class="tag">Restaurante propio</span>
         <span class="tag">Piscina exterior</span>
         <span class="tag">Terraza al mar</span>
@@ -319,61 +277,58 @@ footer{background:#1C2B1E;padding:4rem 3rem 2rem;color:rgba(255,255,255,0.6)}
     <div class="rooms-grid">
       <div class="room-card">
         <div class="room-img" style="background:linear-gradient(135deg,#d8f3dc,#74c69d)">
-          <span>ðŸŒ¿</span>
           <div class="room-badge">DISPONIBLE</div>
         </div>
         <div class="room-body">
-          <div class="room-name">Habitación Estándar</div>
-          <div class="room-desc">Confortable y bien equipada, ideal para estancias cortas. Vista al jardín interior.</div>
+          <div class="room-name">Habitaci&oacute;n Est&aacute;ndar</div>
+          <div class="room-desc">Confortable y bien equipada, ideal para estancias cortas. Vista al jard&iacute;n interior.</div>
           <div class="room-features">
-            <span class="room-feat">ðŸ›ï¸ Doble</span>
-            <span class="room-feat">ðŸ“ 22 mÂ²</span>
-            <span class="room-feat">â„ï¸ A/C</span>
-            <span class="room-feat">ðŸ“º TV</span>
+            <span class="room-feat">Doble</span>
+            <span class="room-feat">22 m&sup2;</span>
+            <span class="room-feat">A/C</span>
+            <span class="room-feat">TV</span>
           </div>
           <div class="room-footer">
-            <div class="room-price">89€<span> /noche</span></div>
-            <button class="btn-sm" onclick="document.getElementById('reserva').scrollIntoView({behavior:'smooth'})">Reservar</button>
+            <div class="room-price">89&euro;<span> /noche</span></div>
+            <button class="btn-sm" onclick="window.scrollToReserva()">Reservar</button>
           </div>
         </div>
       </div>
       <div class="room-card">
         <div class="room-img" style="background:linear-gradient(135deg,#b7e4c7,#52b788)">
-          <span>ðŸŒŠ</span>
-          <div class="room-badge" style="background:var(--green-light)">MÃS POPULAR</div>
+          <div class="room-badge" style="background:var(--green-light)">M&Aacute;S POPULAR</div>
         </div>
         <div class="room-body">
-          <div class="room-name">Habitación Vista Mar</div>
-          <div class="room-desc">Despierta cada mañana con las vistas al Mediterráneo. Terraza privada incluida.</div>
+          <div class="room-name">Habitaci&oacute;n Vista Mar</div>
+          <div class="room-desc">Despierta cada ma&ntilde;ana con las vistas al Mediterr&aacute;neo. Terraza privada incluida.</div>
           <div class="room-features">
-            <span class="room-feat">ðŸ›ï¸ Doble</span>
-            <span class="room-feat">ðŸ“ 28 mÂ²</span>
-            <span class="room-feat">ðŸŒŠ Vista mar</span>
-            <span class="room-feat">ðŸŒ… Terraza</span>
+            <span class="room-feat">Doble</span>
+            <span class="room-feat">28 m&sup2;</span>
+            <span class="room-feat">Vista mar</span>
+            <span class="room-feat">Terraza</span>
           </div>
           <div class="room-footer">
-            <div class="room-price">129€<span> /noche</span></div>
-            <button class="btn-sm" onclick="document.getElementById('reserva').scrollIntoView({behavior:'smooth'})">Reservar</button>
+            <div class="room-price">129&euro;<span> /noche</span></div>
+            <button class="btn-sm" onclick="window.scrollToReserva()">Reservar</button>
           </div>
         </div>
       </div>
       <div class="room-card">
         <div class="room-img" style="background:linear-gradient(135deg,#95d5b2,#2d6a4f)">
-          <span>ðŸ‘¨â€ðŸ‘©â€ðŸ‘§â€ðŸ‘¦</span>
           <div class="room-badge">FAMILIAS</div>
         </div>
         <div class="room-body">
           <div class="room-name">Suite Familiar</div>
-          <div class="room-desc">Dos habitaciones conectadas con salón propio. La opción perfecta para familias.</div>
+          <div class="room-desc">Dos habitaciones conectadas con sal&oacute;n propio. La opci&oacute;n perfecta para familias.</div>
           <div class="room-features">
-            <span class="room-feat">ðŸ›ï¸ x4</span>
-            <span class="room-feat">ðŸ“ 48 mÂ²</span>
-            <span class="room-feat">ðŸ›‹ï¸ Salón</span>
-            <span class="room-feat">ðŸ³ Kitchenette</span>
+            <span class="room-feat">x4</span>
+            <span class="room-feat">48 m&sup2;</span>
+            <span class="room-feat">Sal&oacute;n</span>
+            <span class="room-feat">Kitchenette</span>
           </div>
           <div class="room-footer">
-            <div class="room-price">189€<span> /noche</span></div>
-            <button class="btn-sm" onclick="document.getElementById('reserva').scrollIntoView({behavior:'smooth'})">Reservar</button>
+            <div class="room-price">189&euro;<span> /noche</span></div>
+            <button class="btn-sm" onclick="window.scrollToReserva()">Reservar</button>
           </div>
         </div>
       </div>
@@ -388,46 +343,14 @@ footer{background:#1C2B1E;padding:4rem 3rem 2rem;color:rgba(255,255,255,0.6)}
       <h2 class="section-title">Todo lo que <em>necesitas</em></h2>
     </div>
     <div class="amenities-grid">
-      <div class="amenity-card">
-        <span class="amenity-icon">ðŸŠ</span>
-        <div class="amenity-name">Piscina exterior</div>
-        <div class="amenity-desc">Abierta de mayo a octubre, con zona de hamacas y servicio de toallas.</div>
-      </div>
-      <div class="amenity-card">
-        <span class="amenity-icon">ðŸ³</span>
-        <div class="amenity-name">Desayuno buffet</div>
-        <div class="amenity-desc">Buffet completo cada mañana con productos locales de temporada. De 7:30 a 10:30h.</div>
-      </div>
-      <div class="amenity-card">
-        <span class="amenity-icon">ðŸ–ï¸</span>
-        <div class="amenity-name">Acceso directo playa</div>
-        <div class="amenity-desc">A 50 metros de la Platja de El Arenal. Hamacas reservadas para clientes.</div>
-      </div>
-      <div class="amenity-card">
-        <span class="amenity-icon">ðŸ…¿ï¸</span>
-        <div class="amenity-name">Parking privado</div>
-        <div class="amenity-desc">Parking cubierto con plazas para todos los huéspedes sin coste adicional.</div>
-      </div>
-      <div class="amenity-card">
-        <span class="amenity-icon">ðŸ½ï¸</span>
-        <div class="amenity-name">Restaurante & Bar</div>
-        <div class="amenity-desc">Cocina mediterránea con ingredientes locales. Terraza con vistas al mar.</div>
-      </div>
-      <div class="amenity-card">
-        <span class="amenity-icon">ðŸ’†</span>
-        <div class="amenity-name">Zona de relax</div>
-        <div class="amenity-desc">Sala de descanso, masajes bajo reserva y tratamientos de spa.</div>
-      </div>
-      <div class="amenity-card">
-        <span class="amenity-icon">ðŸš²</span>
-        <div class="amenity-name">Alquiler de bicicletas</div>
-        <div class="amenity-desc">Flota de bicicletas disponible para recorrer el paseo marítimo.</div>
-      </div>
-      <div class="amenity-card">
-        <span class="amenity-icon">ðŸŒ</span>
-        <div class="amenity-name">Atención multilingüe</div>
-        <div class="amenity-desc">Personal y asistente virtual disponible en español, inglés y alemán.</div>
-      </div>
+      <div class="amenity-card"><span class="amenity-icon">&#127946;</span><div class="amenity-name">Piscina exterior</div><div class="amenity-desc">Abierta de mayo a octubre, con zona de hamacas y servicio de toallas.</div></div>
+      <div class="amenity-card"><span class="amenity-icon">&#127859;</span><div class="amenity-name">Desayuno buffet</div><div class="amenity-desc">Buffet completo cada ma&ntilde;ana con productos locales de temporada. De 7:30 a 10:30h.</div></div>
+      <div class="amenity-card"><span class="amenity-icon">&#127958;</span><div class="amenity-name">Acceso directo playa</div><div class="amenity-desc">A 50 metros de la Platja de El Arenal. Hamacas reservadas para clientes.</div></div>
+      <div class="amenity-card"><span class="amenity-icon">&#128663;</span><div class="amenity-name">Parking privado</div><div class="amenity-desc">Parking cubierto con plazas para todos los hu&eacute;spedes sin coste adicional.</div></div>
+      <div class="amenity-card"><span class="amenity-icon">&#127869;</span><div class="amenity-name">Restaurante &amp; Bar</div><div class="amenity-desc">Cocina mediterr&aacute;nea con ingredientes locales. Terraza con vistas al mar.</div></div>
+      <div class="amenity-card"><span class="amenity-icon">&#128134;</span><div class="amenity-name">Zona de relax</div><div class="amenity-desc">Sala de descanso, masajes bajo reserva y tratamientos de spa.</div></div>
+      <div class="amenity-card"><span class="amenity-icon">&#128690;</span><div class="amenity-name">Alquiler de bicicletas</div><div class="amenity-desc">Flota de bicicletas disponible para recorrer el paseo mar&iacute;timo.</div></div>
+      <div class="amenity-card"><span class="amenity-icon">&#127760;</span><div class="amenity-name">Atenci&oacute;n multiling&uuml;e</div><div class="amenity-desc">Personal y asistente virtual disponible en espa&ntilde;ol, ingl&eacute;s y alem&aacute;n.</div></div>
     </div>
   </div>
 </section>
@@ -435,37 +358,28 @@ footer{background:#1C2B1E;padding:4rem 3rem 2rem;color:rgba(255,255,255,0.6)}
 <section class="location" id="ubicacion">
   <div class="location-inner">
     <div class="location-text">
-      <p class="eyebrow">Dónde estamos</p>
-      <h2 class="section-title">El corazón de<br><em>El Arenal</em></h2>
-      <p>Situados en primera línea del paseo marítimo de El Arenal, a pocos pasos de una de las playas más bonitas de Mallorca y con excelentes conexiones con Palma de Mallorca.</p>
+      <p class="eyebrow">D&oacute;nde estamos</p>
+      <h2 class="section-title">El coraz&oacute;n de<br><em>El Arenal</em></h2>
+      <p>Situados en primera l&iacute;nea del paseo mar&iacute;timo de El Arenal, a pocos pasos de una de las playas m&aacute;s bonitas de Mallorca y con excelentes conexiones con Palma de Mallorca.</p>
       <div class="location-items">
         <div class="location-item">
-          <span class="location-item-icon">ðŸ–ï¸</span>
-          <div class="location-item-text">
-            <strong>Platja de El Arenal</strong>
-            <span>50 metros · A pie</span>
-          </div>
+          <span class="location-item-icon">&#127958;</span>
+          <div class="location-item-text"><strong>Platja de El Arenal</strong><span>50 metros &middot; A pie</span></div>
         </div>
         <div class="location-item">
-          <span class="location-item-icon">ðŸ™ï¸</span>
-          <div class="location-item-text">
-            <strong>Palma de Mallorca</strong>
-            <span>12 km · 20 minutos en coche</span>
-          </div>
+          <span class="location-item-icon">&#127961;</span>
+          <div class="location-item-text"><strong>Palma de Mallorca</strong><span>12 km &middot; 20 minutos en coche</span></div>
         </div>
         <div class="location-item">
-          <span class="location-item-icon">âœˆï¸</span>
-          <div class="location-item-text">
-            <strong>Aeropuerto de Palma</strong>
-            <span>5 km · 10 minutos en coche</span>
-          </div>
+          <span class="location-item-icon">&#9992;</span>
+          <div class="location-item-text"><strong>Aeropuerto de Palma</strong><span>5 km &middot; 10 minutos en coche</span></div>
         </div>
       </div>
     </div>
     <div class="location-map">
-      <span class="map-pin">ðŸ“</span>
-      <div class="map-label">Nuestra ubicación</div>
-      <div class="map-address">Carrer de la Mar, 24 · El Arenal</div>
+      <span class="map-pin">&#128205;</span>
+      <div class="map-label">Nuestra ubicaci&oacute;n</div>
+      <div class="map-address">Carrer de la Mar, 24 &middot; El Arenal</div>
     </div>
   </div>
 </section>
@@ -473,42 +387,24 @@ footer{background:#1C2B1E;padding:4rem 3rem 2rem;color:rgba(255,255,255,0.6)}
 <section class="reviews" id="opiniones">
   <div class="reviews-inner">
     <div class="section-header">
-      <p class="eyebrow">Lo que dicen nuestros huéspedes</p>
+      <p class="eyebrow">Lo que dicen nuestros hu&eacute;spedes</p>
       <h2 class="section-title">Opiniones <em>reales</em></h2>
     </div>
     <div class="reviews-grid">
       <div class="review-card">
-        <div class="review-stars">â˜…â˜…â˜…â˜…â˜…</div>
-        <div class="review-text">"Una semana perfecta. La habitación con vista al mar es espectacular, el desayuno muy completo y el personal muy atento. Sin duda volvemos el próximo verano."</div>
-        <div class="review-author">
-          <div class="review-avatar">MG</div>
-          <div>
-            <div class="review-name">María García</div>
-            <div class="review-origin">Barcelona · Julio 2024</div>
-          </div>
-        </div>
+        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <div class="review-text">"Una semana perfecta. La habitaci&oacute;n con vista al mar es espectacular, el desayuno muy completo y el personal muy atento. Sin duda volvemos el pr&oacute;ximo verano."</div>
+        <div class="review-author"><div class="review-avatar">MG</div><div><div class="review-name">Mar&iacute;a Garc&iacute;a</div><div class="review-origin">Barcelona &middot; Julio 2024</div></div></div>
       </div>
       <div class="review-card">
-        <div class="review-stars">â˜…â˜…â˜…â˜…â˜…</div>
+        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
         <div class="review-text">"Wir waren mit der ganzen Familie da. Die Kinder liebten den Pool und den Strand. Das Personal spricht perfekt Deutsch und ist sehr freundlich."</div>
-        <div class="review-author">
-          <div class="review-avatar">TM</div>
-          <div>
-            <div class="review-name">Thomas Müller</div>
-            <div class="review-origin">Múnich · Agosto 2024</div>
-          </div>
-        </div>
+        <div class="review-author"><div class="review-avatar">TM</div><div><div class="review-name">Thomas M&uuml;ller</div><div class="review-origin">M&uuml;nich &middot; Agosto 2024</div></div></div>
       </div>
       <div class="review-card">
-        <div class="review-stars">â˜…â˜…â˜…â˜…â˜†</div>
+        <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
         <div class="review-text">"Great location, right on the seafront. The room was clean and comfortable. The AI chat assistant was very helpful for booking restaurants nearby!"</div>
-        <div class="review-author">
-          <div class="review-avatar">JB</div>
-          <div>
-            <div class="review-name">James Brown</div>
-            <div class="review-origin">Londres · Junio 2024</div>
-          </div>
-        </div>
+        <div class="review-author"><div class="review-avatar">JB</div><div><div class="review-name">James Brown</div><div class="review-origin">Londres &middot; Junio 2024</div></div></div>
       </div>
     </div>
   </div>
@@ -517,52 +413,34 @@ footer{background:#1C2B1E;padding:4rem 3rem 2rem;color:rgba(255,255,255,0.6)}
 <section class="reserva" id="reserva">
   <div class="reserva-inner">
     <div class="section-header">
-      <p class="eyebrow">Reserva directa · Mejor precio garantizado</p>
+      <p class="eyebrow">Reserva directa &middot; Mejor precio garantizado</p>
       <h2 class="section-title">Comprueba <em>disponibilidad</em></h2>
     </div>
-    <p>Reserva directamente con nosotros y obtén el mejor precio disponible. También puedes escribirnos por el chat â€” respondemos en español, inglés y alemán.</p>
+    <p>Reserva directamente con nosotros y obt&eacute;n el mejor precio disponible. Tambi&eacute;n puedes escribirnos por el chat &mdash; respondemos en espa&ntilde;ol, ingl&eacute;s y alem&aacute;n.</p>
     <div class="reserva-form">
-      <div class="form-group">
-        <label class="form-label">Nombre completo</label>
-        <input type="text" class="form-input" placeholder="Tu nombre">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Email</label>
-        <input type="email" class="form-input" placeholder="tu@email.com">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Check-in</label>
-        <input type="date" class="form-input">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Check-out</label>
-        <input type="date" class="form-input">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Tipo de habitación</label>
+      <div class="form-group"><label class="form-label">Nombre completo</label><input type="text" class="form-input" placeholder="Tu nombre"></div>
+      <div class="form-group"><label class="form-label">Email</label><input type="email" class="form-input" placeholder="tu@email.com"></div>
+      <div class="form-group"><label class="form-label">Check-in</label><input type="date" class="form-input"></div>
+      <div class="form-group"><label class="form-label">Check-out</label><input type="date" class="form-input"></div>
+      <div class="form-group"><label class="form-label">Tipo de habitaci&oacute;n</label>
         <select class="form-input">
-          <option>Habitación Estándar · 89€/noche</option>
-          <option>Habitación Vista Mar · 129€/noche</option>
-          <option>Suite Familiar · 189€/noche</option>
+          <option>Habitaci&oacute;n Est&aacute;ndar &middot; 89&euro;/noche</option>
+          <option>Habitaci&oacute;n Vista Mar &middot; 129&euro;/noche</option>
+          <option>Suite Familiar &middot; 189&euro;/noche</option>
         </select>
       </div>
-      <div class="form-group">
-        <label class="form-label">Huéspedes</label>
+      <div class="form-group"><label class="form-label">Hu&eacute;spedes</label>
         <select class="form-input">
-          <option>1 adulto</option>
-          <option>2 adultos</option>
-          <option>2 adultos + 1 niño</option>
-          <option>2 adultos + 2 niños</option>
+          <option>1 adulto</option><option>2 adultos</option>
+          <option>2 adultos + 1 ni&ntilde;o</option>
+          <option>2 adultos + 2 ni&ntilde;os</option>
           <option>Grupo (consultar)</option>
         </select>
       </div>
-      <div class="form-group full">
-        <label class="form-label">Peticiones especiales</label>
-        <input type="text" class="form-input" placeholder="Cuna, habitaciones comunicadas, alergias alimentarias...">
-      </div>
+      <div class="form-group full"><label class="form-label">Peticiones especiales</label><input type="text" class="form-input" placeholder="Cuna, habitaciones comunicadas, alergias..."></div>
     </div>
     <button class="btn-full">Solicitar reserva</button>
-    <p class="reserva-note">Recibirás confirmación en menos de 2 horas · Cancelación gratuita hasta 48h antes</p>
+    <p class="reserva-note">Recibir&aacute;s confirmaci&oacute;n en menos de 2 horas &middot; Cancelaci&oacute;n gratuita hasta 48h antes</p>
   </div>
 </section>
 
@@ -571,39 +449,15 @@ footer{background:#1C2B1E;padding:4rem 3rem 2rem;color:rgba(255,255,255,0.6)}
     <div class="footer-top">
       <div>
         <div class="footer-logo">Hotel Miramar</div>
-        <div class="footer-tagline">Primera línea de playa en El Arenal, Mallorca. Tu hogar frente al Mediterráneo desde 1987.</div>
+        <div class="footer-tagline">Primera l&iacute;nea de playa en El Arenal, Mallorca. Tu hogar frente al Mediterr&aacute;neo desde 1987.</div>
       </div>
-      <div class="footer-col">
-        <h5>Habitaciones</h5>
-        <ul>
-          <li><a href="#">Estándar</a></li>
-          <li><a href="#">Vista Mar</a></li>
-          <li><a href="#">Suite Familiar</a></li>
-          <li><a href="#">Tarifas</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h5>Servicios</h5>
-        <ul>
-          <li><a href="#">Piscina</a></li>
-          <li><a href="#">Restaurante</a></li>
-          <li><a href="#">Spa & Relax</a></li>
-          <li><a href="#">Parking</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h5>Contacto</h5>
-        <ul>
-          <li>Carrer de la Mar, 24</li>
-          <li>El Arenal, Mallorca</li>
-          <li>+34 971 XXX XXX</li>
-          <li><a href="#"><span class="__cf_email__" data-cfemail="0b62656d644b63647f6e676662796a666a79256e78">[email&#160;protected]</span></a></li>
-        </ul>
-      </div>
+      <div class="footer-col"><h5>Habitaciones</h5><ul><li><a href="#">Est&aacute;ndar</a></li><li><a href="#">Vista Mar</a></li><li><a href="#">Suite Familiar</a></li><li><a href="#">Tarifas</a></li></ul></div>
+      <div class="footer-col"><h5>Servicios</h5><ul><li><a href="#">Piscina</a></li><li><a href="#">Restaurante</a></li><li><a href="#">Spa &amp; Relax</a></li><li><a href="#">Parking</a></li></ul></div>
+      <div class="footer-col"><h5>Contacto</h5><ul><li>Carrer de la Mar, 24</li><li>El Arenal, Mallorca</li><li>+34 971 XXX XXX</li><li><a href="#">info@hotelmiramar.es</a></li></ul></div>
     </div>
     <div class="footer-bottom">
-      <span>Â© 2024 Hotel Miramar · Todos los derechos reservados</span>
-      <span>Web desarrollada por <a href="#">Yeray Web & AI</a></span>
+      <span>&copy; 2024 Hotel Miramar &middot; Todos los derechos reservados</span>
+      <span>Web desarrollada por <a href="#">Yeray Web &amp; AI</a></span>
     </div>
   </div>
 </footer>
@@ -611,23 +465,23 @@ footer{background:#1C2B1E;padding:4rem 3rem 2rem;color:rgba(255,255,255,0.6)}
 <div class="chatbot">
   <div class="chat-window" id="chatWindow">
     <div class="chat-header">
-      <div class="chat-avatar">ðŸ¨</div>
+      <div class="chat-avatar">&#127968;</div>
       <div class="chat-header-info">
         <h4>Hotel Miramar</h4>
-        <p><span class="chat-online"></span>Asistente · En línea ahora</p>
+        <p><span class="chat-online"></span>Asistente &middot; En l&iacute;nea ahora</p>
       </div>
     </div>
     <div class="chat-messages" id="chatMessages">
-      <div class="chat-msg bot">¡Hola! Soy el asistente del Hotel Miramar. Puedo ayudarte en español, inglés o alemán. ¿En qué puedo ayudarte? ðŸŒŠ</div>
+      <div class="chat-msg bot">&iexcl;Hola! Soy el asistente del Hotel Miramar. Puedo ayudarte en espa&ntilde;ol, ingl&eacute;s o alem&aacute;n. &iquest;En qu&eacute; puedo ayudarte?</div>
     </div>
     <div class="chat-suggestions" id="suggestions">
-      <button class="chat-sug" onclick="window.quickMsg(this.textContent)">¿Qué habitaciones tenéis?</button>
+      <button class="chat-sug" onclick="window.quickMsg(this.textContent)">&iquest;Qu&eacute; habitaciones ten&eacute;is?</button>
       <button class="chat-sug" onclick="window.quickMsg(this.textContent)">Quiero hacer una reserva</button>
-      <button class="chat-sug" onclick="window.quickMsg(this.textContent)">¿Tenéis parking gratuito?</button>
+      <button class="chat-sug" onclick="window.quickMsg(this.textContent)">&iquest;Ten&eacute;is parking gratuito?</button>
     </div>
     <div class="chat-input-row">
-      <input class="chat-input" id="chatInput" placeholder="Escríbenos en cualquier idioma..." onkeydown="if(event.key==='Enter')sendMsg()">
-      <button class="chat-send" id="chatSend" onclick="window.sendMsg()">â†‘</button>
+      <input class="chat-input" id="chatInput" placeholder="Escr&iacute;benos en cualquier idioma..." onkeydown="if(event.key==='Enter')window.sendMsg()">
+      <button class="chat-send" id="chatSend" onclick="window.sendMsg()">&#8593;</button>
     </div>
   </div>
   <button class="chat-btn" id="chatToggle" onclick="window.toggleChat()">
@@ -636,105 +490,237 @@ footer{background:#1C2B1E;padding:4rem 3rem 2rem;color:rgba(255,255,255,0.6)}
   </button>
 </div>
 
-
-<script>
-(function(){
-  var URL = 'https://hotel-miramar-backend-production.up.railway.app';
-  var open = false, loading = false, hist = [];
-
-  function toggleChat(){
-    open=!open;
-    document.getElementById('chatWindow').classList.toggle('open',open);
-    document.querySelector('.chat-badge').style.display=open?'none':'flex';
+<script data-cfasync="false">
+// ─── TRADUCCIONES ─────────────────────────────────────────────
+var LANG = {
+  es: {
+    navLinks:['Habitaciones','Servicios','Ubicaci\u00f3n','Opiniones'],
+    navCta:'Reservar ahora',
+    heroEyebrow:'El Arenal \u00b7 Mallorca \u00b7 Desde 1987',
+    heroTitle:'El descanso<br>que <em>mereces</em>',
+    heroSub:'Frente al mar en El Arenal, el Hotel Miramar combina la hospitalidad mallorquina con todas las comodidades modernas. Despierta cada d\u00eda con las vistas al Mediterr\u00e1neo.',
+    heroCta1:'Consultar disponibilidad', heroCta2:'Ver habitaciones',
+    badge1:'Puntuaci\u00f3n media', badge2:'A\u00f1os de historia', badge3:'L\u00ednea de playa',
+    strip:['Cancelaci\u00f3n gratuita 48h','Desayuno incluido','Parking privado','Piscina exterior','Wifi gratis'],
+    aboutEyebrow:'Nuestra historia',
+    aboutTitle:'Cuatro d\u00e9cadas<br>en primera <em>l\u00ednea</em>',
+    aboutP1:'Abrimos nuestras puertas en 1987 con un \u00fanico objetivo: ofrecer a nuestros hu\u00e9spedes el mejor descanso posible frente al Mediterr\u00e1neo. Hoy, casi cuatro d\u00e9cadas despu\u00e9s, ese compromiso sigue siendo el mismo.',
+    aboutP2:'El Arenal es uno de los rincones m\u00e1s queridos de Mallorca, con su paseo mar\u00edtimo, su playa de aguas cristalinas y su ambiente familiar. Y nosotros llevamos d\u00e9cadas siendo parte de esa historia.',
+    tags:['Ambiente familiar','Primera l\u00ednea','Restaurante propio','Piscina exterior','Terraza al mar'],
+    roomsEyebrow:'Alojamiento', roomsTitle:'Nuestras <em>habitaciones</em>',
+    r1:{name:'Habitaci\u00f3n Est\u00e1ndar',desc:'Confortable y bien equipada, ideal para estancias cortas. Vista al jard\u00edn interior.',badge:'DISPONIBLE'},
+    r2:{name:'Habitaci\u00f3n Vista Mar',desc:'Despierta cada ma\u00f1ana con las vistas al Mediterr\u00e1neo. Terraza privada incluida.',badge:'M\u00c1S POPULAR'},
+    r3:{name:'Suite Familiar',desc:'Dos habitaciones conectadas con sal\u00f3n propio. La opci\u00f3n perfecta para familias.',badge:'FAMILIAS'},
+    roomBtn:'Reservar', perNight:'/noche',
+    amenEyebrow:'Lo que ofrecemos', amenTitle:'Todo lo que <em>necesitas</em>',
+    anames:['Piscina exterior','Desayuno buffet','Acceso directo playa','Parking privado','Restaurante & Bar','Zona de relax','Alquiler de bicicletas','Atenci\u00f3n multiling\u00fce'],
+    adescs:['Abierta de mayo a octubre, con zona de hamacas y servicio de toallas.','Buffet completo cada ma\u00f1ana con productos locales de temporada. De 7:30 a 10:30h.','A 50 metros de la Platja de El Arenal. Hamacas reservadas para clientes.','Parking cubierto con plazas para todos los hu\u00e9spedes sin coste adicional.','Cocina mediterr\u00e1nea con ingredientes locales. Terraza con vistas al mar.','Sala de descanso, masajes bajo reserva y tratamientos de spa.','Flota de bicicletas disponible para recorrer el paseo mar\u00edtimo.','Personal y asistente virtual disponible en espa\u00f1ol, ingl\u00e9s y alem\u00e1n.'],
+    locEyebrow:'D\u00f3nde estamos', locTitle:'El coraz\u00f3n de<br><em>El Arenal</em>',
+    locDesc:'Situados en primera l\u00ednea del paseo mar\u00edtimo de El Arenal, a pocos pasos de una de las playas m\u00e1s bonitas de Mallorca.',
+    locItems:[{t:'Platja de El Arenal',s:'50 metros \u00b7 A pie'},{t:'Palma de Mallorca',s:'12 km \u00b7 20 minutos en coche'},{t:'Aeropuerto de Palma',s:'5 km \u00b7 10 minutos en coche'}],
+    mapLabel:'Nuestra ubicaci\u00f3n',
+    revEyebrow:'Lo que dicen nuestros hu\u00e9spedes', revTitle:'Opiniones <em>reales</em>',
+    resEyebrow:'Reserva directa \u00b7 Mejor precio garantizado', resTitle:'Comprueba <em>disponibilidad</em>',
+    resDesc:'Reserva directamente con nosotros y obt\u00e9n el mejor precio disponible. Tambi\u00e9n puedes escribirnos por el chat \u2014 respondemos en espa\u00f1ol, ingl\u00e9s y alem\u00e1n.',
+    formLabels:['Nombre completo','Email','Check-in','Check-out','Tipo de habitaci\u00f3n','Hu\u00e9spedes','Peticiones especiales'],
+    formBtn:'Solicitar reserva',
+    formNote:'Recibir\u00e1s confirmaci\u00f3n en menos de 2 horas \u00b7 Cancelaci\u00f3n gratuita hasta 48h antes',
+    chatPlaceholder:'Escr\u00edbenos en cualquier idioma...',
+    chatSugs:['\u00bfQu\u00e9 habitaciones ten\u00e9is?','Quiero hacer una reserva','\u00bfTen\u00e9is parking gratuito?']
+  },
+  en: {
+    navLinks:['Rooms','Services','Location','Reviews'],
+    navCta:'Book now',
+    heroEyebrow:'El Arenal \u00b7 Mallorca \u00b7 Since 1987',
+    heroTitle:'The rest<br>you <em>deserve</em>',
+    heroSub:'Located by the sea in El Arenal, Hotel Miramar combines Mallorcan hospitality with all modern comforts. Wake up every day to views of the Mediterranean.',
+    heroCta1:'Check availability', heroCta2:'View rooms',
+    badge1:'Average rating', badge2:'Years of history', badge3:'Beachfront',
+    strip:['Free cancellation 48h','Breakfast included','Private parking','Outdoor pool','Free WiFi'],
+    aboutEyebrow:'Our story',
+    aboutTitle:'Four decades<br>on the <em>waterfront</em>',
+    aboutP1:'We opened our doors in 1987 with one goal: to offer our guests the best possible rest by the Mediterranean. Today, almost four decades later, that commitment remains the same.',
+    aboutP2:'El Arenal is one of the most beloved corners of Mallorca, with its seafront promenade, crystal-clear beach and family-friendly atmosphere. We have been part of that story for decades.',
+    tags:['Family-friendly','Beachfront','Own restaurant','Outdoor pool','Sea terrace'],
+    roomsEyebrow:'Accommodation', roomsTitle:'Our <em>rooms</em>',
+    r1:{name:'Standard Room',desc:'Comfortable and well-equipped, ideal for short stays. Garden view.',badge:'AVAILABLE'},
+    r2:{name:'Sea View Room',desc:'Wake up every morning to Mediterranean views. Private terrace included.',badge:'MOST POPULAR'},
+    r3:{name:'Family Suite',desc:'Two connected rooms with private lounge. The perfect option for families.',badge:'FAMILIES'},
+    roomBtn:'Book', perNight:'/night',
+    amenEyebrow:'What we offer', amenTitle:'Everything you <em>need</em>',
+    anames:['Outdoor pool','Buffet breakfast','Direct beach access','Private parking','Restaurant & Bar','Relaxation area','Bike rental','Multilingual service'],
+    adescs:['Open from May to October, with sun lounger area and towel service.','Full buffet every morning with local seasonal products. From 7:30 to 10:30h.','50 metres from Platja de El Arenal. Reserved sun loungers for guests.','Covered parking with spaces for all guests at no extra cost.','Mediterranean cuisine with local ingredients. Sea-view terrace.','Rest room, massages by appointment and spa treatments.','Fleet of bicycles available to explore the seafront promenade.','Staff and virtual assistant available in Spanish, English and German.'],
+    locEyebrow:'Where we are', locTitle:'The heart of<br><em>El Arenal</em>',
+    locDesc:'Located on the seafront promenade of El Arenal, steps from one of Mallorca\'s most beautiful beaches, with excellent connections to Palma de Mallorca.',
+    locItems:[{t:'Platja de El Arenal',s:'50 metres \u00b7 On foot'},{t:'Palma de Mallorca',s:'12 km \u00b7 20 minutes by car'},{t:'Palma Airport',s:'5 km \u00b7 10 minutes by car'}],
+    mapLabel:'Our location',
+    revEyebrow:'What our guests say', revTitle:'Real <em>reviews</em>',
+    resEyebrow:'Direct booking \u00b7 Best price guaranteed', resTitle:'Check <em>availability</em>',
+    resDesc:'Book directly with us and get the best available price. You can also message us on chat \u2014 we respond in Spanish, English and German.',
+    formLabels:['Full name','Email','Check-in','Check-out','Room type','Guests','Special requests'],
+    formBtn:'Request booking',
+    formNote:'You will receive confirmation within 2 hours \u00b7 Free cancellation up to 48h before',
+    chatPlaceholder:'Write to us in any language...',
+    chatSugs:['What rooms do you have?','I want to make a reservation','Do you have free parking?']
+  },
+  de: {
+    navLinks:['Zimmer','Leistungen','Lage','Bewertungen'],
+    navCta:'Jetzt buchen',
+    heroEyebrow:'El Arenal \u00b7 Mallorca \u00b7 Seit 1987',
+    heroTitle:'Die Erholung,<br>die Sie <em>verdienen</em>',
+    heroSub:'Am Meer in El Arenal verbindet das Hotel Miramar mallorquinische Gastfreundschaft mit modernem Komfort. Wachen Sie jeden Tag mit Blick auf das Mittelmeer auf.',
+    heroCta1:'Verf\u00fcgbarkeit pr\u00fcfen', heroCta2:'Zimmer ansehen',
+    badge1:'Durchschnittsbewertung', badge2:'Jahre Geschichte', badge3:'Direkt am Strand',
+    strip:['Kostenlose Stornierung 48h','Fr\u00fchst\u00fcck inklusive','Privatparkplatz','Au\u00dfenpool','Kostenloses WLAN'],
+    aboutEyebrow:'Unsere Geschichte',
+    aboutTitle:'Vier Jahrzehnte<br>in <em>erster Reihe</em>',
+    aboutP1:'Wir \u00f6ffneten 1987 unsere T\u00fcren mit einem einzigen Ziel: unseren G\u00e4sten die bestm\u00f6gliche Erholung am Mittelmeer zu bieten.',
+    aboutP2:'El Arenal ist einer der beliebtesten Orte Mallorcas, mit seiner Strandpromenade, dem kristallklaren Strand und dem familienfreundlichen Ambiente.',
+    tags:['Familienfreundlich','Direkt am Strand','Eigenes Restaurant','Au\u00dfenpool','Meerterrasse'],
+    roomsEyebrow:'Unterkunft', roomsTitle:'Unsere <em>Zimmer</em>',
+    r1:{name:'Standardzimmer',desc:'Komfortabel und gut ausgestattet, ideal f\u00fcr kurze Aufenthalte. Gartenblick.',badge:'VERF\u00dcGBAR'},
+    r2:{name:'Zimmer mit Meerblick',desc:'Wachen Sie jeden Morgen mit Blick aufs Mittelmeer auf. Private Terrasse inklusive.',badge:'AM BELIEBTESTEN'},
+    r3:{name:'Familiensuite',desc:'Zwei verbundene Zimmer mit eigenem Wohnzimmer. Die perfekte Option f\u00fcr Familien.',badge:'FAMILIEN'},
+    roomBtn:'Buchen', perNight:'/Nacht',
+    amenEyebrow:'Was wir bieten', amenTitle:'Alles was Sie <em>brauchen</em>',
+    anames:['Au\u00dfenpool','Buffetfr\u00fchst\u00fcck','Direkter Strandzugang','Privatparkplatz','Restaurant & Bar','Entspannungsbereich','Fahrradverleih','Mehrsprachiger Service'],
+    adescs:['Von Mai bis Oktober ge\u00f6ffnet, mit Liegebereich und Handtuchservice.','Vollst\u00e4ndiges Buffet jeden Morgen mit lokalen Saisonprodukten. Von 7:30 bis 10:30 Uhr.','50 Meter vom Platja de El Arenal. Reservierte Liegest\u00fchle f\u00fcr G\u00e4ste.','Überdachter Parkplatz mit Pl\u00e4tzen f\u00fcr alle G\u00e4ste ohne Aufpreis.','Mediterrane K\u00fcche mit lokalen Zutaten. Terrasse mit Meerblick.','Ruheraum, Massagen auf Anfrage und Spa-Behandlungen.','Fahrradflotte f\u00fcr Ausfл\u00fcge entlang der Strandpromenade.','Personal und virtueller Assistent auf Spanisch, Englisch und Deutsch.'],
+    locEyebrow:'Wo wir sind', locTitle:'Das Herz von<br><em>El Arenal</em>',
+    locDesc:'An der Strandpromenade von El Arenal gelegen, wenige Schritte von einem der sch\u00f6nsten Str\u00e4nde Mallorcas.',
+    locItems:[{t:'Platja de El Arenal',s:'50 Meter \u00b7 Zu Fu\u00df'},{t:'Palma de Mallorca',s:'12 km \u00b7 20 Minuten mit dem Auto'},{t:'Flughafen Palma',s:'5 km \u00b7 10 Minuten mit dem Auto'}],
+    mapLabel:'Unser Standort',
+    revEyebrow:'Was unsere G\u00e4ste sagen', revTitle:'Echte <em>Bewertungen</em>',
+    resEyebrow:'Direktbuchung \u00b7 Bestpreisgarantie', resTitle:'Verf\u00fcgbarkeit <em>pr\u00fcfen</em>',
+    resDesc:'Buchen Sie direkt bei uns und erhalten Sie den besten verf\u00fcgbaren Preis.',
+    formLabels:['Vollst\u00e4ndiger Name','E-Mail','Check-in','Check-out','Zimmertyp','G\u00e4ste','Besondere W\u00fcnsche'],
+    formBtn:'Buchung anfragen',
+    formNote:'Sie erhalten eine Best\u00e4tigung innerhalb von 2 Stunden \u00b7 Kostenlose Stornierung bis 48h vorher',
+    chatPlaceholder:'Schreiben Sie uns in jeder Sprache...',
+    chatSugs:['Welche Zimmer haben Sie?','Ich m\u00f6chte eine Reservierung machen','Haben Sie kostenlosen Parkplatz?']
   }
-
-  function addMsg(text,type){
-    var c=document.getElementById('chatMessages');
-    var d=document.createElement('div');
-    d.className='chat-msg '+type;
-    d.textContent=text;
-    c.appendChild(d);
-    c.scrollTop=c.scrollHeight;
-  }
-
-  function showTyping(){
-    var c=document.getElementById('chatMessages');
-    var d=document.createElement('div');
-    d.className='chat-msg bot typing';
-    d.innerHTML='<span></span><span></span><span></span>';
-    d.id='typingIndicator';
-    c.appendChild(d);
-    c.scrollTop=c.scrollHeight;
-  }
-
-  function removeTyping(){
-    var t=document.getElementById('typingIndicator');
-    if(t)t.remove();
-  }
-
-  function send(msg){
-    hist.push({role:'user',content:msg});
-    showTyping();
-    fetch(URL+'/chat',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({messages:hist})
-    })
-    .then(function(r){return r.json();})
-    .then(function(d){
-      removeTyping();
-      var r=d.reply||'Error. Llamenos al +34 971 XXX XXX.';
-      hist.push({role:'assistant',content:r});
-      addMsg(r,'bot');
-      loading=false;
-    })
-    .catch(function(){
-      removeTyping();
-      addMsg('Error de conexion. Contactenos en info@hotelmiramar.es','bot');
-      loading=false;
-    });
-  }
-
-  window.toggleChat=toggleChat;
-
-  window.sendMsg=function(){
-    if(loading)return;
-    var inp=document.getElementById('chatInput');
-    var msg=inp.value.trim();
-    if(!msg)return;
-    document.getElementById('suggestions').style.display='none';
-    addMsg(msg,'user');
-    inp.value='';
-    loading=true;
-    send(msg);
-  };
-
-  window.quickMsg=function(msg){
-    if(loading)return;
-    msg=msg.trim();
-    document.getElementById('suggestions').style.display='none';
-    addMsg(msg,'user');
-    loading=true;
-    send(msg);
-  };
-})();
-</script>
-<script>
-var T={es:{cta:'Reservar ahora',nav:['Habitaciones','Servicios','Ubicación','Opiniones']},en:{cta:'Book now',nav:['Rooms','Services','Location','Reviews']},de:{cta:'Jetzt buchen',nav:['Zimmer','Leistungen','Lage','Bewertungen']}};
-window.setLang=function(l){
-  document.querySelectorAll('.lang-btn').forEach(function(b){b.classList.remove('active')});
-  var btns=document.querySelectorAll('.lang-btn');
-  for(var i=0;i<btns.length;i++){if(btns[i].textContent===l.toUpperCase())btns[i].classList.add('active')}
-  var nav=document.querySelectorAll('.nav-links a');
-  var cta=document.querySelector('.nav-cta');
-  if(l==='en'){cta.textContent='Book now';nav[0]&&(nav[0].textContent='Rooms');nav[1]&&(nav[1].textContent='Services');nav[2]&&(nav[2].textContent='Location');nav[3]&&(nav[3].textContent='Reviews')}
-  else if(l==='de'){cta.textContent='Jetzt buchen';nav[0]&&(nav[0].textContent='Zimmer');nav[1]&&(nav[1].textContent='Leistungen');nav[2]&&(nav[2].textContent='Lage');nav[3]&&(nav[3].textContent='Bewertungen')}
-  else{cta.textContent='Reservar ahora';nav[0]&&(nav[0].textContent='Habitaciones');nav[1]&&(nav[1].textContent='Servicios');nav[2]&&(nav[2].textContent='Ubicaci\u00f3n');nav[3]&&(nav[3].textContent='Opiniones')}
 };
-window.scrollToReserva=function(){document.getElementById('reserva').scrollIntoView({behavior:'smooth'})};
+
+window.setLang = function(l) {
+  var t = LANG[l];
+  if(!t) return;
+  // Botones
+  document.querySelectorAll('.lang-btn').forEach(function(b){b.classList.remove('active')});
+  document.querySelectorAll('.lang-btn').forEach(function(b){if(b.textContent===l.toUpperCase())b.classList.add('active')});
+  // Nav
+  var nl=document.querySelectorAll('.nav-links a');
+  nl.forEach(function(a,i){if(t.navLinks[i])a.textContent=t.navLinks[i]});
+  document.querySelector('.nav-cta').textContent=t.navCta;
+  // Hero
+  var he=document.querySelector('.hero-eyebrow'); if(he)he.textContent=t.heroEyebrow;
+  var ht=document.querySelector('.hero-title'); if(ht)ht.innerHTML=t.heroTitle;
+  var hs=document.querySelector('.hero-sub'); if(hs)hs.textContent=t.heroSub;
+  var hb=document.querySelectorAll('.hero-actions button');
+  if(hb[0])hb[0].textContent=t.heroCta1; if(hb[1])hb[1].textContent=t.heroCta2;
+  var bl=document.querySelectorAll('.badge-label');
+  if(bl[0])bl[0].textContent=t.badge1; if(bl[1])bl[1].textContent=t.badge2; if(bl[2])bl[2].textContent=t.badge3;
+  // Strip
+  document.querySelectorAll('.strip-item').forEach(function(el,i){
+    if(t.strip[i])el.innerHTML='<span class="strip-icon">&#10003;</span> '+t.strip[i];
+  });
+  // About
+  var ae=document.querySelector('.about .eyebrow'); if(ae)ae.textContent=t.aboutEyebrow;
+  var at=document.querySelector('.about .section-title'); if(at)at.innerHTML=t.aboutTitle;
+  var ap=document.querySelectorAll('.about-text p:not(.eyebrow)');
+  if(ap[0])ap[0].textContent=t.aboutP1; if(ap[1])ap[1].textContent=t.aboutP2;
+  document.querySelectorAll('.tag').forEach(function(el,i){if(t.tags[i])el.textContent=t.tags[i]});
+  // Rooms
+  var re=document.querySelector('.rooms .eyebrow'); if(re)re.textContent=t.roomsEyebrow;
+  var rt=document.querySelector('.rooms .section-title'); if(rt)rt.innerHTML=t.roomsTitle;
+  var rc=document.querySelectorAll('.room-card');
+  [[t.r1,rc[0]],[t.r2,rc[1]],[t.r3,rc[2]]].forEach(function(pair){
+    var r=pair[0],c=pair[1]; if(!r||!c)return;
+    c.querySelector('.room-name').textContent=r.name;
+    c.querySelector('.room-desc').textContent=r.desc;
+    c.querySelector('.room-badge').textContent=r.badge;
+    c.querySelector('.room-price span').textContent=t.perNight;
+    c.querySelector('.btn-sm').textContent=t.roomBtn;
+  });
+  // Amenities
+  var ae2=document.querySelector('.amenities .eyebrow'); if(ae2)ae2.textContent=t.amenEyebrow;
+  var at2=document.querySelector('.amenities .section-title'); if(at2)at2.innerHTML=t.amenTitle;
+  document.querySelectorAll('.amenity-name').forEach(function(el,i){if(t.anames[i])el.textContent=t.anames[i]});
+  document.querySelectorAll('.amenity-desc').forEach(function(el,i){if(t.adescs[i])el.textContent=t.adescs[i]});
+  // Location
+  var le=document.querySelector('.location .eyebrow'); if(le)le.textContent=t.locEyebrow;
+  var lt=document.querySelector('.location .section-title'); if(lt)lt.innerHTML=t.locTitle;
+  var lp=document.querySelector('.location-text > p'); if(lp)lp.textContent=t.locDesc;
+  document.querySelectorAll('.location-item-text').forEach(function(el,i){
+    if(!t.locItems[i])return;
+    el.querySelector('strong').textContent=t.locItems[i].t;
+    el.querySelector('span').textContent=t.locItems[i].s;
+  });
+  var ml=document.querySelector('.map-label'); if(ml)ml.textContent=t.mapLabel;
+  // Reviews
+  var rve=document.querySelector('.reviews .eyebrow'); if(rve)rve.textContent=t.revEyebrow;
+  var rvt=document.querySelector('.reviews .section-title'); if(rvt)rvt.innerHTML=t.revTitle;
+  // Reserva
+  var rese=document.querySelector('.reserva .eyebrow'); if(rese)rese.textContent=t.resEyebrow;
+  var rest=document.querySelector('.reserva .section-title'); if(rest)rest.innerHTML=t.resTitle;
+  var resp=document.querySelector('.reserva-inner > p'); if(resp)resp.textContent=t.resDesc;
+  document.querySelectorAll('.form-label').forEach(function(el,i){if(t.formLabels[i])el.textContent=t.formLabels[i]});
+  var bf=document.querySelector('.btn-full'); if(bf)bf.textContent=t.formBtn;
+  var rn=document.querySelector('.reserva-note'); if(rn)rn.textContent=t.formNote;
+  // Chat
+  var ci=document.querySelector('.chat-input'); if(ci)ci.placeholder=t.chatPlaceholder;
+  document.querySelectorAll('.chat-sug').forEach(function(s,i){if(t.chatSugs[i])s.textContent=t.chatSugs[i]});
+};
+
+  // Form select options
+  var roomSel=document.querySelectorAll('.reserva-form select')[0];
+  var guestSel=document.querySelectorAll('.reserva-form select')[1];
+  if(roomSel){
+    var rOpts={es:['Habitaci\u00f3n Est\u00e1ndar \u00b7 89\u20ac/noche','Habitaci\u00f3n Vista Mar \u00b7 129\u20ac/noche','Suite Familiar \u00b7 189\u20ac/noche'],
+               en:['Standard Room \u00b7 \u20ac89/night','Sea View Room \u00b7 \u20ac129/night','Family Suite \u00b7 \u20ac189/night'],
+               de:['Standardzimmer \u00b7 89\u20ac/Nacht','Zimmer mit Meerblick \u00b7 129\u20ac/Nacht','Familiensuite \u00b7 189\u20ac/Nacht']};
+    rOpts[l].forEach(function(txt,i){if(roomSel.options[i])roomSel.options[i].text=txt});
+  }
+  if(guestSel){
+    var gOpts={es:['1 adulto','2 adultos','2 adultos + 1 ni\u00f1o','2 adultos + 2 ni\u00f1os','Grupo (consultar)'],
+               en:['1 adult','2 adults','2 adults + 1 child','2 adults + 2 children','Group (enquire)'],
+               de:['1 Erwachsener','2 Erwachsene','2 Erwachsene + 1 Kind','2 Erwachsene + 2 Kinder','Gruppe (anfragen)']};
+    gOpts[l].forEach(function(txt,i){if(guestSel.options[i])guestSel.options[i].text=txt});
+  }
+  // Form input placeholders
+  var phs={es:['Tu nombre','tu@email.com','Cuna, habitaciones comunicadas, alergias...'],
+           en:['Your name','you@email.com','Cot, connecting rooms, allergies...'],
+           de:['Ihr Name','sie@email.com','Kinderbett, verbundene Zimmer, Allergien...']};
+  var inputs=document.querySelectorAll('.reserva-form input[type="text"], .reserva-form input[type="email"]');
+  if(inputs[0])inputs[0].placeholder=phs[l][0];
+  if(inputs[1])inputs[1].placeholder=phs[l][1];
+  var lastInput=document.querySelector('.form-group.full input');
+  if(lastInput)lastInput.placeholder=phs[l][2];
+
+  // Footer
+  var ft=document.querySelectorAll('.footer-col h5');
+  if(l==='en'){if(ft[0])ft[0].textContent='Rooms';if(ft[1])ft[1].textContent='Services';if(ft[2])ft[2].textContent='Contact';}
+  else if(l==='de'){if(ft[0])ft[0].textContent='Zimmer';if(ft[1])ft[1].textContent='Leistungen';if(ft[2])ft[2].textContent='Kontakt';}
+  else{if(ft[0])ft[0].textContent='Habitaciones';if(ft[1])ft[1].textContent='Servicios';if(ft[2])ft[2].textContent='Contacto';}
+  var fbs=document.querySelectorAll('.footer-bottom span');
+  if(fbs[0]){if(l==='en')fbs[0].textContent='\u00a9 2024 Hotel Miramar \u00b7 All rights reserved';else if(l==='de')fbs[0].textContent='\u00a9 2024 Hotel Miramar \u00b7 Alle Rechte vorbehalten';else fbs[0].textContent='\u00a9 2024 Hotel Miramar \u00b7 Todos los derechos reservados';}
+
+window.scrollToReserva = function(){
+  document.getElementById('reserva').scrollIntoView({behavior:'smooth'});
+};
+</script>
+
+<script data-cfasync="false">
+(function(){
+  var URL='https://hotel-miramar-backend-production.up.railway.app';
+  var open=false,loading=false,hist=[];
+  function toggleChat(){open=!open;document.getElementById('chatWindow').classList.toggle('open',open);document.querySelector('.chat-badge').style.display=open?'none':'flex';}
+  function addMsg(text,type){var c=document.getElementById('chatMessages');var d=document.createElement('div');d.className='chat-msg '+type;d.textContent=text;c.appendChild(d);c.scrollTop=c.scrollHeight;}
+  function showTyping(){var c=document.getElementById('chatMessages');var d=document.createElement('div');d.className='chat-msg bot typing';d.innerHTML='<span></span><span></span><span></span>';d.id='typingIndicator';c.appendChild(d);c.scrollTop=c.scrollHeight;}
+  function removeTyping(){var t=document.getElementById('typingIndicator');if(t)t.remove();}
+  function send(msg){hist.push({role:'user',content:msg});showTyping();fetch(URL+'/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:hist})}).then(function(r){return r.json();}).then(function(d){removeTyping();var r=d.reply||'Error. Llamenos al +34 971 XXX XXX.';hist.push({role:'assistant',content:r});addMsg(r,'bot');loading=false;}).catch(function(){removeTyping();addMsg('Error de conexion. Contactenos en info@hotelmiramar.es','bot');loading=false;});}
+  window.toggleChat=toggleChat;
+  window.sendMsg=function(){if(loading)return;var inp=document.getElementById('chatInput');var msg=inp.value.trim();if(!msg)return;document.getElementById('suggestions').style.display='none';addMsg(msg,'user');inp.value='';loading=true;send(msg);};
+  window.quickMsg=function(msg){if(loading)return;msg=msg.trim();document.getElementById('suggestions').style.display='none';addMsg(msg,'user');loading=true;send(msg);};
+})();
 </script>
 </body>
 </html>
-
-
-
