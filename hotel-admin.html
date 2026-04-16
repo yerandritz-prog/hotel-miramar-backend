@@ -3,269 +3,699 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hotel Miramar · Panel de Reservas</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<title>Hotel Miramar · Panel de Administración</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--green:#2D6A4F;--green-light:#52B788;--green-pale:#D8F3DC;--cream:#FAFAF7;--white:#FFFFFF;--stone:#F5F3EE;--text:#1C1C1C;--text-muted:#6B7280;--border:#E5E7EB;--red:#EF4444;--red-pale:#FEF2F2}
-body{font-family:'Inter',sans-serif;background:var(--stone);color:var(--text);min-height:100vh}
+:root{
+  --green:#2D6A4F;--green-light:#52B788;--green-pale:#D8F3DC;--green-mid:#74C69D;
+  --cream:#FAFAF7;--white:#FFFFFF;--stone:#F5F3EE;--text:#1C1C1C;
+  --text-muted:#6B7280;--border:#E5E7EB;--red:#EF4444;--red-pale:#FEF2F2;
+  --blue:#3B82F6;--blue-pale:#EFF6FF;--amber:#F59E0B;--amber-pale:#FFFBEB;
+  --sidebar:220px;
+}
+body{font-family:'Inter',sans-serif;background:var(--stone);color:var(--text);display:flex;min-height:100vh}
 
-/* HEADER */
-.header{background:var(--white);border-bottom:1px solid var(--border);padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center}
-.header-logo{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--green)}
-.header-logo span{font-style:italic}
-.header-title{font-size:0.8rem;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase;margin-top:2px}
+/* ── SIDEBAR ── */
+.sidebar{width:var(--sidebar);background:var(--green);color:#fff;display:flex;flex-direction:column;position:fixed;top:0;bottom:0;left:0;z-index:50}
+.sidebar-logo{padding:1.6rem 1.4rem;border-bottom:1px solid rgba(255,255,255,0.12)}
+.sidebar-logo .brand{font-family:'Playfair Display',serif;font-size:1.15rem;color:#fff;font-weight:400}
+.sidebar-logo .brand span{font-style:italic}
+.sidebar-logo .sub{font-size:0.68rem;color:rgba(255,255,255,0.6);letter-spacing:0.1em;text-transform:uppercase;margin-top:3px}
+.nav-section{padding:1rem 0}
+.nav-label{font-size:0.65rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.4);padding:0.6rem 1.4rem;font-weight:600}
+.nav-item{display:flex;align-items:center;gap:0.7rem;padding:0.65rem 1.4rem;font-size:0.82rem;color:rgba(255,255,255,0.75);cursor:pointer;transition:all 0.15s;border-left:3px solid transparent}
+.nav-item:hover{background:rgba(255,255,255,0.08);color:#fff}
+.nav-item.active{background:rgba(255,255,255,0.12);color:#fff;border-left-color:#fff}
+.nav-icon{font-size:1rem;width:18px;text-align:center;flex-shrink:0}
+.sidebar-footer{margin-top:auto;padding:1rem 1.4rem;border-top:1px solid rgba(255,255,255,0.12)}
+.sidebar-footer .version{font-size:0.68rem;color:rgba(255,255,255,0.35)}
+.online-dot{width:7px;height:7px;background:#4ADE80;border-radius:50%;display:inline-block;margin-right:5px;animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.4}}
 
-/* STATS */
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;padding:1.5rem 2rem}
-.stat-card{background:var(--white);border:1px solid var(--border);border-radius:4px;padding:1.2rem 1.5rem}
-.stat-label{font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:0.5rem}
-.stat-num{font-family:'Playfair Display',serif;font-size:2rem;color:var(--green);font-weight:400}
-.stat-sub{font-size:0.75rem;color:var(--text-muted);margin-top:4px}
+/* ── MAIN ── */
+.main{margin-left:var(--sidebar);flex:1;display:flex;flex-direction:column;min-height:100vh}
 
-/* FILTERS */
-.filters{padding:0 2rem 1rem;display:flex;gap:0.75rem;align-items:center;flex-wrap:wrap}
-.filter-btn{background:var(--white);border:1px solid var(--border);padding:0.45rem 1rem;font-size:0.8rem;font-family:'Inter',sans-serif;cursor:pointer;border-radius:2px;color:var(--text-muted);transition:all 0.2s}
-.filter-btn.active{background:var(--green);color:var(--white);border-color:var(--green)}
-.filter-btn:hover:not(.active){border-color:var(--green);color:var(--green)}
-.refresh-btn{background:var(--green-pale);border:1px solid var(--green-light);padding:0.45rem 1rem;font-size:0.8rem;font-family:'Inter',sans-serif;cursor:pointer;border-radius:2px;color:var(--green);margin-left:auto;transition:all 0.2s}
-.refresh-btn:hover{background:var(--green);color:var(--white)}
+/* ── TOPBAR ── */
+.topbar{background:var(--white);border-bottom:1px solid var(--border);padding:0.9rem 2rem;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:40}
+.topbar-left{display:flex;align-items:center;gap:1rem}
+.page-title{font-size:1.05rem;font-weight:600;color:var(--text)}
+.topbar-right{display:flex;align-items:center;gap:0.8rem;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:0.4rem;padding:0.55rem 1.1rem;font-size:0.8rem;font-weight:500;border-radius:4px;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.2s;border:none;letter-spacing:0.02em}
+.btn-green{background:var(--green);color:#fff}
+.btn-green:hover{background:#265f46}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--text-muted)}
+.btn-outline:hover{border-color:var(--green);color:var(--green)}
+.btn-sm{padding:0.38rem 0.8rem;font-size:0.75rem}
+.search-wrap{position:relative}
+.search-wrap input{border:1px solid var(--border);background:var(--stone);padding:0.5rem 0.9rem 0.5rem 2.2rem;font-size:0.82rem;border-radius:4px;font-family:'Inter',sans-serif;outline:none;width:220px;color:var(--text);transition:all 0.2s}
+.search-wrap input:focus{border-color:var(--green);background:var(--white)}
+.search-icon{position:absolute;left:0.7rem;top:50%;transform:translateY(-50%);font-size:0.8rem;color:var(--text-muted)}
 
-/* TABLE */
-.table-wrap{padding:0 2rem 2rem;overflow-x:auto}
-.table{width:100%;background:var(--white);border:1px solid var(--border);border-radius:4px;border-collapse:collapse;overflow:hidden}
-.table th{background:var(--stone);padding:0.8rem 1rem;text-align:left;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);font-weight:500;border-bottom:1px solid var(--border)}
-.table td{padding:0.9rem 1rem;font-size:0.85rem;border-bottom:1px solid var(--border);vertical-align:middle}
+/* ── CONTENT ── */
+.content{padding:1.8rem 2rem;flex:1}
+
+/* ── STATS ── */
+.stats-row{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;margin-bottom:1.8rem}
+.stat-card{background:var(--white);border:1px solid var(--border);border-radius:6px;padding:1.2rem 1.4rem;position:relative;overflow:hidden}
+.stat-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--green)}
+.stat-card.amber::after{background:var(--amber)}
+.stat-card.blue::after{background:var(--blue)}
+.stat-card.red::after{background:var(--red)}
+.stat-card.green2::after{background:#10B981}
+.stat-label{font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:0.5rem;font-weight:600}
+.stat-num{font-family:'Playfair Display',serif;font-size:1.9rem;color:var(--text);font-weight:400;line-height:1}
+.stat-sub{font-size:0.72rem;color:var(--text-muted);margin-top:5px}
+.stat-icon{position:absolute;top:1rem;right:1rem;font-size:1.4rem;opacity:0.15}
+
+/* ── FILTERS BAR ── */
+.filters-bar{display:flex;align-items:center;gap:0.6rem;flex-wrap:wrap;margin-bottom:1.2rem}
+.filter-chip{background:var(--white);border:1px solid var(--border);padding:0.38rem 0.9rem;font-size:0.78rem;font-family:'Inter',sans-serif;cursor:pointer;border-radius:20px;color:var(--text-muted);transition:all 0.2s;font-weight:500}
+.filter-chip.active{background:var(--green);color:#fff;border-color:var(--green)}
+.filter-chip:hover:not(.active){border-color:var(--green);color:var(--green)}
+.filters-right{margin-left:auto;display:flex;gap:0.6rem}
+
+/* ── TABLE ── */
+.table-wrap{background:var(--white);border:1px solid var(--border);border-radius:6px;overflow:hidden;overflow-x:auto}
+.table{width:100%;border-collapse:collapse;min-width:900px}
+.table th{background:var(--stone);padding:0.75rem 1rem;text-align:left;font-size:0.68rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);font-weight:600;border-bottom:1px solid var(--border);white-space:nowrap}
+.table td{padding:0.85rem 1rem;font-size:0.83rem;border-bottom:1px solid var(--border);vertical-align:middle}
 .table tr:last-child td{border-bottom:none}
-.table tr:hover td{background:var(--stone)}
+.table tbody tr:hover td{background:#FAFFFE;cursor:pointer}
 
 /* BADGES */
-.badge{display:inline-block;padding:0.25rem 0.7rem;border-radius:20px;font-size:0.72rem;font-weight:500;letter-spacing:0.03em}
+.badge{display:inline-flex;align-items:center;gap:3px;padding:0.2rem 0.65rem;border-radius:20px;font-size:0.7rem;font-weight:600;letter-spacing:0.03em;white-space:nowrap}
 .badge-confirmed{background:#D1FAE5;color:#065F46}
 .badge-cancelled{background:var(--red-pale);color:var(--red)}
-
-.hab-badge{display:inline-block;padding:0.2rem 0.6rem;border-radius:2px;font-size:0.7rem;font-weight:500}
+.hab-badge{display:inline-block;padding:0.18rem 0.55rem;border-radius:3px;font-size:0.7rem;font-weight:600}
 .hab-estandar{background:#EFF6FF;color:#1E40AF}
 .hab-vista_mar{background:#F0FDF4;color:#166534}
 .hab-familiar{background:#FFF7ED;color:#9A3412}
 
-/* CANCEL BTN */
-.btn-cancel{background:transparent;border:1px solid var(--border);padding:0.3rem 0.7rem;font-size:0.75rem;font-family:'Inter',sans-serif;cursor:pointer;border-radius:2px;color:var(--text-muted);transition:all 0.2s}
-.btn-cancel:hover{border-color:var(--red);color:var(--red);background:var(--red-pale)}
-.btn-cancel:disabled{opacity:0.4;cursor:not-allowed}
+/* ACTION BTNS */
+.action-btns{display:flex;gap:0.4rem;justify-content:center}
+.btn-icon{background:transparent;border:1px solid var(--border);width:28px;height:28px;border-radius:4px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.75rem;transition:all 0.15s;color:var(--text-muted)}
+.btn-icon.view:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-pale)}
+.btn-icon.cancel:hover{border-color:var(--red);color:var(--red);background:var(--red-pale)}
+.btn-icon:disabled{opacity:0.3;cursor:not-allowed}
 
-/* EMPTY */
+/* EMPTY / LOADING */
 .empty{text-align:center;padding:4rem;color:var(--text-muted)}
-.empty-icon{font-size:3rem;margin-bottom:1rem;display:block}
-.empty-text{font-size:0.9rem}
+.empty p{font-size:0.88rem;margin-top:0.5rem}
+.empty-icon{font-size:2.5rem;display:block;margin-bottom:0.5rem}
+.loading-cell{text-align:center;padding:3rem;color:var(--text-muted);font-size:0.85rem}
 
-/* LOADING */
-.loading{text-align:center;padding:3rem;color:var(--text-muted);font-size:0.9rem}
+/* ── MODALS ── */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:200;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.overlay.open{display:flex}
+.modal{background:var(--white);border-radius:8px;padding:2rem;width:100%;max-width:520px;max-height:90vh;overflow-y:auto;box-shadow:0 25px 60px rgba(0,0,0,0.2)}
+.modal-lg{max-width:640px}
+.modal-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.5rem}
+.modal-title{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:400;color:var(--green)}
+.modal-close{background:transparent;border:none;font-size:1.2rem;cursor:pointer;color:var(--text-muted);padding:0.2rem;line-height:1;transition:color 0.2s}
+.modal-close:hover{color:var(--text)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.form-group{display:flex;flex-direction:column;gap:0.4rem}
+.form-group.full{grid-column:span 2}
+label{font-size:0.75rem;font-weight:600;color:var(--text-muted);letter-spacing:0.04em;text-transform:uppercase}
+input,select,textarea{border:1px solid var(--border);padding:0.65rem 0.8rem;font-size:0.85rem;font-family:'Inter',sans-serif;border-radius:4px;outline:none;color:var(--text);background:var(--white);transition:border 0.2s;width:100%}
+input:focus,select:focus,textarea:focus{border-color:var(--green)}
+textarea{resize:vertical;min-height:70px}
+.modal-actions{display:flex;gap:0.8rem;justify-content:flex-end;margin-top:1.5rem}
+.f-preview{display:none;background:var(--green-pale);border:1px solid var(--green-mid);border-radius:5px;padding:0.8rem 1rem;font-size:0.83rem;color:var(--green);margin-top:0.8rem}
 
-@media(max-width:768px){
-  .stats{grid-template-columns:1fr 1fr;padding:1rem}
-  .filters{padding:0 1rem 1rem}
-  .table-wrap{padding:0 1rem 1rem}
-  .header{padding:1rem}
+/* DETAIL MODAL */
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.2rem}
+.detail-item{display:flex;flex-direction:column;gap:0.3rem}
+.detail-label{font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);font-weight:600}
+.detail-val{font-size:0.88rem;color:var(--text);font-weight:500}
+.detail-full{grid-column:span 2}
+.detail-divider{grid-column:span 2;border-top:1px solid var(--border);margin:0.2rem 0}
+.revenue-box{background:var(--green-pale);border:1px solid var(--green-mid);border-radius:6px;padding:1rem 1.2rem;display:flex;justify-content:space-between;align-items:center;margin-bottom:1.2rem}
+.revenue-label{font-size:0.78rem;color:var(--green);font-weight:500}
+.revenue-val{font-family:'Playfair Display',serif;font-size:1.7rem;color:var(--green)}
+
+/* ── TOASTS ── */
+.toast-container{position:fixed;bottom:1.5rem;right:1.5rem;z-index:300;display:flex;flex-direction:column;gap:0.5rem}
+.toast{background:var(--text);color:#fff;padding:0.75rem 1.2rem;border-radius:6px;font-size:0.82rem;display:flex;align-items:center;gap:0.6rem;animation:slideIn 0.3s ease;box-shadow:0 4px 20px rgba(0,0,0,0.15)}
+.toast.success{background:var(--green)}
+.toast.error{background:var(--red)}
+@keyframes slideIn{from{transform:translateY(10px);opacity:0}to{transform:translateY(0);opacity:1}}
+
+@media(max-width:900px){
+  .sidebar{transform:translateX(-100%);transition:transform 0.3s}
+  .main{margin-left:0}
+  .stats-row{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+  .stats-row{grid-template-columns:1fr}
+  .content{padding:1rem}
+  .form-grid,.detail-grid{grid-template-columns:1fr}
+  .form-group.full,.detail-full,.detail-divider{grid-column:span 1}
 }
 </style>
 </head>
 <body>
 
-<div class="header">
-  <div>
-    <div class="header-logo"><span>Hotel</span> Miramar</div>
-    <div class="header-title">Panel de Reservas · Administración</div>
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="brand"><span>Hotel</span> Miramar</div>
+    <div class="sub">Administración</div>
   </div>
-  <div style="text-align:right;font-size:0.78rem;color:var(--text-muted)" id="lastUpdate"></div>
+  <nav class="nav-section">
+    <div class="nav-label">Principal</div>
+    <div class="nav-item active" onclick="setPage('reservas',this)"><span class="nav-icon">📅</span> Reservas</div>
+    <div class="nav-label" style="margin-top:0.4rem">Operativa</div>
+    <div class="nav-item" onclick="setPage('checkins',this)"><span class="nav-icon">🔑</span> Check-ins hoy</div>
+    <div class="nav-item" onclick="setPage('checkouts',this)"><span class="nav-icon">🚪</span> Check-outs hoy</div>
+    <div class="nav-label" style="margin-top:0.4rem">Herramientas</div>
+    <div class="nav-item" onclick="exportCSV()"><span class="nav-icon">⬇️</span> Exportar CSV</div>
+    <div class="nav-item" onclick="window.open('hotel-miramar.html','_blank')"><span class="nav-icon">🌐</span> Ver web hotel</div>
+  </nav>
+  <div class="sidebar-footer">
+    <div style="font-size:0.78rem;color:rgba(255,255,255,0.6);margin-bottom:0.3rem"><span class="online-dot"></span>Sistema activo</div>
+    <div class="version">v2.0 · Hotel Miramar</div>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<div class="main">
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="topbar-left">
+      <div class="page-title" id="pageTitle">Reservas</div>
+    </div>
+    <div class="topbar-right">
+      <div class="search-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="Buscar nombre, email..." oninput="buscar()">
+      </div>
+      <button class="btn btn-outline btn-sm" onclick="cargarReservas()">↻ Actualizar</button>
+      <button class="btn btn-green btn-sm" onclick="abrirModalNueva()">+ Nueva reserva</button>
+    </div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="content">
+    <!-- STATS -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-icon">🏨</div>
+        <div class="stat-label">Check-ins hoy</div>
+        <div class="stat-num" id="statCheckinHoy">—</div>
+        <div class="stat-sub">llegadas previstas</div>
+      </div>
+      <div class="stat-card amber">
+        <div class="stat-icon">🛎️</div>
+        <div class="stat-label">Huéspedes activos</div>
+        <div class="stat-num" id="statActivos">—</div>
+        <div class="stat-sub">en el hotel ahora</div>
+      </div>
+      <div class="stat-card blue">
+        <div class="stat-icon">📋</div>
+        <div class="stat-label">Reservas activas</div>
+        <div class="stat-num" id="statTotal">—</div>
+        <div class="stat-sub">confirmadas en total</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">📅</div>
+        <div class="stat-label">Próximos 7 días</div>
+        <div class="stat-num" id="statProximas">—</div>
+        <div class="stat-sub">llegadas esta semana</div>
+      </div>
+      <div class="stat-card green2">
+        <div class="stat-icon">💶</div>
+        <div class="stat-label">Ingresos estimados</div>
+        <div class="stat-num" id="statIngresos" style="font-size:1.35rem">—</div>
+        <div class="stat-sub">reservas confirmadas</div>
+      </div>
+    </div>
+
+    <!-- FILTERS -->
+    <div class="filters-bar">
+      <button class="filter-chip active" data-filter="todas">Todas</button>
+      <button class="filter-chip" data-filter="confirmadas">✓ Confirmadas</button>
+      <button class="filter-chip" data-filter="canceladas">✗ Canceladas</button>
+      <button class="filter-chip" data-filter="hoy">Hoy</button>
+      <button class="filter-chip" data-filter="proximas">Esta semana</button>
+      <span style="width:1px;height:18px;background:var(--border);margin:0 0.2rem;align-self:center"></span>
+      <button class="filter-chip" data-filter="estandar">Estándar</button>
+      <button class="filter-chip" data-filter="vista_mar">Vista Mar</button>
+      <button class="filter-chip" data-filter="familiar">Familiar</button>
+      <div class="filters-right">
+        <span id="contadorResultados" style="font-size:0.78rem;color:var(--text-muted)"></span>
+      </div>
+    </div>
+
+    <!-- TABLE -->
+    <div class="table-wrap">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Ref.</th>
+            <th>Huésped</th>
+            <th>Contacto</th>
+            <th>Habitación</th>
+            <th>Check-in</th>
+            <th>Check-out</th>
+            <th style="text-align:center">Noches</th>
+            <th style="text-align:center">Pax</th>
+            <th style="text-align:right">Importe</th>
+            <th>Estado</th>
+            <th style="text-align:center">Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody">
+          <tr><td colspan="11" class="loading-cell">Cargando reservas...</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="lastUpdate" style="text-align:right;font-size:0.72rem;color:var(--text-muted);margin-top:0.6rem"></div>
+  </div>
 </div>
 
-<div class="stats">
-  <div class="stat-card">
-    <div class="stat-label">Check-ins hoy</div>
-    <div class="stat-num" id="statHoy">—</div>
-    <div class="stat-sub">entradas previstas</div>
-  </div>
-  <div class="stat-card">
-    <div class="stat-label">Huéspedes activos</div>
-    <div class="stat-num" id="statActivos">—</div>
-    <div class="stat-sub">en el hotel ahora</div>
-  </div>
-  <div class="stat-card">
-    <div class="stat-label">Total reservas</div>
-    <div class="stat-num" id="statTotal">—</div>
-    <div class="stat-sub">confirmadas</div>
-  </div>
-  <div class="stat-card">
-    <div class="stat-label">Próximos 7 días</div>
-    <div class="stat-num" id="statProximas">—</div>
-    <div class="stat-sub">check-ins previstos</div>
+<!-- MODAL: NUEVA RESERVA -->
+<div class="overlay" id="overlayNueva" onclick="cerrarOverlay(event,'overlayNueva')">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <div class="modal-title">Nueva Reserva</div>
+      <button class="modal-close" onclick="cerrar('overlayNueva')">✕</button>
+    </div>
+    <form onsubmit="crearReservaManual(event)">
+      <div class="form-grid">
+        <div class="form-group full">
+          <label>Nombre completo *</label>
+          <input type="text" id="f-nombre" placeholder="Ej: Carlos García" required>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="f-email" placeholder="cliente@email.com">
+        </div>
+        <div class="form-group">
+          <label>Teléfono</label>
+          <input type="tel" id="f-telefono" placeholder="+34 600 000 000">
+        </div>
+        <div class="form-group">
+          <label>Check-in *</label>
+          <input type="date" id="f-checkin" required onchange="actualizarPreview()">
+        </div>
+        <div class="form-group">
+          <label>Check-out *</label>
+          <input type="date" id="f-checkout" required onchange="actualizarPreview()">
+        </div>
+        <div class="form-group">
+          <label>Tipo de habitación *</label>
+          <select id="f-habitacion" required onchange="actualizarPreview()">
+            <option value="">Seleccionar...</option>
+            <option value="estandar">Habitación Estándar — 89€/noche</option>
+            <option value="vista_mar">Habitación Vista Mar — 129€/noche</option>
+            <option value="familiar">Suite Familiar — 189€/noche</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Nº de huéspedes *</label>
+          <select id="f-huespedes" required>
+            <option value="1">1 huésped</option>
+            <option value="2" selected>2 huéspedes</option>
+            <option value="3">3 huéspedes</option>
+            <option value="4">4 huéspedes</option>
+          </select>
+        </div>
+        <div class="form-group full">
+          <label>Peticiones especiales</label>
+          <textarea id="f-peticiones" placeholder="Cuna, habitación alta, alergias, llegada tardía..."></textarea>
+        </div>
+      </div>
+      <div class="f-preview" id="f-preview"></div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-outline" onclick="cerrar('overlayNueva')">Cancelar</button>
+        <button type="submit" class="btn btn-green" id="btn-crear">Confirmar reserva</button>
+      </div>
+    </form>
   </div>
 </div>
 
-<div class="filters">
-  <button class="filter-btn active" onclick="filtrar('todas')">Todas</button>
-  <button class="filter-btn" onclick="filtrar('hoy')">Hoy</button>
-  <button class="filter-btn" onclick="filtrar('confirmadas')">Confirmadas</button>
-  <button class="filter-btn" onclick="filtrar('canceladas')">Canceladas</button>
-  <button class="filter-btn" onclick="filtrar('estandar')">Estándar</button>
-  <button class="filter-btn" onclick="filtrar('vista_mar')">Vista Mar</button>
-  <button class="filter-btn" onclick="filtrar('familiar')">Familiar</button>
-  <button class="refresh-btn" onclick="cargarReservas()">↻ Actualizar</button>
+<!-- MODAL: DETALLE RESERVA -->
+<div class="overlay" id="overlayDetalle" onclick="cerrarOverlay(event,'overlayDetalle')">
+  <div class="modal modal-lg" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title" id="detalle-ref">Reserva #HM-XXX</div>
+        <div id="detalle-estado-badge" style="margin-top:6px"></div>
+      </div>
+      <button class="modal-close" onclick="cerrar('overlayDetalle')">✕</button>
+    </div>
+    <div class="revenue-box">
+      <div>
+        <div class="revenue-label">Importe total estimado</div>
+        <div style="font-size:0.75rem;color:var(--green);opacity:0.8" id="detalle-noches-label">—</div>
+      </div>
+      <div class="revenue-val" id="detalle-importe">—</div>
+    </div>
+    <div class="detail-grid">
+      <div class="detail-item">
+        <div class="detail-label">Huésped</div>
+        <div class="detail-val" id="d-nombre">—</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-label">Email</div>
+        <div class="detail-val" id="d-email">—</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-label">Teléfono</div>
+        <div class="detail-val" id="d-telefono">—</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-label">Huéspedes</div>
+        <div class="detail-val" id="d-huespedes">—</div>
+      </div>
+      <div class="detail-divider"></div>
+      <div class="detail-item">
+        <div class="detail-label">Habitación</div>
+        <div class="detail-val" id="d-habitacion">—</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-label">Precio/noche</div>
+        <div class="detail-val" id="d-precio">—</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-label">Check-in</div>
+        <div class="detail-val" id="d-checkin">—</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-label">Check-out</div>
+        <div class="detail-val" id="d-checkout">—</div>
+      </div>
+      <div class="detail-item detail-full">
+        <div class="detail-label">Peticiones especiales</div>
+        <div class="detail-val" id="d-peticiones" style="font-weight:400;color:var(--text-muted)">—</div>
+      </div>
+      <div class="detail-divider"></div>
+      <div class="detail-item">
+        <div class="detail-label">Reserva creada</div>
+        <div class="detail-val" id="d-created">—</div>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-outline" onclick="cerrar('overlayDetalle')">Cerrar</button>
+      <button class="btn" id="btn-detalle-cancel" style="background:var(--red-pale);color:var(--red);border:1px solid #FECACA" onclick="cancelarDesdeDetalle()">Cancelar reserva</button>
+    </div>
+  </div>
 </div>
 
-<div class="table-wrap">
-  <table class="table">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Nombre</th>
-        <th>Email</th>
-        <th>Habitación</th>
-        <th>Check-in</th>
-        <th>Check-out</th>
-        <th>Noches</th>
-        <th>Huéspedes</th>
-        <th>Peticiones</th>
-        <th>Estado</th>
-        <th>Acción</th>
-      </tr>
-    </thead>
-    <tbody id="tableBody">
-      <tr><td colspan="11" class="loading">Cargando reservas...</td></tr>
-    </tbody>
-  </table>
-</div>
+<!-- TOASTS -->
+<div class="toast-container" id="toastContainer"></div>
 
 <script>
 const BACKEND = 'https://hotel-miramar-backend-production.up.railway.app';
+const PRECIOS = {estandar:89, vista_mar:129, familiar:189};
+const NOMBRES_HAB = {estandar:'Habitación Estándar', vista_mar:'Habitación Vista Mar', familiar:'Suite Familiar'};
+
 let todasLasReservas = [];
 let filtroActivo = 'todas';
+let reservaDetalleActual = null;
 
-function noches(checkin, checkout) {
-  const d1 = new Date(checkin), d2 = new Date(checkout);
-  return Math.round((d2 - d1) / (1000 * 60 * 60 * 24));
+// ── UTILS ──
+function noches(ci, co) { return Math.round((new Date(co)-new Date(ci))/86400000); }
+function formatFecha(f) { if(!f) return '—'; const [y,m,d]=f.split('-'); return `${d}/${m}/${y}`; }
+function formatFechaLarga(f) {
+  if(!f) return '—';
+  return new Date(f+'T12:00:00').toLocaleDateString('es-ES',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+}
+function calcImporte(tipo, ci, co) {
+  const n=noches(ci,co); const p=PRECIOS[tipo]||0;
+  return (n>0&&p>0) ? n*p : 0;
 }
 
-function formatFecha(f) {
-  if (!f) return '—';
-  const [y, m, d] = f.split('-');
-  return `${d}/${m}/${y}`;
+// ── TOAST ──
+function toast(msg, type='success') {
+  const c=document.getElementById('toastContainer');
+  const t=document.createElement('div');
+  t.className=`toast ${type}`;
+  const icon={success:'✓',error:'✕',info:'ℹ'}[type]||'ℹ';
+  t.innerHTML=`${icon} ${msg}`;
+  c.appendChild(t);
+  setTimeout(()=>t.remove(),3500);
 }
 
+// ── BADGES ──
 function habBadge(tipo) {
-  const labels = { estandar: 'Estándar', vista_mar: 'Vista Mar', familiar: 'Familiar' };
-  return `<span class="hab-badge hab-${tipo}">${labels[tipo] || tipo}</span>`;
+  const cls={estandar:'hab-estandar',vista_mar:'hab-vista_mar',familiar:'hab-familiar'};
+  return `<span class="hab-badge ${cls[tipo]||''}">${NOMBRES_HAB[tipo]||tipo}</span>`;
 }
-
 function estadoBadge(estado) {
-  return estado === 'cancelada'
-    ? `<span class="badge badge-cancelled">Cancelada</span>`
-    : `<span class="badge badge-confirmed">Confirmada</span>`;
+  return estado==='cancelada'
+    ? `<span class="badge badge-cancelled">✕ Cancelada</span>`
+    : `<span class="badge badge-confirmed">✓ Confirmada</span>`;
 }
 
+// ── STATS ──
 function actualizarStats(reservas) {
-  const hoy = new Date().toISOString().split('T')[0];
-  const proximos = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
-  const confirmadas = reservas.filter(r => r.estado !== 'cancelada');
-  const checkinHoy = confirmadas.filter(r => r.checkin === hoy).length;
-  const activos = confirmadas.filter(r => r.checkin <= hoy && r.checkout > hoy).reduce((sum, r) => sum + r.huespedes, 0);
-  const proximasRes = confirmadas.filter(r => r.checkin > hoy && r.checkin <= proximos).length;
-  document.getElementById('statHoy').textContent = checkinHoy;
-  document.getElementById('statActivos').textContent = activos;
-  document.getElementById('statTotal').textContent = confirmadas.length;
-  document.getElementById('statProximas').textContent = proximasRes;
+  const hoy=new Date().toISOString().split('T')[0];
+  const prox=new Date(Date.now()+7*86400000).toISOString().split('T')[0];
+  const conf=reservas.filter(r=>r.estado!=='cancelada');
+  document.getElementById('statCheckinHoy').textContent = conf.filter(r=>r.checkin===hoy).length;
+  document.getElementById('statActivos').textContent = conf.filter(r=>r.checkin<=hoy&&r.checkout>hoy).reduce((s,r)=>s+r.huespedes,0);
+  document.getElementById('statTotal').textContent = conf.length;
+  document.getElementById('statProximas').textContent = conf.filter(r=>r.checkin>hoy&&r.checkin<=prox).length;
+  const ingresos=conf.reduce((s,r)=>s+calcImporte(r.tipo_habitacion,r.checkin,r.checkout),0);
+  document.getElementById('statIngresos').textContent = ingresos>0 ? ingresos.toLocaleString('es-ES')+'€' : '0€';
+  document.getElementById('lastUpdate').textContent = 'Actualizado: '+new Date().toLocaleTimeString('es-ES');
 }
 
+// ── RENDER ──
 function renderTabla(reservas) {
-  const tbody = document.getElementById('tableBody');
-  if (!reservas.length) {
-    tbody.innerHTML = `<tr><td colspan="11" class="empty"><span class="empty-icon">📋</span><div class="empty-text">No hay reservas con este filtro</div></td></tr>`;
+  const tbody=document.getElementById('tableBody');
+  document.getElementById('contadorResultados').textContent = reservas.length+' resultado'+(reservas.length!==1?'s':'');
+  if(!reservas.length){
+    tbody.innerHTML=`<tr><td colspan="11" class="empty"><span class="empty-icon">📋</span><p>No hay reservas con este filtro</p></td></tr>`;
     return;
   }
-  tbody.innerHTML = reservas.map(r => `
-    <tr>
-      <td style="color:var(--green);font-weight:500">#HM-${r.id}</td>
+  tbody.innerHTML=reservas.map(r=>{
+    const n=noches(r.checkin,r.checkout);
+    const imp=calcImporte(r.tipo_habitacion,r.checkin,r.checkout);
+    return `<tr onclick="abrirDetalle(${r.id})">
+      <td style="color:var(--green);font-weight:600;font-size:0.8rem">#HM-${r.id}</td>
       <td style="font-weight:500">${r.nombre}</td>
-      <td style="color:var(--text-muted)">${r.email || '—'}</td>
+      <td style="color:var(--text-muted);font-size:0.78rem">${r.email||'—'}${r.telefono?'<br><span style="opacity:0.7">'+r.telefono+'</span>':''}</td>
       <td>${habBadge(r.tipo_habitacion)}</td>
-      <td>${formatFecha(r.checkin)}</td>
-      <td>${formatFecha(r.checkout)}</td>
-      <td style="text-align:center">${noches(r.checkin, r.checkout)}</td>
+      <td style="white-space:nowrap">${formatFecha(r.checkin)}</td>
+      <td style="white-space:nowrap">${formatFecha(r.checkout)}</td>
+      <td style="text-align:center">${n}</td>
       <td style="text-align:center">${r.huespedes}</td>
-      <td style="color:var(--text-muted);max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${r.peticiones || '—'}</td>
+      <td style="text-align:right;font-weight:600;color:${imp>0?'var(--green)':'var(--text-muted)'}">${imp>0?imp+'€':'—'}</td>
       <td>${estadoBadge(r.estado)}</td>
-      <td>
-        <button class="btn-cancel" onclick="cancelarReserva(${r.id}, this)" ${r.estado === 'cancelada' ? 'disabled' : ''}>
-          Cancelar
-        </button>
+      <td onclick="event.stopPropagation()">
+        <div class="action-btns">
+          <button class="btn-icon view" title="Ver detalle" onclick="abrirDetalle(${r.id})">👁</button>
+          <button class="btn-icon cancel" title="Cancelar reserva" onclick="cancelarReserva(${r.id},this)" ${r.estado==='cancelada'?'disabled':''}>✕</button>
+        </div>
       </td>
-    </tr>
-  `).join('');
+    </tr>`;
+  }).join('');
 }
 
-function filtrar(tipo) {
-  filtroActivo = tipo;
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  event.target.classList.add('active');
-  const hoy = new Date().toISOString().split('T')[0];
-  let filtradas = [...todasLasReservas];
-  if (tipo === 'hoy') filtradas = filtradas.filter(r => r.checkin === hoy);
-  else if (tipo === 'confirmadas') filtradas = filtradas.filter(r => r.estado !== 'cancelada');
-  else if (tipo === 'canceladas') filtradas = filtradas.filter(r => r.estado === 'cancelada');
-  else if (tipo === 'estandar') filtradas = filtradas.filter(r => r.tipo_habitacion === 'estandar');
-  else if (tipo === 'vista_mar') filtradas = filtradas.filter(r => r.tipo_habitacion === 'vista_mar');
-  else if (tipo === 'familiar') filtradas = filtradas.filter(r => r.tipo_habitacion === 'familiar');
-  renderTabla(filtradas);
+// ── FILTROS ──
+function aplicarFiltro(tipo, reservas) {
+  const hoy=new Date().toISOString().split('T')[0];
+  const prox=new Date(Date.now()+7*86400000).toISOString().split('T')[0];
+  if(tipo==='confirmadas') return reservas.filter(r=>r.estado!=='cancelada');
+  if(tipo==='canceladas') return reservas.filter(r=>r.estado==='cancelada');
+  if(tipo==='hoy') return reservas.filter(r=>r.checkin===hoy&&r.estado!=='cancelada');
+  if(tipo==='proximas') return reservas.filter(r=>r.checkin>hoy&&r.checkin<=prox&&r.estado!=='cancelada');
+  if(tipo==='estandar') return reservas.filter(r=>r.tipo_habitacion==='estandar');
+  if(tipo==='vista_mar') return reservas.filter(r=>r.tipo_habitacion==='vista_mar');
+  if(tipo==='familiar') return reservas.filter(r=>r.tipo_habitacion==='familiar');
+  return reservas;
 }
 
-async function cancelarReserva(id, btn) {
-  if (!confirm(`¿Cancelar reserva #HM-${id}? Esta acción no se puede deshacer.`)) return;
-  btn.disabled = true;
-  btn.textContent = '...';
-  try {
-    await fetch(`${BACKEND}/admin/reservas/${id}/cancelar`, { method: 'PATCH' });
-    await cargarReservas();
-  } catch (e) {
-    alert('Error al cancelar. Inténtalo de nuevo.');
-    btn.disabled = false;
-    btn.textContent = 'Cancelar';
-  }
-}
-
-async function cargarReservas() {
-  try {
-    const res = await fetch(`${BACKEND}/admin/reservas`);
-    todasLasReservas = await res.json();
-    todasLasReservas.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-    actualizarStats(todasLasReservas);
-    filtrar(filtroActivo);
-    document.getElementById('lastUpdate').textContent = 'Actualizado: ' + new Date().toLocaleTimeString('es-ES');
-  } catch (e) {
-    document.getElementById('tableBody').innerHTML = `<tr><td colspan="11" class="empty"><span class="empty-icon">⚠️</span><div class="empty-text">Error al cargar las reservas. Comprueba la conexión.</div></td></tr>`;
-  }
-}
-
-// Wrapper para filtrar que no depende de event
-const filterBtns = document.querySelectorAll('.filter-btn');
-filterBtns.forEach(btn => {
-  btn.addEventListener('click', function() {
-    const tipo = this.getAttribute('onclick').match(/filtrar\('(.+)'\)/)[1];
-    filtroActivo = tipo;
-    filterBtns.forEach(b => b.classList.remove('active'));
+document.querySelectorAll('.filter-chip').forEach(btn=>{
+  btn.addEventListener('click',function(){
+    document.querySelectorAll('.filter-chip').forEach(b=>b.classList.remove('active'));
     this.classList.add('active');
-    const hoy = new Date().toISOString().split('T')[0];
-    let filtradas = [...todasLasReservas];
-    if (tipo === 'hoy') filtradas = filtradas.filter(r => r.checkin === hoy);
-    else if (tipo === 'confirmadas') filtradas = filtradas.filter(r => r.estado !== 'cancelada');
-    else if (tipo === 'canceladas') filtradas = filtradas.filter(r => r.estado === 'cancelada');
-    else if (tipo === 'estandar') filtradas = filtradas.filter(r => r.tipo_habitacion === 'estandar');
-    else if (tipo === 'vista_mar') filtradas = filtradas.filter(r => r.tipo_habitacion === 'vista_mar');
-    else if (tipo === 'familiar') filtradas = filtradas.filter(r => r.tipo_habitacion === 'familiar');
-    renderTabla(filtradas);
+    filtroActivo=this.dataset.filter;
+    buscar();
   });
 });
 
+function buscar() {
+  const q=document.getElementById('searchInput').value.toLowerCase().trim();
+  let r=aplicarFiltro(filtroActivo,todasLasReservas);
+  if(q) r=r.filter(x=>x.nombre.toLowerCase().includes(q)||(x.email||'').toLowerCase().includes(q)||(x.telefono||'').includes(q));
+  renderTabla(r);
+}
+
+// ── CARGAR RESERVAS ──
+async function cargarReservas() {
+  try {
+    const res=await fetch(`${BACKEND}/admin/reservas`);
+    todasLasReservas=await res.json();
+    todasLasReservas.sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
+    actualizarStats(todasLasReservas);
+    buscar();
+  } catch(e) {
+    document.getElementById('tableBody').innerHTML=`<tr><td colspan="11" class="empty"><span class="empty-icon">⚠️</span><p>Error al cargar. Verifica la conexión con el servidor.</p></td></tr>`;
+  }
+}
+
+// ── CANCELAR ──
+async function cancelarReserva(id, btn) {
+  if(!confirm(`¿Cancelar reserva #HM-${id}?\nEsta acción no se puede deshacer.`)) return;
+  if(btn){btn.disabled=true;btn.textContent='...';}
+  try {
+    await fetch(`${BACKEND}/admin/reservas/${id}/cancelar`,{method:'PATCH'});
+    toast(`Reserva #HM-${id} cancelada correctamente`);
+    await cargarReservas();
+  } catch(e) {
+    toast('Error al cancelar. Inténtalo de nuevo.','error');
+    if(btn){btn.disabled=false;btn.textContent='✕';}
+  }
+}
+
+// ── MODAL NUEVA ──
+function abrirModalNueva() {
+  const hoy=new Date().toISOString().split('T')[0];
+  const man=new Date(Date.now()+86400000).toISOString().split('T')[0];
+  document.getElementById('f-checkin').value=hoy;
+  document.getElementById('f-checkout').value=man;
+  document.getElementById('f-nombre').value='';
+  document.getElementById('f-email').value='';
+  document.getElementById('f-telefono').value='';
+  document.getElementById('f-habitacion').value='';
+  document.getElementById('f-huespedes').value='2';
+  document.getElementById('f-peticiones').value='';
+  document.getElementById('f-preview').style.display='none';
+  document.getElementById('overlayNueva').classList.add('open');
+  setTimeout(()=>document.getElementById('f-nombre').focus(),100);
+}
+
+function actualizarPreview() {
+  const hab=document.getElementById('f-habitacion').value;
+  const ci=document.getElementById('f-checkin').value;
+  const co=document.getElementById('f-checkout').value;
+  const prev=document.getElementById('f-preview');
+  if(hab&&ci&&co&&ci<co){
+    const n=noches(ci,co);
+    const imp=calcImporte(hab,ci,co);
+    prev.style.display='block';
+    prev.innerHTML=`<strong>${NOMBRES_HAB[hab]}</strong> · ${n} noche${n!==1?'s':''} · <strong>Total estimado: ${imp}€</strong>`;
+  } else {
+    prev.style.display='none';
+  }
+}
+
+async function crearReservaManual(e) {
+  e.preventDefault();
+  const btn=document.getElementById('btn-crear');
+  btn.disabled=true; btn.textContent='Creando...';
+  const datos={
+    nombre:document.getElementById('f-nombre').value.trim(),
+    email:document.getElementById('f-email').value.trim(),
+    telefono:document.getElementById('f-telefono').value.trim(),
+    checkin:document.getElementById('f-checkin').value,
+    checkout:document.getElementById('f-checkout').value,
+    tipo_habitacion:document.getElementById('f-habitacion').value,
+    huespedes:parseInt(document.getElementById('f-huespedes').value),
+    peticiones:document.getElementById('f-peticiones').value.trim()
+  };
+  try {
+    const res=await fetch(`${BACKEND}/admin/reservas`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(datos)});
+    const data=await res.json();
+    if(data.success){
+      toast(`Reserva #HM-${data.id} creada correctamente`);
+      cerrar('overlayNueva');
+      await cargarReservas();
+    } else {
+      toast(data.mensaje||'Error al crear la reserva','error');
+    }
+  } catch(e2) {
+    toast('Error de conexión con el servidor.','error');
+  }
+  btn.disabled=false; btn.textContent='Confirmar reserva';
+}
+
+// ── MODAL DETALLE ──
+function abrirDetalle(id) {
+  const r=todasLasReservas.find(x=>x.id===id);
+  if(!r) return;
+  reservaDetalleActual=r;
+  const n=noches(r.checkin,r.checkout);
+  const imp=calcImporte(r.tipo_habitacion,r.checkin,r.checkout);
+  document.getElementById('detalle-ref').textContent=`Reserva #HM-${r.id}`;
+  document.getElementById('detalle-estado-badge').innerHTML=estadoBadge(r.estado);
+  document.getElementById('detalle-importe').textContent=imp>0?imp+'€':'—';
+  document.getElementById('detalle-noches-label').textContent=`${n} noche${n!==1?'s':''} × ${PRECIOS[r.tipo_habitacion]||0}€/noche`;
+  document.getElementById('d-nombre').textContent=r.nombre;
+  document.getElementById('d-email').innerHTML=r.email?`<a href="mailto:${r.email}" style="color:var(--green)">${r.email}</a>`:'—';
+  document.getElementById('d-telefono').textContent=r.telefono||'—';
+  document.getElementById('d-huespedes').textContent=r.huespedes+' persona'+(r.huespedes!==1?'s':'');
+  document.getElementById('d-habitacion').innerHTML=habBadge(r.tipo_habitacion);
+  document.getElementById('d-precio').textContent=PRECIOS[r.tipo_habitacion]?PRECIOS[r.tipo_habitacion]+'€/noche':'—';
+  document.getElementById('d-checkin').textContent=formatFechaLarga(r.checkin);
+  document.getElementById('d-checkout').textContent=formatFechaLarga(r.checkout);
+  document.getElementById('d-peticiones').textContent=r.peticiones||'Sin peticiones especiales';
+  document.getElementById('d-created').textContent=r.created_at?new Date(r.created_at).toLocaleString('es-ES'):'—';
+  document.getElementById('btn-detalle-cancel').style.display=r.estado==='cancelada'?'none':'inline-flex';
+  document.getElementById('overlayDetalle').classList.add('open');
+}
+
+async function cancelarDesdeDetalle() {
+  if(!reservaDetalleActual) return;
+  cerrar('overlayDetalle');
+  await cancelarReserva(reservaDetalleActual.id, null);
+}
+
+// ── OVERLAY HELPERS ──
+function cerrar(id){ document.getElementById(id).classList.remove('open'); }
+function cerrarOverlay(e,id){ if(e.target===document.getElementById(id)) cerrar(id); }
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') document.querySelectorAll('.overlay.open').forEach(o=>o.classList.remove('open')); });
+
+// ── EXPORT CSV ──
+function exportCSV() {
+  const r=aplicarFiltro(filtroActivo,todasLasReservas);
+  const headers=['ID','Nombre','Email','Teléfono','Habitación','Check-in','Check-out','Noches','Huéspedes','Importe (€)','Estado','Peticiones','Creada'];
+  const rows=r.map(x=>[
+    `#HM-${x.id}`,x.nombre,x.email||'',x.telefono||'',
+    NOMBRES_HAB[x.tipo_habitacion]||x.tipo_habitacion,
+    x.checkin,x.checkout,noches(x.checkin,x.checkout),x.huespedes,
+    calcImporte(x.tipo_habitacion,x.checkin,x.checkout),
+    x.estado,x.peticiones||'',x.created_at||''
+  ].map(v=>`"${String(v).replace(/"/g,'""')}"`).join(','));
+  const csv=[headers.join(','),...rows].join('\n');
+  const blob=new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a'); a.href=url;
+  a.download=`hotel-miramar-reservas-${new Date().toISOString().split('T')[0]}.csv`;
+  a.click(); URL.revokeObjectURL(url);
+  toast('CSV exportado correctamente');
+}
+
+// ── NAV ──
+function setPage(page, el) {
+  document.querySelectorAll('.nav-item').forEach(i=>i.classList.remove('active'));
+  if(el) el.classList.add('active');
+  const titles={reservas:'Reservas',checkins:'Check-ins de hoy',checkouts:'Check-outs de hoy'};
+  document.getElementById('pageTitle').textContent=titles[page]||page;
+  const hoy=new Date().toISOString().split('T')[0];
+  if(page==='checkins'){
+    document.querySelectorAll('.filter-chip').forEach(b=>b.classList.remove('active'));
+    document.querySelector('[data-filter="hoy"]').classList.add('active');
+    filtroActivo='hoy'; buscar();
+  } else if(page==='checkouts'){
+    filtroActivo='todas';
+    document.querySelectorAll('.filter-chip').forEach(b=>b.classList.remove('active'));
+    document.querySelector('[data-filter="todas"]').classList.add('active');
+    renderTabla(todasLasReservas.filter(r=>r.checkout===hoy&&r.estado!=='cancelada'));
+  } else {
+    filtroActivo='todas';
+    document.querySelectorAll('.filter-chip').forEach(b=>b.classList.remove('active'));
+    document.querySelector('[data-filter="todas"]').classList.add('active');
+    buscar();
+  }
+}
+
+// ── INIT ──
 cargarReservas();
 setInterval(cargarReservas, 60000);
 </script>

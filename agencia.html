@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AutoFlow AI · Automatización con Inteligencia Artificial</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --dark:#0A0A0F;
+  --dark2:#111118;
+  --dark3:#1A1A24;
+  --accent:#6C63FF;
+  --accent2:#9B5DE5;
+  --accent-glow:rgba(108,99,255,0.15);
+  --green:#00D4AA;
+  --white:#FFFFFF;
+  --gray:#A0A0B0;
+  --border:rgba(255,255,255,0.08);
+  --card:rgba(255,255,255,0.04);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--white);overflow-x:hidden}
+
+/* NAV */
+nav{position:fixed;top:0;width:100%;z-index:100;padding:1.1rem 2.5rem;display:flex;justify-content:space-between;align-items:center;background:rgba(10,10,15,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.logo{font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:800;background:linear-gradient(135deg,#6C63FF,#00D4AA);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-size:0.82rem;color:var(--gray);text-decoration:none;transition:color 0.2s;letter-spacing:0.03em}
+.nav-links a:hover{color:var(--white)}
+.nav-cta{background:var(--accent);color:var(--white);padding:0.6rem 1.4rem;font-size:0.8rem;font-weight:600;border:none;border-radius:6px;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.2s;letter-spacing:0.03em}
+.nav-cta:hover{background:#5955E8;transform:translateY(-1px)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--white);border-radius:2px;transition:all 0.3s}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:8rem 2rem 5rem;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(108,99,255,0.12),transparent),radial-gradient(ellipse 60% 40% at 80% 80%,rgba(0,212,170,0.08),transparent)}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black,transparent)}
+.hero-badge{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(108,99,255,0.15);border:1px solid rgba(108,99,255,0.3);padding:0.4rem 1rem;border-radius:20px;font-size:0.75rem;color:#a09cff;margin-bottom:2rem;font-weight:500;letter-spacing:0.05em}
+.badge-dot{width:6px;height:6px;background:#6C63FF;border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(1.3)}}
+.hero-title{font-family:'Syne',sans-serif;font-size:clamp(2.8rem,6vw,5.2rem);font-weight:800;line-height:1.05;margin-bottom:1.8rem;max-width:900px;margin-left:auto;margin-right:auto}
+.hero-title .line2{background:linear-gradient(135deg,#6C63FF,#00D4AA);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:block}
+.hero-sub{font-size:1.1rem;color:var(--gray);line-height:1.8;max-width:580px;margin:0 auto 2.8rem;font-weight:300}
+.hero-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.btn-primary{background:linear-gradient(135deg,#6C63FF,#9B5DE5);color:var(--white);padding:1rem 2.4rem;font-size:0.9rem;font-weight:600;border:none;border-radius:8px;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.3s;letter-spacing:0.02em;box-shadow:0 0 30px rgba(108,99,255,0.3)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 50px rgba(108,99,255,0.5)}
+.btn-secondary{background:transparent;color:var(--white);padding:1rem 2.4rem;font-size:0.9rem;font-weight:500;border:1px solid var(--border);border-radius:8px;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.3s}
+.btn-secondary:hover{border-color:rgba(108,99,255,0.5);background:var(--accent-glow)}
+.hero-stats{display:flex;gap:4rem;justify-content:center;margin-top:5rem;padding-top:3rem;border-top:1px solid var(--border)}
+.stat-item{text-align:center}
+.stat-num{font-family:'Syne',sans-serif;font-size:2.2rem;font-weight:800;background:linear-gradient(135deg,#6C63FF,#00D4AA);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stat-label{font-size:0.78rem;color:var(--gray);margin-top:0.3rem;letter-spacing:0.05em}
+
+/* LOGOS STRIP */
+.clients-strip{padding:2.5rem 3rem;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--dark2)}
+.clients-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:3rem;flex-wrap:wrap;justify-content:center}
+.clients-label{font-size:0.75rem;color:var(--gray);letter-spacing:0.1em;text-transform:uppercase;white-space:nowrap}
+.client-logo{font-size:0.85rem;color:rgba(255,255,255,0.3);font-weight:600;letter-spacing:0.08em;text-transform:uppercase;white-space:nowrap}
+
+/* SERVICES */
+.services{padding:7rem 2.5rem;background:var(--dark)}
+.services-inner{max-width:1100px;margin:0 auto}
+.section-eyebrow{font-size:0.75rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;font-weight:600}
+.section-title{font-family:'Syne',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;line-height:1.2;margin-bottom:1.2rem}
+.section-sub{font-size:1rem;color:var(--gray);line-height:1.7;max-width:550px;margin-bottom:4rem;font-weight:300}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.service-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:2rem;transition:all 0.3s;position:relative;overflow:hidden}
+.service-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(108,99,255,0.5),transparent);opacity:0;transition:opacity 0.3s}
+.service-card:hover{border-color:rgba(108,99,255,0.3);background:rgba(108,99,255,0.06);transform:translateY(-4px)}
+.service-card:hover::before{opacity:1}
+.service-icon{font-size:2rem;margin-bottom:1.2rem;display:block}
+.service-name{font-family:'Syne',sans-serif;font-size:1.15rem;font-weight:700;margin-bottom:0.7rem}
+.service-desc{font-size:0.85rem;color:var(--gray);line-height:1.7;font-weight:300}
+.service-tags{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:1.2rem}
+.stag{background:rgba(108,99,255,0.1);color:#a09cff;font-size:0.7rem;padding:0.25rem 0.6rem;border-radius:4px;font-weight:500}
+
+/* HOW IT WORKS */
+.how{padding:7rem 2.5rem;background:var(--dark2)}
+.how-inner{max-width:1100px;margin:0 auto}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;margin-top:4rem;position:relative}
+.steps::before{content:'';position:absolute;top:2.2rem;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,rgba(108,99,255,0.4),rgba(0,212,170,0.4),transparent)}
+.step{text-align:center;position:relative}
+.step-num{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:0.9rem;margin:0 auto 1.5rem;position:relative;z-index:1;box-shadow:0 0 20px rgba(108,99,255,0.4)}
+.step-title{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;margin-bottom:0.6rem}
+.step-desc{font-size:0.82rem;color:var(--gray);line-height:1.6;font-weight:300}
+
+/* VERTICALS */
+.verticals{padding:7rem 2.5rem;background:var(--dark)}
+.verticals-inner{max-width:1100px;margin:0 auto}
+.verticals-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-top:4rem}
+.vertical-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:2.5rem;display:grid;grid-template-columns:auto 1fr;gap:1.5rem;align-items:start;transition:all 0.3s}
+.vertical-card:hover{border-color:rgba(0,212,170,0.3);transform:translateY(-3px)}
+.vertical-icon-box{width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,rgba(108,99,255,0.2),rgba(0,212,170,0.15));display:flex;align-items:center;justify-content:center;font-size:1.8rem;flex-shrink:0}
+.vertical-name{font-family:'Syne',sans-serif;font-size:1.15rem;font-weight:700;margin-bottom:0.5rem}
+.vertical-desc{font-size:0.85rem;color:var(--gray);line-height:1.65;font-weight:300;margin-bottom:1rem}
+.vertical-features{display:flex;flex-direction:column;gap:0.4rem}
+.vf-item{font-size:0.78rem;color:var(--gray);display:flex;align-items:center;gap:0.5rem}
+.vf-check{color:var(--green);font-size:0.8rem}
+.vertical-badge{display:inline-block;background:rgba(0,212,170,0.1);color:var(--green);font-size:0.68rem;padding:0.2rem 0.6rem;border-radius:4px;font-weight:600;letter-spacing:0.05em;margin-bottom:0.5rem}
+
+/* DEMO */
+.demo{padding:7rem 2.5rem;background:var(--dark2)}
+.demo-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.demo-mockup{background:var(--dark3);border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,0.5)}
+.demo-mockup-bar{background:rgba(255,255,255,0.05);padding:0.8rem 1rem;display:flex;align-items:center;gap:0.5rem}
+.dot{width:10px;height:10px;border-radius:50%}
+.dot-r{background:#FF5F57}
+.dot-y{background:#FFBD2E}
+.dot-g{background:#28C840}
+.demo-mockup-url{margin-left:0.8rem;font-size:0.7rem;color:var(--gray);background:rgba(255,255,255,0.06);padding:0.25rem 0.8rem;border-radius:4px;flex:1}
+.demo-screen{padding:1.5rem}
+.chat-bubble{background:rgba(108,99,255,0.15);border:1px solid rgba(108,99,255,0.2);border-radius:8px 8px 8px 2px;padding:0.8rem 1rem;font-size:0.8rem;color:var(--white);margin-bottom:0.8rem;max-width:80%;line-height:1.5}
+.chat-bubble.user{background:rgba(0,212,170,0.1);border-color:rgba(0,212,170,0.2);border-radius:8px 8px 2px 8px;margin-left:auto}
+.chat-typing{display:flex;gap:4px;padding:0.6rem 1rem;background:rgba(108,99,255,0.1);border-radius:8px;width:fit-content;margin-top:0.5rem}
+.typing-dot{width:6px;height:6px;background:#6C63FF;border-radius:50%;animation:typing 1.2s infinite}
+.typing-dot:nth-child(2){animation-delay:0.2s}
+.typing-dot:nth-child(3){animation-delay:0.4s}
+@keyframes typing{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
+.demo-text h3{font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:700;margin-bottom:1rem;line-height:1.3}
+.demo-text h3 span{background:linear-gradient(135deg,#6C63FF,#00D4AA);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.demo-text p{font-size:0.95rem;color:var(--gray);line-height:1.8;margin-bottom:1.5rem;font-weight:300}
+.demo-features{display:flex;flex-direction:column;gap:0.8rem;margin-bottom:2rem}
+.demo-feat{display:flex;align-items:center;gap:0.8rem;font-size:0.85rem;color:var(--gray)}
+.feat-icon{width:28px;height:28px;border-radius:6px;background:rgba(108,99,255,0.15);display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0}
+
+/* PRICING */
+.pricing{padding:7rem 2.5rem;background:var(--dark)}
+.pricing-inner{max-width:1000px;margin:0 auto;text-align:center}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:4rem}
+.price-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:2.5rem 2rem;text-align:left;transition:all 0.3s;position:relative}
+.price-card.featured{border-color:rgba(108,99,255,0.5);background:rgba(108,99,255,0.08)}
+.price-featured-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#6C63FF,#9B5DE5);color:white;font-size:0.68rem;font-weight:700;padding:0.3rem 1rem;border-radius:20px;letter-spacing:0.08em;white-space:nowrap}
+.price-name{font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gray);margin-bottom:0.8rem;font-weight:600}
+.price-amount{font-family:'Syne',sans-serif;font-size:2.8rem;font-weight:800;margin-bottom:0.3rem}
+.price-amount span{font-size:1rem;font-weight:400;color:var(--gray)}
+.price-monthly{font-size:0.8rem;color:var(--gray);margin-bottom:1.8rem}
+.price-divider{height:1px;background:var(--border);margin-bottom:1.8rem}
+.price-features{display:flex;flex-direction:column;gap:0.8rem;margin-bottom:2rem}
+.price-feat{font-size:0.83rem;color:var(--gray);display:flex;align-items:flex-start;gap:0.6rem;line-height:1.5}
+.price-feat .check{color:var(--green);font-size:0.85rem;flex-shrink:0;margin-top:0.1rem}
+.price-feat .cross{color:#FF5F57;font-size:0.85rem;flex-shrink:0;margin-top:0.1rem}
+.btn-price{width:100%;padding:0.9rem;font-size:0.85rem;font-weight:600;border-radius:8px;cursor:pointer;font-family:'Inter',sans-serif;transition:all 0.2s;letter-spacing:0.03em}
+.btn-price-outline{background:transparent;color:var(--white);border:1px solid var(--border)}
+.btn-price-outline:hover{border-color:rgba(108,99,255,0.5);background:var(--accent-glow)}
+.btn-price-solid{background:linear-gradient(135deg,#6C63FF,#9B5DE5);color:var(--white);border:none;box-shadow:0 0 20px rgba(108,99,255,0.3)}
+.btn-price-solid:hover{transform:translateY(-2px);box-shadow:0 0 40px rgba(108,99,255,0.5)}
+
+/* TESTIMONIALS */
+.testimonials{padding:7rem 2.5rem;background:var(--dark2)}
+.testimonials-inner{max-width:1100px;margin:0 auto}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:4rem}
+.testi-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:2rem}
+.testi-stars{color:#FFD700;font-size:0.85rem;margin-bottom:1.2rem;letter-spacing:0.1em}
+.testi-text{font-size:0.88rem;color:var(--gray);line-height:1.75;margin-bottom:1.5rem;font-style:italic;font-weight:300}
+.testi-author{display:flex;align-items:center;gap:0.8rem}
+.testi-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#6C63FF,#00D4AA);display:flex;align-items:center;justify-content:center;font-size:0.85rem;font-weight:700;flex-shrink:0}
+.testi-name{font-size:0.85rem;font-weight:600}
+.testi-role{font-size:0.75rem;color:var(--gray)}
+
+/* FAQ */
+.faq{padding:7rem 2.5rem;background:var(--dark)}
+.faq-inner{max-width:750px;margin:0 auto;text-align:center}
+.faq-list{margin-top:3.5rem;text-align:left;display:flex;flex-direction:column;gap:1rem}
+.faq-item{background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.faq-q{padding:1.3rem 1.5rem;font-size:0.9rem;font-weight:600;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:color 0.2s}
+.faq-q:hover{color:var(--accent)}
+.faq-q .arrow{font-size:0.8rem;color:var(--gray);transition:transform 0.3s}
+.faq-a{padding:0 1.5rem 1.3rem;font-size:0.85rem;color:var(--gray);line-height:1.7;font-weight:300}
+
+/* CTA */
+.cta-section{padding:8rem 2.5rem;background:var(--dark2);position:relative;overflow:hidden}
+.cta-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 50% 50%,rgba(108,99,255,0.12),transparent)}
+.cta-inner{max-width:700px;margin:0 auto;text-align:center;position:relative;z-index:1}
+.cta-inner h2{font-family:'Syne',sans-serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:800;margin-bottom:1.5rem;line-height:1.2}
+.cta-inner p{font-size:1rem;color:var(--gray);line-height:1.75;margin-bottom:2.5rem;font-weight:300}
+.cta-form{display:flex;gap:0.8rem;max-width:480px;margin:0 auto;flex-wrap:wrap}
+.cta-input{flex:1;min-width:200px;background:rgba(255,255,255,0.06);border:1px solid var(--border);color:var(--white);padding:0.9rem 1.2rem;font-size:0.85rem;border-radius:8px;font-family:'Inter',sans-serif;outline:none;transition:border 0.2s}
+.cta-input::placeholder{color:var(--gray)}
+.cta-input:focus{border-color:rgba(108,99,255,0.5)}
+.cta-submit{background:linear-gradient(135deg,#6C63FF,#9B5DE5);color:var(--white);padding:0.9rem 1.8rem;font-size:0.85rem;font-weight:600;border:none;border-radius:8px;cursor:pointer;font-family:'Inter',sans-serif;white-space:nowrap;transition:all 0.2s}
+.cta-submit:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(108,99,255,0.4)}
+
+/* FOOTER */
+footer{padding:4rem 2.5rem 2.5rem;background:var(--dark);border-top:1px solid var(--border)}
+.footer-inner{max-width:1100px;margin:0 auto}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
+.footer-brand .logo{font-size:1.2rem}
+.footer-brand p{font-size:0.83rem;color:var(--gray);line-height:1.7;margin-top:0.8rem;font-weight:300;max-width:260px}
+.footer-col h4{font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gray);margin-bottom:1.2rem;font-weight:600}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:0.7rem}
+.footer-col ul a{font-size:0.83rem;color:var(--gray);text-decoration:none;transition:color 0.2s}
+.footer-col ul a:hover{color:var(--white)}
+.footer-bottom{border-top:1px solid var(--border);padding-top:2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.footer-bottom p{font-size:0.78rem;color:var(--gray)}
+.footer-socials{display:flex;gap:1rem}
+.social-btn{width:34px;height:34px;border-radius:6px;background:var(--card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.85rem;text-decoration:none;color:var(--gray);transition:all 0.2s}
+.social-btn:hover{border-color:rgba(108,99,255,0.5);color:var(--accent)}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  nav{padding:1rem 1.2rem}
+  .nav-links,.nav-cta{display:none}
+  .hamburger{display:flex}
+  .hero-stats{gap:2rem;flex-wrap:wrap}
+  .services-grid,.verticals-grid,.pricing-grid,.testi-grid{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr 1fr}
+  .demo-inner{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr 1fr}
+  .footer-bottom{flex-direction:column;text-align:center}
+  .steps::before{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">AutoFlow AI</div>
+  <ul class="nav-links">
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#sectores">Sectores</a></li>
+    <li><a href="#demo">Demo</a></li>
+    <li><a href="#precios">Precios</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">Solicitar demo →</button>
+  <div class="hamburger" onclick="this.classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div style="position:relative;z-index:1">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      ✦ Automatización con IA · Disponible ahora
+    </div>
+    <h1 class="hero-title">
+      Tu negocio funciona solo<br>
+      <span class="line2">mientras tú descansas</span>
+    </h1>
+    <p class="hero-sub">Creamos webs inteligentes con IA que atienden a tus clientes, gestionan reservas, envían correos automáticos y liberan a tu equipo de tareas repetitivas. Sin código. Sin complicaciones.</p>
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})">Ver demo en vivo →</button>
+      <button class="btn-secondary" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">Hablar con nosotros</button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">24/7</div>
+        <div class="stat-label">Atención al cliente</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">-80%</div>
+        <div class="stat-label">Tiempo en tareas manuales</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">+3x</div>
+        <div class="stat-label">Reservas convertidas</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">48h</div>
+        <div class="stat-label">Tiempo de entrega</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENTS STRIP -->
+<div class="clients-strip">
+  <div class="clients-inner">
+    <span class="clients-label">Sectores que ya automatizamos</span>
+    <span class="client-logo">🏨 Hoteles</span>
+    <span class="client-logo">🚗 Rent a Car</span>
+    <span class="client-logo">🏥 Clínicas</span>
+    <span class="client-logo">✂️ Peluquerías</span>
+    <span class="client-logo">🍽️ Restaurantes</span>
+    <span class="client-logo">🏠 Apartamentos</span>
+    <span class="client-logo">🛒 E-commerce</span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="services" id="servicios">
+  <div class="services-inner">
+    <div class="section-eyebrow">¿Qué hacemos?</div>
+    <h2 class="section-title">Todo lo que necesitas,<br>sin contratar a nadie más</h2>
+    <p class="section-sub">Nos encargamos de todo el stack tecnológico de tu negocio. Desde la web hasta los correos automáticos y la IA que habla con tus clientes.</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <span class="service-icon">🌐</span>
+        <div class="service-name">Web profesional</div>
+        <div class="service-desc">Diseñamos y desarrollamos tu página web desde cero, optimizada para convertir visitantes en clientes. Rápida, móvil y lista para conectar con IA.</div>
+        <div class="service-tags"><span class="stag">HTML/CSS</span><span class="stag">React</span><span class="stag">SEO</span></div>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🤖</span>
+        <div class="service-name">Chat con IA</div>
+        <div class="service-desc">Un asistente inteligente que atiende a tus clientes al instante: responde preguntas, recoge datos, hace reservas y cierra ventas. Todo sin intervención humana.</div>
+        <div class="service-tags"><span class="stag">Claude AI</span><span class="stag">24/7</span><span class="stag">Multiidioma</span></div>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">📅</span>
+        <div class="service-name">Gestión de reservas</div>
+        <div class="service-desc">Sistema completo de reservas integrado en tu web. Disponibilidad en tiempo real, confirmación automática y panel de administración para tu equipo.</div>
+        <div class="service-tags"><span class="stag">Tiempo real</span><span class="stag">Panel admin</span><span class="stag">Calendario</span></div>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">✉️</span>
+        <div class="service-name">Emails automáticos</div>
+        <div class="service-desc">Confirmaciones, recordatorios y seguimientos que se envían solos. Tus clientes reciben información personalizada sin que levantes un dedo.</div>
+        <div class="service-tags"><span class="stag">Confirmación</span><span class="stag">Recordatorio</span><span class="stag">Seguimiento</span></div>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">📊</span>
+        <div class="service-name">Panel de control</div>
+        <div class="service-desc">Visualiza todas tus reservas, clientes e ingresos en un dashboard intuitivo. Accede desde cualquier dispositivo en cualquier momento.</div>
+        <div class="service-tags"><span class="stag">Analytics</span><span class="stag">Exportar</span><span class="stag">Móvil</span></div>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🔗</span>
+        <div class="service-name">Integraciones</div>
+        <div class="service-desc">Conectamos con Google Calendar, WhatsApp, Stripe y las herramientas que ya usas. Tu sistema crece contigo sin cambiar lo que funciona.</div>
+        <div class="service-tags"><span class="stag">Google</span><span class="stag">WhatsApp</span><span class="stag">Stripe</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how">
+  <div class="how-inner">
+    <div class="section-eyebrow">Proceso</div>
+    <h2 class="section-title">En 4 pasos, tu negocio<br>en piloto automático</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-title">Análisis</div>
+        <div class="step-desc">Estudiamos tu negocio: qué tareas se repiten, qué preguntas hacen tus clientes y qué quieres automatizar.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-title">Diseño</div>
+        <div class="step-desc">Creamos tu web y configuramos el sistema de IA según las necesidades exactas de tu sector y tu marca.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-title">Entrega</div>
+        <div class="step-desc">Lanzamos en 48-72 horas. Te lo enseñamos todo y te dejamos con un sistema funcionando desde el día uno.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-title">Soporte</div>
+        <div class="step-desc">Seguimiento mensual, mejoras continuas y soporte directo. Tu sistema mejora con el tiempo.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VERTICALS -->
+<section class="verticals" id="sectores">
+  <div class="verticals-inner">
+    <div class="section-eyebrow">Sectores</div>
+    <h2 class="section-title">Adaptado a tu tipo<br>de negocio</h2>
+    <p class="section-sub">Cada sector tiene sus necesidades. Nuestros sistemas se configuran al detalle para hoteles, rent a car, clínicas y mucho más.</p>
+    <div class="verticals-grid">
+      <div class="vertical-card">
+        <div class="vertical-icon-box">🏨</div>
+        <div>
+          <div class="vertical-badge">DEMO DISPONIBLE</div>
+          <div class="vertical-name">Hoteles y alojamientos</div>
+          <div class="vertical-desc">Web elegante con chat de IA que gestiona reservas, responde sobre habitaciones y disponibilidad, y envía confirmaciones automáticas por email y Google Calendar.</div>
+          <div class="vertical-features">
+            <div class="vf-item"><span class="vf-check">✓</span> Reservas por chat de IA</div>
+            <div class="vf-item"><span class="vf-check">✓</span> Confirmación automática por email</div>
+            <div class="vf-item"><span class="vf-check">✓</span> Evento en Google Calendar</div>
+            <div class="vf-item"><span class="vf-check">✓</span> Panel admin de reservas</div>
+          </div>
+        </div>
+      </div>
+      <div class="vertical-card">
+        <div class="vertical-icon-box">🚗</div>
+        <div>
+          <div class="vertical-badge">DEMO DISPONIBLE</div>
+          <div class="vertical-name">Rent a Car</div>
+          <div class="vertical-desc">Sistema de reservas de vehículos con IA que asesora al cliente según sus necesidades, gestiona la flota disponible y automatiza toda la comunicación.</div>
+          <div class="vertical-features">
+            <div class="vf-item"><span class="vf-check">✓</span> Catálogo de vehículos interactivo</div>
+            <div class="vf-item"><span class="vf-check">✓</span> Disponibilidad en tiempo real</div>
+            <div class="vf-item"><span class="vf-check">✓</span> Contratos y documentos automáticos</div>
+            <div class="vf-item"><span class="vf-check">✓</span> Control de flota</div>
+          </div>
+        </div>
+      </div>
+      <div class="vertical-card">
+        <div class="vertical-icon-box">🏥</div>
+        <div>
+          <div class="vertical-name">Clínicas y salud</div>
+          <div class="vertical-desc">Citas online 24/7, recordatorios automáticos para reducir ausencias, gestión de historiales básicos y atención al paciente por IA antes de la consulta.</div>
+          <div class="vertical-features">
+            <div class="vf-item"><span class="vf-check">✓</span> Citas online sin llamadas</div>
+            <div class="vf-item"><span class="vf-check">✓</span> Recordatorios SMS/email</div>
+            <div class="vf-item"><span class="vf-check">✓</span> Pre-consulta con IA</div>
+            <div class="vf-item"><span class="vf-check">✓</span> Agenda del profesional</div>
+          </div>
+        </div>
+      </div>
+      <div class="vertical-card">
+        <div class="vertical-icon-box">✂️</div>
+        <div>
+          <div class="vertical-name">Belleza y bienestar</div>
+          <div class="vertical-desc">Peluquerías, spas y centros de estética con sistema de citas inteligente, recordatorios automáticos y atención al cliente sin necesidad de coger el teléfono.</div>
+          <div class="vertical-features">
+            <div class="vf-item"><span class="vf-check">✓</span> Reservas por WhatsApp/web</div>
+            <div class="vf-item"><span class="vf-check">✓</span> Gestión de profesionales</div>
+            <div class="vf-item"><span class="vf-check">✓</span> Recordatorios automáticos</div>
+            <div class="vf-item"><span class="vf-check">✓</span> Catálogo de servicios</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEMO -->
+<section class="demo" id="demo">
+  <div class="demo-inner">
+    <div class="demo-mockup">
+      <div class="demo-mockup-bar">
+        <div class="dot dot-r"></div>
+        <div class="dot dot-y"></div>
+        <div class="dot dot-g"></div>
+        <div class="demo-mockup-url">hotel-miramar.autoflow.ai/chat</div>
+      </div>
+      <div class="demo-screen">
+        <div class="chat-bubble">¡Hola! Soy la asistente virtual del Hotel Miramar 🌊 ¿En qué puedo ayudarte hoy?</div>
+        <div class="chat-bubble user">Quiero reservar una habitación para este fin de semana para 2 personas</div>
+        <div class="chat-bubble">¡Perfecto! Tengo disponibilidad para el viernes 18 al domingo 20. Para 2 personas te recomiendo nuestra Suite Mediterránea a 180€/noche, con vistas al mar. ¿Te gustaría confirmar la reserva?</div>
+        <div class="chat-bubble user">Sí, me parece bien. Mi nombre es Carlos García, email carlosg@gmail.com</div>
+        <div class="chat-bubble">✅ ¡Reserva confirmada, Carlos! He enviado la confirmación a carlosg@gmail.com y añadido el evento a tu calendario. Referencia: #HM-0042. ¿Necesitas algo más?</div>
+        <div class="chat-typing">
+          <div class="typing-dot"></div>
+          <div class="typing-dot"></div>
+          <div class="typing-dot"></div>
+        </div>
+      </div>
+    </div>
+    <div class="demo-text">
+      <div class="section-eyebrow">Demo real</div>
+      <h3>Así trabaja tu <span>asistente IA</span> mientras tú duermes</h3>
+      <p>Esto no es un concepto — es exactamente lo que ya funciona en Hotel Miramar. El cliente chatea, la IA entiende, reserva, cobra y notifica. Sin intervención humana.</p>
+      <div class="demo-features">
+        <div class="demo-feat"><div class="feat-icon">✉️</div> Email de confirmación enviado al instante</div>
+        <div class="demo-feat"><div class="feat-icon">📅</div> Evento creado en Google Calendar automáticamente</div>
+        <div class="demo-feat"><div class="feat-icon">🗄️</div> Reserva guardada en base de datos</div>
+        <div class="demo-feat"><div class="feat-icon">🔔</div> Notificación al administrador del hotel</div>
+        <div class="demo-feat"><div class="feat-icon">🌍</div> Responde en español, inglés, alemán y más</div>
+      </div>
+      <button class="btn-primary" onclick="window.open('hotel-miramar.html','_blank')">Ver demo completo del hotel →</button>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="precios">
+  <div class="pricing-inner">
+    <div class="section-eyebrow">Precios</div>
+    <h2 class="section-title">Inversión clara,<br>resultados desde el día 1</h2>
+    <p style="color:var(--gray);font-size:0.95rem;margin-top:0.8rem;font-weight:300">Sin sorpresas. Sin permanencia mínima. Sin letra pequeña.</p>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-name">Starter</div>
+        <div class="price-amount">799<span>€</span></div>
+        <div class="price-monthly">+ 79€/mes mantenimiento</div>
+        <div class="price-divider"></div>
+        <div class="price-features">
+          <div class="price-feat"><span class="check">✓</span> Web profesional (hasta 5 páginas)</div>
+          <div class="price-feat"><span class="check">✓</span> Chat de IA básico</div>
+          <div class="price-feat"><span class="check">✓</span> Formulario de contacto/reservas</div>
+          <div class="price-feat"><span class="check">✓</span> Email de confirmación automático</div>
+          <div class="price-feat"><span class="cross">✗</span> Panel de administración</div>
+          <div class="price-feat"><span class="cross">✗</span> Google Calendar</div>
+          <div class="price-feat"><span class="cross">✗</span> Soporte prioritario</div>
+        </div>
+        <button class="btn-price btn-price-outline" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">Empezar →</button>
+      </div>
+      <div class="price-card featured">
+        <div class="price-featured-badge">✦ MÁS POPULAR</div>
+        <div class="price-name">Professional</div>
+        <div class="price-amount">1.299<span>€</span></div>
+        <div class="price-monthly">+ 99€/mes mantenimiento</div>
+        <div class="price-divider"></div>
+        <div class="price-features">
+          <div class="price-feat"><span class="check">✓</span> Web completa personalizada</div>
+          <div class="price-feat"><span class="check">✓</span> Chat IA avanzado (multiidioma)</div>
+          <div class="price-feat"><span class="check">✓</span> Sistema de reservas completo</div>
+          <div class="price-feat"><span class="check">✓</span> Emails automáticos (cliente + admin)</div>
+          <div class="price-feat"><span class="check">✓</span> Panel de administración</div>
+          <div class="price-feat"><span class="check">✓</span> Integración Google Calendar</div>
+          <div class="price-feat"><span class="cross">✗</span> WhatsApp Business</div>
+        </div>
+        <button class="btn-price btn-price-solid" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">Solicitar demo →</button>
+      </div>
+      <div class="price-card">
+        <div class="price-name">Enterprise</div>
+        <div class="price-amount" style="font-size:2rem">A medida</div>
+        <div class="price-monthly">Precio según proyecto</div>
+        <div class="price-divider"></div>
+        <div class="price-features">
+          <div class="price-feat"><span class="check">✓</span> Todo lo del plan Professional</div>
+          <div class="price-feat"><span class="check">✓</span> WhatsApp Business integrado</div>
+          <div class="price-feat"><span class="check">✓</span> Múltiples localizaciones</div>
+          <div class="price-feat"><span class="check">✓</span> Integración con sistemas propios</div>
+          <div class="price-feat"><span class="check">✓</span> Dashboard avanzado con analytics</div>
+          <div class="price-feat"><span class="check">✓</span> Soporte dedicado 24/7</div>
+          <div class="price-feat"><span class="check">✓</span> Formación del equipo</div>
+        </div>
+        <button class="btn-price btn-price-outline" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">Contactar →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="testimonials-inner">
+    <div class="section-eyebrow">Resultados</div>
+    <h2 class="section-title">Lo que dicen nuestros clientes</h2>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"Antes contestábamos emails de reservas hasta las 11 de la noche. Ahora el chat lo gestiona todo solo y nosotros llegamos a la oficina con las reservas ya hechas. Increíble."</div>
+        <div class="testi-author">
+          <div class="testi-avatar">MR</div>
+          <div><div class="testi-name">María Rodríguez</div><div class="testi-role">Directora — Hotel Miramar, Mallorca</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"Tenemos 40 coches en flota y antes necesitábamos una persona solo para gestionar reservas. Ahora el sistema lo hace automáticamente y hemos reducido errores a cero."</div>
+        <div class="testi-author">
+          <div class="testi-avatar">JL</div>
+          <div><div class="testi-name">José López</div><div class="testi-role">Propietario — MallorcaCar Rent</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"El chat responde en alemán e inglés a los turistas directamente. Nuestros clientes internacionales están encantados y hemos aumentado reservas directas un 40%."</div>
+        <div class="testi-author">
+          <div class="testi-avatar">AP</div>
+          <div><div class="testi-name">Ana Pérez</div><div class="testi-role">Manager — Apartamentos Sol & Mar</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="faq-inner">
+    <div class="section-eyebrow">FAQ</div>
+    <h2 class="section-title">Preguntas frecuentes</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">¿Cuánto tiempo tarda en estar listo? <span class="arrow">▼</span></div>
+        <div class="faq-a" style="display:none">El plan Starter tarda 48 horas. El plan Professional entre 3 y 5 días laborables. El plan Enterprise depende de la complejidad del proyecto, pero siempre pactamos fechas concretas antes de empezar.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">¿Necesito saber programar para usar el sistema? <span class="arrow">▼</span></div>
+        <div class="faq-a" style="display:none">No. Nos encargamos de todo. Te entregamos un sistema listo para usar con un panel de administración sencillo que cualquier persona puede manejar sin conocimientos técnicos.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">¿El chat de IA habla otros idiomas además del español? <span class="arrow">▼</span></div>
+        <div class="faq-a" style="display:none">Sí. La IA habla español, inglés, alemán, francés, italiano y más idiomas de forma nativa. Ideal para negocios turísticos o con clientes internacionales.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">¿Qué pasa si ya tengo una web? <span class="arrow">▼</span></div>
+        <div class="faq-a" style="display:none">Podemos integrar el chat de IA y el sistema de reservas en tu web actual sin necesidad de rehacerla. Si prefieres una web nueva, también te la hacemos desde cero.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='none'?'block':'none'">¿Hay permanencia mínima? <span class="arrow">▼</span></div>
+        <div class="faq-a" style="display:none">No hay permanencia. La cuota mensual cubre hosting, mantenimiento y mejoras continuas. Puedes cancelar cuando quieras con 30 días de preaviso.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contacto">
+  <div class="cta-bg"></div>
+  <div class="cta-inner">
+    <div class="section-eyebrow">Empieza hoy</div>
+    <h2>¿Listo para automatizar tu negocio?</h2>
+    <p>Déjanos tu email y te enviamos una demo personalizada para tu sector. Sin compromiso, sin coste.</p>
+    <div class="cta-form">
+      <input type="email" class="cta-input" placeholder="tu@email.com" id="cta-email">
+      <button class="cta-submit" onclick="handleCTA()">Quiero mi demo →</button>
+    </div>
+    <p style="font-size:0.75rem;color:var(--gray);margin-top:1rem">O escríbenos directamente: <a href="mailto:yerandritz@gmail.com" style="color:var(--accent);text-decoration:none">yerandritz@gmail.com</a></p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo">AutoFlow AI</div>
+        <p>Automatización inteligente para negocios que quieren crecer sin contratar más. Webs con IA, reservas automáticas y mucho más.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Servicios</h4>
+        <ul>
+          <li><a href="#servicios">Web con IA</a></li>
+          <li><a href="#servicios">Chat inteligente</a></li>
+          <li><a href="#servicios">Reservas automáticas</a></li>
+          <li><a href="#servicios">Emails automáticos</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Sectores</h4>
+        <ul>
+          <li><a href="#sectores">Hoteles</a></li>
+          <li><a href="#sectores">Rent a Car</a></li>
+          <li><a href="#sectores">Clínicas</a></li>
+          <li><a href="#sectores">Restaurantes</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contacto</h4>
+        <ul>
+          <li><a href="mailto:yerandritz@gmail.com">yerandritz@gmail.com</a></li>
+          <li><a href="#precios">Ver precios</a></li>
+          <li><a href="#demo">Ver demo</a></li>
+          <li><a href="#contacto">Solicitar presupuesto</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 AutoFlow AI · Todos los derechos reservados</p>
+      <div class="footer-socials">
+        <a class="social-btn" href="mailto:yerandritz@gmail.com" title="Email">✉</a>
+        <a class="social-btn" href="#" title="LinkedIn">in</a>
+        <a class="social-btn" href="#" title="Instagram">ig</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+function handleCTA(){
+  const email=document.getElementById('cta-email').value;
+  if(!email||!email.includes('@')){alert('Por favor introduce un email válido');return}
+  alert('¡Perfecto, '+email+'! Te contactamos en menos de 24 horas con tu demo personalizada. 🚀');
+  document.getElementById('cta-email').value='';
+}
+
+// Smooth reveal on scroll
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)'}});
+},{threshold:0.1});
+document.querySelectorAll('.service-card,.vertical-card,.step,.testi-card,.price-card').forEach(el=>{
+  el.style.opacity='0';el.style.transform='translateY(20px)';el.style.transition='opacity 0.5s ease, transform 0.5s ease';
+  observer.observe(el);
+});
+</script>
+</body>
+</html>

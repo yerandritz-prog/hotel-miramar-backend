@@ -312,7 +312,29 @@ app.post('/chat', async (req, res) => {
   }
 });
 
-app.get('/admin/reservas', (req, res) => res.json(db.prepare('SELECT * FROM reservas_hotel ORDER BY checkin').all()));
+app.get('/admin/reservas', (req, res) => res.json(db.prepare('SELECT * FROM reservas_hotel ORDER BY created_at DESC').all()));
+
+app.post('/admin/reservas', async (req, res) => {
+  try {
+    const { nombre, email, telefono, checkin, checkout, tipo_habitacion, huespedes, peticiones } = req.body;
+    if (!nombre || !checkin || !checkout || !tipo_habitacion || !huespedes) {
+      return res.status(400).json({ success: false, mensaje: 'Faltan datos obligatorios.' });
+    }
+    if (!hayDisponibilidad(tipo_habitacion, checkin, checkout)) {
+      return res.status(409).json({ success: false, mensaje: 'No hay disponibilidad para esas fechas y habitación.' });
+    }
+    const id = crearReserva({ nombre, email: email||'', telefono: telefono||'', checkin, checkout, tipo_habitacion, huespedes, peticiones: peticiones||'' });
+    const reserva = { id, nombre, email, telefono, checkin, checkout, tipo_habitacion, huespedes, peticiones };
+    enviarConfirmacion(reserva);
+    enviarNotificacionAdmin(reserva);
+    crearEventoCalendario(reserva);
+    res.json({ success: true, id, mensaje: `Reserva #HM-${id} creada correctamente.` });
+  } catch (e) {
+    console.error('Error crear reserva admin:', e.message);
+    res.status(500).json({ success: false, mensaje: 'Error interno al crear la reserva.' });
+  }
+});
+
 app.patch('/admin/reservas/:id/cancelar', (req, res) => {
   db.prepare('UPDATE reservas_hotel SET estado = ? WHERE id = ?').run('cancelada', req.params.id);
   res.json({ success: true });
