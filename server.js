@@ -6,12 +6,56 @@ const path = require('path');
 const Database = require('better-sqlite3');
 const { Resend } = require('resend');
 const { google } = require('googleapis');
+const rateLimit = require('express-rate-limit');
+const crypto = require('crypto');
 
 const app = express();
 app.use(function(req,res,next){res.setHeader('Content-Security-Policy',"script-src 'self' 'unsafe-inline' fonts.googleapis.com images.unsplash.com");next()});
-app.use(cors({ origin: '*', methods: ['GET', 'POST', 'PATCH'], allowedHeaders: ['Content-Type'] }));
-app.use(express.json());
-app.use(function(req,res,next){res.setHeader('Content-Security-Policy',"script-src 'self' 'unsafe-inline' fonts.googleapis.com images.unsplash.com");next()});
+app.use(cors({ origin: '*', methods: ['GET', 'POST', 'PATCH'], allowedHeaders: ['Content-Type', 'Authorization'] }));
+app.use(express.json({ limit: '10kb' }));
+
+// ─── RATE LIMITING ────────────────────────────────────────────
+const chatLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000,   // 1 hora
+  max: 60,                      // máx 60 mensajes por IP por hora
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: 'Demasiadas peticiones. Por favor espera antes de enviar más mensajes.' }
+});
+
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,   // 15 minutos
+  max: 10,                      // máx 10 intentos de login por IP
+  message: { error: 'Demasiados intentos. Espera 15 minutos.' }
+});
+
+// ─── ADMIN AUTH ───────────────────────────────────────────────
+// Sesiones activas: Map de token -> { expiry }
+const activeSessions = new Map();
+const SESSION_TTL_MS = 24 * 60 * 60 * 1000; // 24 horas
+
+function generarToken() {
+  return crypto.randomBytes(32).toString('hex');
+}
+
+function limpiarSesionesExpiradas() {
+  const ahora = Date.now();
+  for (const [token, data] of activeSessions.entries()) {
+    if (data.expiry < ahora) activeSessions.delete(token);
+  }
+}
+
+function requireAdmin(req, res, next) {
+  const authHeader = req.headers['authorization'] || '';
+  const token = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : null;
+  if (!token) return res.status(401).json({ error: 'No autorizado. Inicia sesión.' });
+  const session = activeSessions.get(token);
+  if (!session || session.expiry < Date.now()) {
+    activeSessions.delete(token);
+    return res.status(401).json({ error: 'Sesión caducada. Inicia sesión de nuevo.' });
+  }
+  next();
+}
 
 app.use(express.static(path.join(__dirname)));
 
@@ -276,9 +320,40 @@ function processTool(toolName, toolInput) {
 // ─── ENDPOINTS ────────────────────────────────────────────────
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
-app.post('/chat', async (req, res) => {
+// ─── LOGIN ADMIN ──────────────────────────────────────────────
+app.post('/admin/login', loginLimiter, (req, res) => {
+  limpiarSesionesExpiradas();
+  const { password } = req.body || {};
+  const adminPassword = process.env.ADMIN_PASSWORD;
+  if (!adminPassword) {
+    return res.status(500).json({ error: 'ADMIN_PASSWORD no configurada en el servidor.' });
+  }
+  if (!password || password !== adminPassword) {
+    return res.status(401).json({ error: 'Contraseña incorrecta.' });
+  }
+  const token = generarToken();
+  activeSessions.set(token, { expiry: Date.now() + SESSION_TTL_MS });
+  res.json({ token, expiresIn: SESSION_TTL_MS });
+});
+
+app.post('/admin/logout', (req, res) => {
+  const authHeader = req.headers['authorization'] || '';
+  const token = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : null;
+  if (token) activeSessions.delete(token);
+  res.json({ success: true });
+});
+
+app.post('/chat', chatLimiter, async (req, res) => {
   try {
     const { messages } = req.body;
+    // Limitar tamaño del último mensaje
+    if (messages && messages.length > 0) {
+      const lastMsg = messages[messages.length - 1];
+      const content = typeof lastMsg.content === 'string' ? lastMsg.content : JSON.stringify(lastMsg.content);
+      if (content.length > 2000) {
+        return res.status(400).json({ error: 'Mensaje demasiado largo. Máximo 2000 caracteres.' });
+      }
+    }
     let currentMessages = [...messages];
     let response = await client.messages.create({
       model: 'claude-haiku-4-5-20251001',
@@ -312,9 +387,9 @@ app.post('/chat', async (req, res) => {
   }
 });
 
-app.get('/admin/reservas', (req, res) => res.json(db.prepare('SELECT * FROM reservas_hotel ORDER BY created_at DESC').all()));
+app.get('/admin/reservas', requireAdmin, (req, res) => res.json(db.prepare('SELECT * FROM reservas_hotel ORDER BY created_at DESC').all()));
 
-app.post('/admin/reservas', async (req, res) => {
+app.post('/admin/reservas', requireAdmin, async (req, res) => {
   try {
     const { nombre, email, telefono, checkin, checkout, tipo_habitacion, huespedes, peticiones } = req.body;
     if (!nombre || !checkin || !checkout || !tipo_habitacion || !huespedes) {
@@ -335,7 +410,7 @@ app.post('/admin/reservas', async (req, res) => {
   }
 });
 
-app.patch('/admin/reservas/:id/cancelar', (req, res) => {
+app.patch('/admin/reservas/:id/cancelar', requireAdmin, (req, res) => {
   db.prepare('UPDATE reservas_hotel SET estado = ? WHERE id = ?').run('cancelada', req.params.id);
   res.json({ success: true });
 });

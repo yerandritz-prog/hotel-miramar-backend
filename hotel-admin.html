@@ -13,6 +13,25 @@
   --text-muted:#6B7280;--border:#E5E7EB;--red:#EF4444;--red-pale:#FEF2F2;
   --blue:#3B82F6;--blue-pale:#EFF6FF;--amber:#F59E0B;--amber-pale:#FFFBEB;
   --sidebar:220px;
+
+/* ── LOGIN SCREEN ── */
+#loginScreen{position:fixed;inset:0;background:var(--green);display:flex;align-items:center;justify-content:center;z-index:9999;transition:opacity 0.4s}
+#loginScreen.hidden{opacity:0;pointer-events:none}
+.login-card{background:#fff;border-radius:12px;padding:2.8rem 2.4rem;width:100%;max-width:380px;box-shadow:0 20px 60px rgba(0,0,0,0.25)}
+.login-logo{text-align:center;margin-bottom:2rem}
+.login-logo .brand{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--green)}
+.login-logo .brand span{font-style:italic}
+.login-logo .sub{font-size:0.72rem;color:var(--text-muted);letter-spacing:0.12em;text-transform:uppercase;margin-top:4px}
+.login-title{font-size:1rem;font-weight:600;color:var(--text);margin-bottom:0.4rem}
+.login-sub{font-size:0.82rem;color:var(--text-muted);margin-bottom:1.6rem}
+.login-field{display:flex;flex-direction:column;gap:0.4rem;margin-bottom:1rem}
+.login-field label{font-size:0.78rem;font-weight:500;color:var(--text)}
+.login-field input{border:1px solid var(--border);border-radius:6px;padding:0.65rem 0.9rem;font-size:0.88rem;font-family:'Inter',sans-serif;outline:none;transition:border-color 0.2s}
+.login-field input:focus{border-color:var(--green)}
+.login-btn{width:100%;padding:0.75rem;background:var(--green);color:#fff;border:none;border-radius:6px;font-size:0.9rem;font-weight:500;font-family:'Inter',sans-serif;cursor:pointer;transition:background 0.2s;margin-top:0.5rem}
+.login-btn:hover{background:#265f46}
+.login-btn:disabled{opacity:0.6;cursor:default}
+.login-error{background:#FEF2F2;border:1px solid #FECACA;color:#B91C1C;border-radius:6px;padding:0.6rem 0.9rem;font-size:0.8rem;margin-bottom:0.8rem;display:none}
 }
 body{font-family:'Inter',sans-serif;background:var(--stone);color:var(--text);display:flex;min-height:100vh}
 
@@ -157,6 +176,26 @@ textarea{resize:vertical;min-height:70px}
 </head>
 <body>
 
+<!-- LOGIN SCREEN -->
+<div id="loginScreen">
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="brand"><span>Hotel</span> Miramar</div>
+      <div class="sub">Panel de Administración</div>
+    </div>
+    <div class="login-title">Acceso restringido</div>
+    <div class="login-sub">Introduce la contraseña para continuar.</div>
+    <div class="login-error" id="loginError"></div>
+    <form onsubmit="hacerLogin(event)">
+      <div class="login-field">
+        <label for="loginPass">Contraseña</label>
+        <input type="password" id="loginPass" placeholder="••••••••" autocomplete="current-password" autofocus>
+      </div>
+      <button class="login-btn" type="submit" id="loginBtn">Entrar</button>
+    </form>
+  </div>
+</div>
+
 <!-- SIDEBAR -->
 <aside class="sidebar">
   <div class="sidebar-logo">
@@ -193,6 +232,7 @@ textarea{resize:vertical;min-height:70px}
       </div>
       <button class="btn btn-outline btn-sm" onclick="cargarReservas()">↻ Actualizar</button>
       <button class="btn btn-green btn-sm" onclick="abrirModalNueva()">+ Nueva reserva</button>
+      <button class="btn btn-outline btn-sm" onclick="cerrarSesion()" title="Cerrar sesión" style="color:var(--red);border-color:#FECACA">⎋ Salir</button>
     </div>
   </div>
 
@@ -416,6 +456,71 @@ let todasLasReservas = [];
 let filtroActivo = 'todas';
 let reservaDetalleActual = null;
 
+// ── AUTH ──
+function getToken() { return sessionStorage.getItem('admin_token'); }
+function setToken(t) { sessionStorage.setItem('admin_token', t); }
+function clearToken() { sessionStorage.removeItem('admin_token'); }
+
+function authHeaders() {
+  return { 'Content-Type': 'application/json', 'Authorization': `Bearer ${getToken()}` };
+}
+
+async function hacerLogin(e) {
+  e.preventDefault();
+  const btn = document.getElementById('loginBtn');
+  const errDiv = document.getElementById('loginError');
+  const pass = document.getElementById('loginPass').value;
+  btn.disabled = true; btn.textContent = 'Comprobando...';
+  errDiv.style.display = 'none';
+  try {
+    const res = await fetch(`${BACKEND}/admin/login`, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ password: pass })
+    });
+    const data = await res.json();
+    if (res.ok && data.token) {
+      setToken(data.token);
+      document.getElementById('loginScreen').classList.add('hidden');
+      await cargarReservas();
+    } else {
+      errDiv.textContent = data.error || 'Contraseña incorrecta.';
+      errDiv.style.display = 'block';
+      document.getElementById('loginPass').value = '';
+      document.getElementById('loginPass').focus();
+    }
+  } catch(err) {
+    errDiv.textContent = 'Error de conexión con el servidor.';
+    errDiv.style.display = 'block';
+  }
+  btn.disabled = false; btn.textContent = 'Entrar';
+}
+
+async function cerrarSesion() {
+  if(!confirm('¿Cerrar sesión?')) return;
+  try { await fetch(`${BACKEND}/admin/logout`,{method:'POST',headers:authHeaders()}); } catch(e){}
+  clearToken();
+  document.getElementById('loginScreen').classList.remove('hidden');
+  document.getElementById('loginPass').value='';
+}
+
+// Verificar sesión al cargar
+(async function initAuth() {
+  const token = getToken();
+  if (!token) return; // mostrar login
+  // Verificar que el token sigue siendo válido
+  try {
+    const res = await fetch(`${BACKEND}/admin/reservas`, { headers: authHeaders() });
+    if (res.status === 401) { clearToken(); return; }
+    // Token válido — ocultar login y cargar datos
+    document.getElementById('loginScreen').classList.add('hidden');
+    const data = await res.json();
+    todasLasReservas = data.sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
+    actualizarStats(todasLasReservas);
+    buscar();
+  } catch(e) {}
+})();
+
 // ── UTILS ──
 function noches(ci, co) { return Math.round((new Date(co)-new Date(ci))/86400000); }
 function formatFecha(f) { if(!f) return '—'; const [y,m,d]=f.split('-'); return `${d}/${m}/${y}`; }
@@ -529,7 +634,8 @@ function buscar() {
 // ── CARGAR RESERVAS ──
 async function cargarReservas() {
   try {
-    const res=await fetch(`${BACKEND}/admin/reservas`);
+    const res=await fetch(`${BACKEND}/admin/reservas`, { headers: authHeaders() });
+    if(res.status===401){ clearToken(); document.getElementById('loginScreen').classList.remove('hidden'); return; }
     todasLasReservas=await res.json();
     todasLasReservas.sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
     actualizarStats(todasLasReservas);
@@ -544,7 +650,7 @@ async function cancelarReserva(id, btn) {
   if(!confirm(`¿Cancelar reserva #HM-${id}?\nEsta acción no se puede deshacer.`)) return;
   if(btn){btn.disabled=true;btn.textContent='...';}
   try {
-    await fetch(`${BACKEND}/admin/reservas/${id}/cancelar`,{method:'PATCH'});
+    await fetch(`${BACKEND}/admin/reservas/${id}/cancelar`,{method:'PATCH',headers:authHeaders()});
     toast(`Reserva #HM-${id} cancelada correctamente`);
     await cargarReservas();
   } catch(e) {
@@ -600,7 +706,7 @@ async function crearReservaManual(e) {
     peticiones:document.getElementById('f-peticiones').value.trim()
   };
   try {
-    const res=await fetch(`${BACKEND}/admin/reservas`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(datos)});
+    const res=await fetch(`${BACKEND}/admin/reservas`,{method:'POST',headers:authHeaders(),body:JSON.stringify(datos)});
     const data=await res.json();
     if(data.success){
       toast(`Reserva #HM-${data.id} creada correctamente`);
@@ -696,8 +802,8 @@ function setPage(page, el) {
 }
 
 // ── INIT ──
-cargarReservas();
-setInterval(cargarReservas, 60000);
+// initAuth() ya carga las reservas al arrancar si hay token válido
+setInterval(()=>{ if(getToken()) cargarReservas(); }, 60000);
 </script>
 </body>
 </html>
